@@ -1,0 +1,21 @@
+# Laravel / Backend
+backend-peternakan-app/vendor/
+backend-peternakan-app/.env
+backend-peternakan-app/storage/*.key
+backend-peternakan-app/storage/logs/*
+
+# WPF / C# Desktop
+**/bin/
+**/obj/
+**/.vs/
+*.user
+
+# Android / Kotlin Mobile
+**/build/
+**/.gradle/
+**/.idea/
+*.iml
+
+# OS / Editor Files
+.DS_Store
+Thumbs.db

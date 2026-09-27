@@ -1,0 +1,70 @@
+﻿<Window x:Class="SISapi_Desktop.Views.LoginView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Si-Sapi — Login" Height="500" Width="850" 
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="CanMinimize"
+        Background="#F8FAFC"
+        TextOptions.TextFormattingMode="Display"
+        TextOptions.TextRenderingMode="ClearType">
+
+    <Grid x:Name="MainGrid" Background="#F8FAFC">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="340"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Border Grid.Column="0" Background="#294579" CornerRadius="0,20,20,0">
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TextBlock Text="Selamat Datang" 
+                           FontSize="28" 
+                           Foreground="White" 
+                           FontWeight="Bold" 
+                           HorizontalAlignment="Center" 
+                           Margin="0,0,0,8"/>
+                <TextBlock Text="Si-Sapi Desktop" 
+                           FontSize="14" 
+                           Foreground="#D0DCEE" 
+                           HorizontalAlignment="Center"/>
+            </StackPanel>
+        </Border>
+
+        <Grid Grid.Column="1" Margin="50,40,50,40" VerticalAlignment="Center">
+            <StackPanel VerticalAlignment="Center">
+                <TextBlock Text="Login" FontSize="32" FontWeight="Bold" Foreground="#294579"/>
+                <TextBlock Text="Login untuk menggunakan aplikasi" FontSize="13" Foreground="#64748B" Margin="0,5,0,25"/>
+
+                <TextBlock Text="Email" FontSize="13" FontWeight="SemiBold" Foreground="#334155" Margin="0,0,0,6"/>
+                <Border Background="White" BorderBrush="#CBD5E1" BorderThickness="1" CornerRadius="6" Padding="8,2" Margin="0,0,0,16">
+                    <TextBox x:Name="TxtEmail" Height="32" VerticalContentAlignment="Center" BorderThickness="0" Background="Transparent" FontSize="13" Foreground="#0F172A"/>
+                </Border>
+
+                <TextBlock Text="Password" FontSize="13" FontWeight="SemiBold" Foreground="#334155" Margin="0,0,0,6"/>
+                <Border Background="White" BorderBrush="#CBD5E1" BorderThickness="1" CornerRadius="6" Padding="8,2" Margin="0,0,0,16">
+                    <PasswordBox x:Name="TxtPassword" Height="32" VerticalContentAlignment="Center" BorderThickness="0" Background="Transparent" FontSize="13" Foreground="#0F172A"/>
+                </Border>
+
+                <TextBlock x:Name="TxtError" Foreground="#DC2626" FontSize="13" FontWeight="SemiBold" Margin="0,0,0,16" Visibility="Collapsed" TextWrapping="Wrap"/>
+
+                <Button x:Name="BtnLogin" 
+                        Content="Login"
+                        Height="40" 
+                        Background="#294579" 
+                        Foreground="White" 
+                        FontWeight="Bold" 
+                        FontSize="14"
+                        Click="BtnLogin_Click" 
+                        Cursor="Hand">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="6"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>
