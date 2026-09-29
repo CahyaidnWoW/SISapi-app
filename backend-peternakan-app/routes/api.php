@@ -20,18 +20,26 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/cages', [CageController::class, 'index']);
     Route::post('/cages', [CageController::class, 'store']);
     Route::get('/cages/{id}', [CageController::class, 'show']);
+    Route::put('/cages/{id}', [CageController::class, 'update']);
+    Route::delete('/cages/{id}', [CageController::class, 'destroy']);
 
     Route::get('/breeds', [LivestockBreedController::class, 'index']);
     Route::post('/breeds', [LivestockBreedController::class, 'store']);
 
     Route::get('/feeds', [FeedStockController::class, 'index']);
+    route::post('/feeds', [FeedStockController::class, 'store']);
+    Route::put('/feeds/{id}', [FeedStockController::class, 'update']);
+    Route::delete('/feeds/{id}', [FeedStockController::class, 'destroy']);
     Route::post('/feeds/batches', [FeedStockController::class, 'addBatch']);
 
     Route::get('/livestocks', [LivestockController::class, 'index']);
     Route::post('/livestocks', [LivestockController::class, 'store']);
+    route::patch('/livestocks/{id}', [LivestockController::class, 'update']);
+    route::delete('/livestocks/{id}', [LivestockController::class, 'destroy']);
     Route::get('/livestocks/{tagNumber}', [LivestockController::class, 'showByTag']);
 
     Route::post('/cages/{id}/feed', [FeedConsumptionController::class, 'store']);
+    
 
     Route::post('/livestocks/{tagNumber}/health-report', [HealthRecordController::class, 'store']);
     Route::get('/livestocks/{tagNumber}/health-records', [HealthRecordController::class, 'byLivestock']);

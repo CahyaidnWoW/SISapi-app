@@ -15,6 +15,46 @@ class FeedStockController extends Controller
         return response()->json($feeds);
     }
 
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'feed_name' => 'required|string|max:255', 
+            'unit' => 'required|string|max:50',
+        ]);
+
+        $feed = FeedStock::create($validated);
+
+        return response()->json($feed, 201);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'feed_name' => 'required|string|max:255',
+            'unit' => 'required|string|max:50',
+        ]);
+
+        $feed = FeedStock::findOrFail($id);
+        $feed->update($validated);
+
+        return response()->json($feed, 200);
+    }
+
+    public function destroy($id)
+    {
+        $feed = FeedStock::findOrFail($id);
+        if ($feed->consumptions()->count() > 0) {
+            return response()->json([
+                'message' => 'Gagal menghapus: Pakan ini sudah memiliki riwayat pemakaian.'
+            ], 422);
+        }
+
+        $feed->batches()->delete();
+        $feed->delete();
+
+        return response()->json(['message' => 'Pakan berhasil dihapus'], 200);
+    }
+
     public function addBatch(Request $request)
     {
         $validated = $request->validate([
