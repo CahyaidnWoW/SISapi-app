@@ -59,4 +59,25 @@ namespace SISapi_Desktop.Models
         [JsonProperty("initial_weight")]
         public decimal InitialWeight { get; set; }
     }
+
+    public class UpdateLivestockRequest
+    {
+        [JsonProperty("tag_number")]
+        public string TagNumber { get; set; }
+
+        [JsonProperty("cage_id")]
+        public int CageId { get; set; }
+
+        [JsonProperty("breed")]
+        public string Breed { get; set; }
+
+        [JsonProperty("gender")]
+        public string Gender { get; set; }
+
+        [JsonProperty("birth_date")]
+        public string BirthDate { get; set; }
+
+        [JsonProperty("status")]
+        public string Status { get; set; }
+    }
 }

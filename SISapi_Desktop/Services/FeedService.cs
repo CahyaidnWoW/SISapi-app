@@ -24,6 +24,17 @@ namespace SISapi_Desktop.Services
             return await _apiClient.PostAsync<FeedStock>("feeds", request);
         }
 
+        public async Task<FeedStock> UpdateAsync(int id, string feedName, string unit)
+        {
+            var request = new UpdateFeedStockRequest { FeedName = feedName, Unit = unit };
+            return await _apiClient.PutAsync<FeedStock>($"feeds/{id}", request);
+        }
+
+        public async Task DeleteAsync(int id)
+        {
+            await _apiClient.DeleteAsync($"feeds/{id}");
+        }
+
         public async Task AddBatchAsync(int feedId, decimal quantity, string entryDate)
         {
             var request = new AddFeedBatchRequest

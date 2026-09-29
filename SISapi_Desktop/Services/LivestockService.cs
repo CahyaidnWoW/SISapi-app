@@ -22,5 +22,15 @@ namespace SISapi_Desktop.Services
         {
             return await _apiClient.PostAsync<Livestock>("livestocks", request);
         }
+
+        public async Task<Livestock> UpdateAsync(int id, UpdateLivestockRequest request)
+        {
+            return await _apiClient.PutAsync<Livestock>($"livestocks/{id}", request);
+        }
+
+        public async Task DeleteAsync(int id)
+        {
+            await _apiClient.DeleteAsync($"livestocks/{id}");
+        }
     }
 }

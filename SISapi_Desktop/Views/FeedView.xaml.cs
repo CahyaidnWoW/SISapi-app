@@ -1,4 +1,5 @@
-﻿using SISapi_Desktop.Services;
+﻿using SISapi_Desktop.Models;
+using SISapi_Desktop.Services;
 using System;
 using System.Globalization;
 using System.Windows;
@@ -9,6 +10,7 @@ namespace SISapi_Desktop.Views
     public partial class FeedView : UserControl
     {
         private readonly FeedService _feedService;
+        private FeedStock _selectedFeedForEdit = null;
 
         public FeedView()
         {
@@ -42,17 +44,95 @@ namespace SISapi_Desktop.Views
             }
 
             string unit = ((ComboBoxItem)CmbUnit.SelectedItem).Content.ToString();
+            string feedName = TxtFeedName.Text.Trim();
 
             try
             {
-                await _feedService.CreateAsync(TxtFeedName.Text.Trim(), unit);
-                TxtFeedName.Clear();
+                if (_selectedFeedForEdit == null)
+                {
+                    // Tambah Jenis Pakan Baru
+                    await _feedService.CreateAsync(feedName, unit);
+                }
+                else
+                {
+                    // Update Jenis Pakan Existing
+                    await _feedService.UpdateAsync(_selectedFeedForEdit.Id, feedName, unit);
+                }
+
+                ResetFeedForm();
                 LoadFeeds();
             }
             catch (Exception ex)
             {
-                ShowError($"Gagal menambah jenis pakan: {ex.Message}");
+                ShowError($"Gagal menyimpan jenis pakan: {ex.Message}");
             }
+        }
+
+        private void BtnEditFeed_Click(object sender, RoutedEventArgs e)
+        {
+            TxtError.Visibility = Visibility.Collapsed;
+
+            if (sender is Button btn && btn.DataContext is FeedStock feed)
+            {
+                _selectedFeedForEdit = feed;
+
+                TxtFeedName.Text = feed.FeedName;
+
+                // Select unit di ComboBox
+                foreach (ComboBoxItem item in CmbUnit.Items)
+                {
+                    if (item.Content?.ToString() == feed.Unit)
+                    {
+                        CmbUnit.SelectedItem = item;
+                        break;
+                    }
+                }
+
+                TxtFeedFormTitle.Text = $"Edit Jenis Pakan ({feed.FeedName})";
+                BtnAddFeed.Content = "Simpan Perubahan";
+                BtnCancelFeedEdit.Visibility = Visibility.Visible;
+            }
+        }
+
+        private async void BtnDeleteFeed_Click(object sender, RoutedEventArgs e)
+        {
+            TxtError.Visibility = Visibility.Collapsed;
+
+            if (sender is Button btn && btn.DataContext is FeedStock feed)
+            {
+                var result = MessageBox.Show($"Apakah Anda yakin ingin menghapus jenis pakan '{feed.FeedName}'?",
+                                             "Konfirmasi Hapus", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    try
+                    {
+                        await _feedService.DeleteAsync(feed.Id);
+                        LoadFeeds();
+                    }
+                    catch (Exception ex)
+                    {
+                        ShowError($"Gagal menghapus jenis pakan: {ex.Message}");
+                    }
+                }
+            }
+        }
+
+        private void BtnCancelFeedEdit_Click(object sender, RoutedEventArgs e)
+        {
+            ResetFeedForm();
+        }
+
+        private void ResetFeedForm()
+        {
+            _selectedFeedForEdit = null;
+            TxtFeedName.Clear();
+            CmbUnit.SelectedItem = null;
+
+            TxtFeedFormTitle.Text = "Tambah Jenis Pakan Baru";
+            BtnAddFeed.Content = "+ Tambah Jenis Pakan";
+            BtnCancelFeedEdit.Visibility = Visibility.Collapsed;
+            TxtError.Visibility = Visibility.Collapsed;
         }
 
         private async void BtnAddBatch_Click(object sender, RoutedEventArgs e)

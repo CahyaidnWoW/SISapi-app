@@ -31,4 +31,16 @@ namespace SISapi_Desktop.Models
         [JsonProperty("location")]
         public string Location { get; set; }
     }
+
+    public class UpdateCageRequest
+    {
+        [JsonProperty("name")]
+        public string Name { get; set; }
+
+        [JsonProperty("capacity")]
+        public int Capacity { get; set; }
+
+        [JsonProperty("location")]
+        public string Location { get; set; }
+    }
 }

@@ -10,7 +10,6 @@
              TextOptions.TextRenderingMode="ClearType">
 
     <UserControl.Resources>
-        <!-- Style Tombol Utama Modern -->
         <Style x:Key="PrimaryButtonStyle" TargetType="Button">
             <Setter Property="Background" Value="#294579"/>
             <Setter Property="Foreground" Value="White"/>
@@ -39,6 +38,54 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
+        <Style x:Key="ActionEditButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#EAB308"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Padding" Value="10,4"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="4" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#CA8A04"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ActionDeleteButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#EF4444"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Padding" Value="10,4"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="4" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#DC2626"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </UserControl.Resources>
 
     <Grid Margin="25">
@@ -49,7 +96,6 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!-- Header -->
         <Border Grid.Row="0" Margin="0,0,0,20">
             <StackPanel>
                 <TextBlock Text="Manajemen Kandang" FontSize="26" FontWeight="Bold" Foreground="#1E3259"/>
@@ -57,7 +103,6 @@
             </StackPanel>
         </Border>
 
-        <!-- Card 1: Form Tambah Kandang -->
         <Border Grid.Row="1" Background="White" CornerRadius="10" Padding="20" BorderBrush="#CBD5E1" BorderThickness="1" Margin="0,0,0,16">
             <Border.Effect>
                 <DropShadowEffect BlurRadius="10" Color="#000000" Opacity="0.05" Direction="270" ShadowDepth="2"/>
@@ -76,25 +121,21 @@
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
 
-                    <!-- Nama Kandang -->
                     <StackPanel Grid.Column="0">
                         <TextBlock Text="Nama Kandang" FontSize="12" FontWeight="Bold" Foreground="#475569" Margin="0,0,0,6"/>
                         <TextBox x:Name="TxtName" Tag="Nama kandang" Height="36" VerticalContentAlignment="Center" FontSize="13" Foreground="#0F172A" Padding="8,0"/>
                     </StackPanel>
 
-                    <!-- Kapasitas -->
                     <StackPanel Grid.Column="2">
                         <TextBlock Text="Kapasitas" FontSize="12" FontWeight="Bold" Foreground="#475569" Margin="0,0,0,6"/>
                         <TextBox x:Name="TxtCapacity" Tag="Kapasitas" Height="36" VerticalContentAlignment="Center" FontSize="13" Foreground="#0F172A" Padding="8,0"/>
                     </StackPanel>
 
-                    <!-- Lokasi -->
                     <StackPanel Grid.Column="4">
                         <TextBlock Text="Lokasi (Opsional)" FontSize="12" FontWeight="Bold" Foreground="#475569" Margin="0,0,0,6"/>
                         <TextBox x:Name="TxtLocation" Tag="Lokasi (opsional)" Height="36" VerticalContentAlignment="Center" FontSize="13" Foreground="#0F172A" Padding="8,0"/>
                     </StackPanel>
 
-                    <!-- Tombol Tambah -->
                     <StackPanel Grid.Column="6" VerticalAlignment="Bottom">
                         <Button x:Name="BtnAdd" Content="+ Tambah Kandang" Click="BtnAdd_Click" Style="{StaticResource PrimaryButtonStyle}" Height="36"/>
                     </StackPanel>
@@ -102,10 +143,8 @@
             </StackPanel>
         </Border>
 
-        <!-- Pesan Error -->
         <TextBlock x:Name="TxtError" Grid.Row="2" Foreground="#DC2626" FontSize="13" FontWeight="Bold" Visibility="Collapsed" Margin="0,0,0,12"/>
 
-        <!-- Card 2: Tabel Daftar Kandang -->
         <Border Grid.Row="3" Background="White" CornerRadius="10" Padding="18" BorderBrush="#CBD5E1" BorderThickness="1">
             <Border.Effect>
                 <DropShadowEffect BlurRadius="10" Color="#000000" Opacity="0.05" Direction="270" ShadowDepth="2"/>
@@ -114,7 +153,7 @@
                 <TextBlock Text="Daftar Kandang Terdaftar" FontSize="16" FontWeight="Bold" Foreground="#1E3259" Margin="0,0,0,14"/>
 
                 <DataGrid x:Name="GridCages" AutoGenerateColumns="False" IsReadOnly="True"
-                          Background="Transparent" BorderThickness="0" RowHeight="38" 
+                          Background="Transparent" BorderThickness="0" RowHeight="42" 
                           GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="#E2E8F0"
                           HeadersVisibility="Column" MinHeight="200"
                           Foreground="#0F172A" FontSize="13" FontWeight="Medium">
@@ -143,10 +182,21 @@
                         </Style>
                     </DataGrid.Resources>
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Nama Kandang" Binding="{Binding Name}" Width="200"/>
-                        <DataGridTextColumn Header="Kapasitas" Binding="{Binding Capacity}" Width="120"/>
-                        <DataGridTextColumn Header="Populasi Saat Ini" Binding="{Binding CurrentPopulation}" Width="140"/>
+                        <DataGridTextColumn Header="Nama Kandang" Binding="{Binding Name}" Width="180"/>
+                        <DataGridTextColumn Header="Kapasitas" Binding="{Binding Capacity}" Width="100"/>
+                        <DataGridTextColumn Header="Populasi Saat Ini" Binding="{Binding CurrentPopulation}" Width="130"/>
                         <DataGridTextColumn Header="Lokasi" Binding="{Binding Location}" Width="*"/>
+
+                        <DataGridTemplateColumn Header="Aksi" Width="130">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <Button Content="Edit" Click="BtnEdit_Click" Style="{StaticResource ActionEditButtonStyle}" Margin="0,0,6,0"/>
+                                        <Button Content="Hapus" Click="BtnDelete_Click" Style="{StaticResource ActionDeleteButtonStyle}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
                     </DataGrid.Columns>
                 </DataGrid>
             </StackPanel>

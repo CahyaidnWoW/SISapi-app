@@ -70,5 +70,28 @@ namespace SISapi_Desktop.Services
 
             return JsonConvert.DeserializeObject<T>(json);
         }
+
+        public async Task<T> PutAsync<T>(string endpoint, object data)
+        {
+            AttachAuthToken();
+            var jsonContent = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
+            var response = await _client.PutAsync(endpoint, jsonContent);
+            var json = await response.Content.ReadAsStringAsync();
+
+            if (!response.IsSuccessStatusCode)
+                throw new Exception($"API Error ({(int)response.StatusCode}): {json}");
+
+            return JsonConvert.DeserializeObject<T>(json);
+        }
+
+        public async Task DeleteAsync(string endpoint)
+        {
+            AttachAuthToken();
+            var response = await _client.DeleteAsync(endpoint);
+            var json = await response.Content.ReadAsStringAsync();
+
+            if (!response.IsSuccessStatusCode)
+                throw new Exception($"API Error ({(int)response.StatusCode}): {json}");
+        }
     }
 }

@@ -26,6 +26,15 @@ namespace SISapi_Desktop.Models
         public string Unit { get; set; }
     }
 
+    public class UpdateFeedStockRequest
+    {
+        [JsonProperty("feed_name")]
+        public string FeedName { get; set; }
+
+        [JsonProperty("unit")]
+        public string Unit { get; set; }
+    }
+
     public class AddFeedBatchRequest
     {
         [JsonProperty("feed_id")]

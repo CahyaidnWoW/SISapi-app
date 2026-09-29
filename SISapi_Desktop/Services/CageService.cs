@@ -29,5 +29,22 @@ namespace SISapi_Desktop.Services
 
             return await _apiClient.PostAsync<Cage>("cages", request);
         }
+
+        public async Task<Cage> UpdateAsync(int id, string name, int capacity, string location)
+        {
+            var request = new UpdateCageRequest
+            {
+                Name = name,
+                Capacity = capacity,
+                Location = location
+            };
+
+            return await _apiClient.PutAsync<Cage>($"cages/{id}", request);
+        }
+
+        public async Task DeleteAsync(int id)
+        {
+            await _apiClient.DeleteAsync($"cages/{id}");
+        }
     }
 }
