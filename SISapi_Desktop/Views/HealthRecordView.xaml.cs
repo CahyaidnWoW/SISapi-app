@@ -65,7 +65,7 @@ namespace SISapi_Desktop.Views
                 DpDate.SelectedDate = null;
                 DpNextDue.SelectedDate = null;
 
-                BtnLoadHistory_Click(sender, e); // refresh riwayat
+                BtnLoadHistory_Click(sender, e); 
             }
             catch (Exception ex)
             {

@@ -24,7 +24,7 @@ class HealthRecordController extends Controller
             'treatment' => 'nullable|string',
             'next_due_date' => 'nullable|date',
             'date' => 'required|date',
-            'photo' => 'nullable|image|max:5120', // max 5MB
+            'photo' => 'nullable|image|max:5120', 
         ]);
 
         try {

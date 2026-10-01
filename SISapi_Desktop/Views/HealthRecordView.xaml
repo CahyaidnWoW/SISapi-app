@@ -10,7 +10,6 @@
              TextOptions.TextRenderingMode="ClearType">
 
     <UserControl.Resources>
-        <!-- Style Tombol Utama Modern -->
         <Style x:Key="PrimaryButtonStyle" TargetType="Button">
             <Setter Property="Background" Value="#294579"/>
             <Setter Property="Foreground" Value="White"/>
@@ -51,7 +50,6 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <!-- Header -->
             <Border Grid.Row="0" Margin="0,0,0,20">
                 <StackPanel>
                     <TextBlock Text="Rekam Medis" FontSize="26" FontWeight="Bold" Foreground="#1E3259"/>
@@ -59,7 +57,6 @@
                 </StackPanel>
             </Border>
 
-            <!-- Card 1: Cari Tag Sapi -->
             <Border Grid.Row="1" Background="White" CornerRadius="10" Padding="18" BorderBrush="#CBD5E1" BorderThickness="1" Margin="0,0,0,16">
                 <Border.Effect>
                     <DropShadowEffect BlurRadius="10" Color="#000000" Opacity="0.05" Direction="270" ShadowDepth="2"/>
@@ -71,7 +68,6 @@
                 </StackPanel>
             </Border>
 
-            <!-- Card 2: Form Tambah Rekam Medis Baru -->
             <Border Grid.Row="2" Background="White" Padding="20" CornerRadius="10" BorderBrush="#CBD5E1" BorderThickness="1" Margin="0,0,0,16">
                 <Border.Effect>
                     <DropShadowEffect BlurRadius="10" Color="#000000" Opacity="0.05" Direction="270" ShadowDepth="2"/>
@@ -88,7 +84,6 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
-                        <!-- Tipe -->
                         <StackPanel Grid.Column="0">
                             <TextBlock Text="Tipe Tindakan" FontSize="12" FontWeight="Bold" Foreground="#475569" Margin="0,0,0,6"/>
                             <ComboBox x:Name="CmbType" Height="36" VerticalContentAlignment="Center" FontSize="13" Foreground="#0F172A" Padding="8,0">
@@ -98,36 +93,27 @@
                             </ComboBox>
                         </StackPanel>
 
-                        <!-- Tanggal -->
                         <StackPanel Grid.Column="2">
                             <TextBlock Text="Tanggal Tindakan" FontSize="12" FontWeight="Bold" Foreground="#475569" Margin="0,0,0,6"/>
                             <DatePicker x:Name="DpDate" Height="36" VerticalContentAlignment="Center" FontSize="13" Foreground="#0F172A"/>
                         </StackPanel>
 
-                        <!-- Next Due -->
                         <StackPanel Grid.Column="4">
                             <TextBlock Text="Jatuh Tempo Berikutnya" FontSize="12" FontWeight="Bold" Foreground="#475569" Margin="0,0,0,6"/>
                             <DatePicker x:Name="DpNextDue" Height="36" VerticalContentAlignment="Center" FontSize="13" Foreground="#0F172A"/>
                         </StackPanel>
                     </Grid>
 
-                    <!-- Diagnosis -->
                     <TextBlock Text="Diagnosis (Opsional)" FontSize="12" FontWeight="Bold" Foreground="#475569" Margin="0,0,0,6"/>
                     <TextBox x:Name="TxtDiagnosis" Tag="Diagnosis (opsional)" Height="36" VerticalContentAlignment="Center" FontSize="13" Foreground="#0F172A" Padding="8,0" Margin="0,0,0,12"/>
 
-                    <!-- Treatment -->
                     <TextBlock Text="Treatment (Opsional)" FontSize="12" FontWeight="Bold" Foreground="#475569" Margin="0,0,0,6"/>
                     <TextBox x:Name="TxtTreatment" Tag="Treatment (opsional)" Height="36" VerticalContentAlignment="Center" FontSize="13" Foreground="#0F172A" Padding="8,0" Margin="0,0,0,16"/>
 
-                    <!-- Submit Button -->
                     <Button x:Name="BtnAddRecord" Content="+ Simpan Rekam Medis" Click="BtnAddRecord_Click" Style="{StaticResource PrimaryButtonStyle}" HorizontalAlignment="Left"/>
                 </StackPanel>
             </Border>
-
-            <!-- Pesan Error -->
             <TextBlock x:Name="TxtError" Grid.Row="3" Foreground="#DC2626" FontSize="13" FontWeight="Bold" Visibility="Collapsed" Margin="0,0,0,12"/>
-
-            <!-- Card 3: Tabel Riwayat Rekam Medis -->
             <Border Grid.Row="4" Background="White" CornerRadius="10" Padding="16" BorderBrush="#CBD5E1" BorderThickness="1">
                 <Border.Effect>
                     <DropShadowEffect BlurRadius="10" Color="#000000" Opacity="0.05" Direction="270" ShadowDepth="2"/>

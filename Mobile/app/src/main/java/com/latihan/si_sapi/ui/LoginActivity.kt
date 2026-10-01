@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.latihan.si_sapi.R
 import com.latihan.si_sapi.helpers.UiState
 import com.latihan.si_sapi.viewmodels.AuthViewModel
+import com.latihan.si_sapi.MainActivity
 
 class LoginActivity : AppCompatActivity() {
 
@@ -56,7 +57,7 @@ class LoginActivity : AppCompatActivity() {
                     Toast.makeText(this, "Selamat datang, ${state.data.name}!", Toast.LENGTH_SHORT).show()
 
                     // Pindah ke MainActivity
-                    val intent = Intent(this, MainActivity::class.)
+                    val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
                     finish()
                 }

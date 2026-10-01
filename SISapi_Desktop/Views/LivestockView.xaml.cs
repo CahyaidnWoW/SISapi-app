@@ -56,7 +56,6 @@ namespace SISapi_Desktop.Views
             }
         }
 
-        // --- FILTER STATUS ---
         private void CmbFilterStatus_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ApplyFilter();
@@ -86,7 +85,6 @@ namespace SISapi_Desktop.Views
             }
         }
 
-        // --- TAMBAH SAPI ---
         private async void BtnAdd_Click(object sender, RoutedEventArgs e)
         {
             TxtError.Visibility = Visibility.Collapsed;

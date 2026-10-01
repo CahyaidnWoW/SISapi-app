@@ -4,19 +4,20 @@ backend-peternakan-app/.env
 backend-peternakan-app/storage/*.key
 backend-peternakan-app/storage/logs/*
 
-# WPF / C# Desktop (Saring bin, obj, vs, dan packages)
 **/bin/
 **/obj/
 **/.vs/
 **/packages/
 *.user
 
-# Android / Mobile
 **/build/
 **/.gradle/
 **/.idea/
 *.iml
 
-# OS / Editor
+Tracker files
+TrackerDesktop files
+
+
 .DS_Store
 Thumbs.db

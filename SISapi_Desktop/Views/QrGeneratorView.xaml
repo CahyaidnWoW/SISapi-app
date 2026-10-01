@@ -39,8 +39,6 @@
                 </Setter.Value>
             </Setter>
         </Style>
-
-        <!-- Style Tombol Sekunder (Outlined) -->
         <Style x:Key="SecondaryButtonStyle" TargetType="Button">
             <Setter Property="Background" Value="White"/>
             <Setter Property="Foreground" Value="#1E3259"/>
@@ -81,23 +79,18 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!-- Header -->
         <Border Grid.Row="0" Margin="0,0,0,20">
             <StackPanel>
                 <TextBlock Text="QR Generator" FontSize="26" FontWeight="Bold" Foreground="#1E3259"/>
                 <TextBlock Text="Pilih ternak untuk membuat dan mengunduh kode QR identifikasi secara massal." FontSize="13" Foreground="#334155" FontWeight="Medium" Margin="0,4,0,0"/>
             </StackPanel>
         </Border>
-
-        <!-- Area Konten Utama (2 Kolom) -->
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="280"/>
                 <ColumnDefinition Width="20"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-
-            <!-- Kiri: Card Filter dan Aksi -->
             <Border Grid.Column="0" Background="White" CornerRadius="10" Padding="18" BorderBrush="#CBD5E1" BorderThickness="1" VerticalAlignment="Top">
                 <Border.Effect>
                     <DropShadowEffect BlurRadius="10" Color="#000000" Opacity="0.05" Direction="270" ShadowDepth="2"/>
@@ -128,8 +121,6 @@
                     <TextBlock x:Name="TxtError" Foreground="#DC2626" FontSize="12" FontWeight="Bold" TextWrapping="Wrap" Margin="0,12,0,0" Visibility="Collapsed"/>
                 </StackPanel>
             </Border>
-
-            <!-- Kanan: Card Preview QR Code -->
             <Border Grid.Column="2" Background="White" CornerRadius="10" Padding="20" BorderBrush="#CBD5E1" BorderThickness="1">
                 <Border.Effect>
                     <DropShadowEffect BlurRadius="10" Color="#000000" Opacity="0.05" Direction="270" ShadowDepth="2"/>

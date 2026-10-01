@@ -28,7 +28,6 @@ class AuthController extends Controller
             ]);
         }
 
-        // Hapus token lama jika ingin membatasi 1 sesi per device
         $user->tokens()->delete();
 
         // Buat token baru
@@ -58,10 +57,7 @@ class AuthController extends Controller
             'user'    => $request->user(),
         ], 200);
     }
-
-    /**
-     * Revoke current user token (Logout).
-     */
+    
     public function logout(Request $request)
     {
         $request->user()->currentAccessToken()->delete();
