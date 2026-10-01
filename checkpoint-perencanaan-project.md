@@ -1,5 +1,4 @@
 # Checkpoint Perencanaan Project
-## Smart Livestock Management System — Tugas Akhir SMK
 
 ---
 
@@ -23,7 +22,7 @@
 | Mobile | Kotlin (Android Native) | Retrofit/OkHttp untuk konsumsi API |
 | Autentikasi | Laravel Sanctum (token-based) | Dipakai bersama oleh Desktop & Mobile |
 
-**Catatan Arsitektur:** Desktop WPF dan Mobile Kotlin sama-sama client independen yang mengonsumsi REST API yang sama dari Laravel — bukan dua sistem terpisah. Ini membuktikan arsitektur client-server yang benar.
+Desktop WPF dan Mobile Kotlin sama-sama client independen yang mengonsumsi REST API yang sama dari Laravel — bukan dua sistem terpisah. Ini membuktikan arsitektur client-server yang benar.
 
 ---
 
@@ -52,22 +51,22 @@
 ## 5. List Fitur per Platform
 
 ### A. Web/Server (Backend Laravel)
-- [ ] Autentikasi & manajemen token (login, logout, Sanctum)
-- [ ] Role-based access control (Manager, Vet, Pekerja)
-- [ ] REST API penuh: sapi, kandang, pakan, rekam medis, timbangan
-- [ ] Algoritma Feed Conversion Ratio (FCR)
-- [ ] Inventory control stok pakan (metode FIFO)
-- [ ] Task scheduler (cron job) — reminder jadwal vaksinasi
+- [done] Autentikasi & manajemen token (login, logout, Sanctum)
+- [done] Role-based access control (Manager, Vet, Pekerja)
+- [done] REST API penuh: sapi, kandang, pakan, rekam medis, timbangan
+- [done] Algoritma Feed Conversion Ratio (FCR)
+- [done] Inventory control stok pakan (metode FIFO)
+- [done] Task scheduler (cron job) — reminder jadwal vaksinasi
 - [ ] Endpoint upload foto (laporan darurat)
 
 ### B. Desktop (C# WPF — Manager & Vet)
-- [ ] Login screen + simpan token/session
-- [ ] Dashboard interaktif: grafik populasi, mortality rate, tren berat badan (LiveCharts/OxyPlot)
-- [ ] Master data management: CRUD Sapi, Kandang, Pakan, Pegawai
-- [ ] QR Code generator: cetak label Ear Tag massal (QRCoder)
-- [ ] Laporan medis: riwayat rekam medis per individu sapi
-- [ ] Laporan logistik: buku besar stok pakan
-- [ ] Manajemen jadwal vaksinasi & tindakan medis (khusus Vet)
+- [done] Login screen + simpan token/session
+- [done] Dashboard interaktif: grafik populasi, mortality rate, tren berat badan (LiveCharts/OxyPlot)
+- [done] Master data management: CRUD Sapi, Kandang, Pakan, Pegawai
+- [done] QR Code generator: cetak label Ear Tag massal (QRCoder)
+- [done] Laporan medis: riwayat rekam medis per individu sapi
+- [done] Laporan logistik: buku besar stok pakan
+- [done] Manajemen jadwal vaksinasi & tindakan medis (khusus Vet)
 - [ ] Manajemen user/pegawai (khusus Manager)
 
 ### C. Mobile (Kotlin Android — Pekerja Kandang & Vet)
@@ -95,9 +94,9 @@
 ## 7. Status Checkpoint
 > Update bagian ini tiap minggu untuk tracking progres.
 
-- [done] Minggu 1 selesai
-- [ ] Minggu 2 selesai
-- [ ] Minggu 3-4 selesai
-- [ ] Minggu 5-6 selesai
-- [ ] Minggu 7 selesai
-- [ ] Minggu 8 selesai
+- [done] Minggu 1 
+- [done] Minggu 2 (upload foto jadi opsional tapi akan diusahakan)
+- [done] Minggu 3-4 
+- [pengerjaan] Minggu 5-6 
+- [ ] Minggu 7 
+- [ ] Minggu 8 
