@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="id"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Si-Sapi Mobile: rancangan UI/UX</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#F3F6FC;--card:#fff;--tx:#10183A;--mu:#566384;--ln:#D6DEEE;--ac:#2D5FAD;--code:#E8EEFA}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0E1426;--card:#161E38;--tx:#E8ECF8;--mu:#9AA7C7;--ln:#2A3556;--ac:#7DB0F5;--code:#1D2748}}
+:root[data-theme="dark"]{--bg:#0E1426;--card:#161E38;--tx:#E8ECF8;--mu:#9AA7C7;--ln:#2A3556;--ac:#7DB0F5;--code:#1D2748}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 12px);scroll-behavior:smooth}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:"Lexend",system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.6;-webkit-text-size-adjust:100%}
+.pg{max-width:1180px;margin:0 auto;padding:28px 18px 40px}
+.top{margin-bottom:8px}
+.top h1{font-size:clamp(30px,5vw,46px);line-height:1.1;margin:8px 0 10px;font-weight:700;letter-spacing:-.02em}
+.lede{max-width:62ch;color:var(--mu);margin:0 0 18px;font-size:16px}
+.toc{display:flex;flex-wrap:wrap;gap:8px}
+.toc a{padding:7px 13px;border:1px solid var(--ln);border-radius:99px;color:var(--tx);text-decoration:none;font-size:13.5px;background:var(--card)}
+.toc a:hover,.toc a:focus-visible{border-color:var(--ac);color:var(--ac);outline:none}
+section{margin-top:52px}
+h2{font-size:26px;line-height:1.25;margin:0 0 8px;font-weight:600;letter-spacing:-.01em}
+h3{font-size:16px;margin:0 0 4px;font-weight:600}
+h3.sub{margin-top:26px;font-size:18px}
+.intro{max-width:72ch;color:var(--mu);margin:0 0 20px;font-size:15px}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.86em;background:var(--code);padding:1px 6px;border-radius:5px}
+.row-ph{display:flex;flex-wrap:wrap;gap:30px 26px}
+.fg{margin:0;width:300px;max-width:100%}
+.fg figcaption{margin-top:12px;display:flex;flex-direction:column;gap:3px;font-size:14px}
+.fg figcaption code{align-self:flex-start;background:none;padding:0;color:var(--mu)}
+.tw{overflow-x:auto;border:1px solid var(--ln);border-radius:12px;background:var(--card);margin:6px 0 18px}
+table{border-collapse:collapse;width:100%;min-width:760px;font-size:13.5px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--ln);vertical-align:top}
+th{font-weight:600;background:var(--code);white-space:nowrap}
+tr:last-child td{border-bottom:0}
+.sw{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin-bottom:20px}
+.sw div{display:flex;flex-direction:column;gap:2px;font-size:13.5px}
+.sw i{height:44px;border-radius:10px;margin-bottom:6px}
+.sw span{color:var(--mu);font-size:12.5px}
+.sw code{align-self:flex-start;background:none;padding:0;color:var(--mu)}
+.code{background:var(--code);padding:14px 16px;border-radius:12px;overflow-x:auto;font-size:13px;line-height:1.55;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+.chg{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:14px}
+.chg>div{background:var(--card);border:1px solid var(--ln);border-radius:14px;padding:14px 16px}
+.chg p{margin:0;font-size:14px;color:var(--mu)}
+.gap{padding-left:20px;max-width:80ch;font-size:15px}
+.gap li{margin-bottom:8px}
+pre.mermaid{background:var(--card);border:1px solid var(--ln);border-radius:12px;padding:12px;overflow-x:auto;text-align:center;margin:0 0 18px}
+.ft{max-width:1180px;margin:0 auto;padding:0 18px 36px;color:var(--mu);font-size:13px}
+a:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+
+/* ===== mockup HP (skala 0,83 dari 360dp, palet tetap) ===== */
+.ph{width:300px;height:640px;border-radius:38px;background:#10183A;padding:7px;box-shadow:0 20px 40px -22px rgba(16,24,58,.55);flex:none}
+.scr{--navy:#1B1464;--royal:#2D5FAD;--sky:#1890DB;--mist:#EEF4FD;--ink:#10183A;--muted:#566384;--line:#CBD6EA;--danger:#C62828;--warn:#B45309;--ok:#17784F;
+position:relative;width:100%;height:100%;border-radius:31px;overflow:hidden;background:var(--mist);color:var(--ink);display:flex;flex-direction:column;font-size:13.3px;line-height:1.35}
+.scr *{box-sizing:border-box}
+.sb{position:absolute;top:0;left:0;right:0;height:26px;display:flex;justify-content:space-between;align-items:center;padding:4px 20px 0;font-size:11px;font-weight:500;z-index:5;color:var(--ink)}
+.sb.lt{color:var(--ink)}
+.hdr~.sb,.scr.dk .sb{color:#fff}
+.sb .bat{width:20px;height:9px;border:1.5px solid currentColor;border-radius:3px;position:relative}
+.sb .bat::after{content:"";position:absolute;inset:1.5px;right:5px;background:currentColor;border-radius:1px}
+.mu{color:var(--muted)}
+.c{text-align:center}
+.sp{flex:1}
+
+/* header beranda */
+.hdr{background:linear-gradient(135deg,#1890DB,#2D5FAD);color:#fff;padding:36px 18px 16px;border-radius:0 0 28px 28px;flex:none}
+.hrow{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.hi{font-size:20px;font-weight:700;line-height:1.2;margin-bottom:8px}
+.rolechip{display:inline-block;font-size:11.7px;font-weight:500;padding:3px 10px;border-radius:99px;background:rgba(255,255,255,.22)}
+.rolechip.dk{background:#E2EAF8;color:var(--navy);margin-top:6px}
+.dt{font-size:11.7px;opacity:.95;text-align:right;white-space:nowrap}
+.body{flex:1;overflow:hidden;padding:12px 16px 10px;display:flex;flex-direction:column;gap:10px;min-height:0}
+.sec{font-size:17px;font-weight:700;color:var(--navy);margin-top:2px}
+.sec.row{display:flex;justify-content:space-between;align-items:baseline}
+.sec.row a{font-size:12.5px;font-weight:500;color:var(--royal)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tool{background:#fff;border:1px solid var(--line);border-radius:16px;padding:11px;display:flex;flex-direction:column;gap:3px;min-height:86px}
+.tool .ti{width:34px;height:34px;border-radius:11px;background:var(--mist);color:var(--royal);display:grid;place-items:center;margin-bottom:3px}
+.tool .ti.dg{background:#FDECEC;color:var(--danger)}
+.tool b{font-size:13.3px;font-weight:600}
+.tool span{font-size:11.7px;color:var(--muted);line-height:1.3}
+.rem{background:#fff;border:1px solid var(--line);border-radius:14px;padding:9px 10px;display:flex;align-items:center;gap:9px}
+.rem.lg{padding:12px 11px}
+.ri{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;flex:none}
+.ri.warn{background:#FEF3C7;color:var(--warn)}.ri.bad{background:#FDECEC;color:var(--danger)}
+.rt{flex:1;min-width:0;display:flex;flex-direction:column}
+.rt b{font-size:12.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rt span{font-size:11.7px;color:var(--muted)}
+.rt span.w{color:var(--warn);font-weight:500}.rt span.b{color:var(--danger);font-weight:500}
+.chip{font-size:11.7px;font-weight:500;padding:3px 9px;border-radius:99px;white-space:nowrap;display:inline-block}
+.chip.warn{background:#FEF3C7;color:var(--warn)}.chip.bad{background:#FDECEC;color:var(--danger)}
+.chip.ok{background:#E3F6EC;color:var(--ok)}.chip.info{background:#E2EAF8;color:var(--navy)}
+
+/* bottom nav */
+.nav{flex:none;height:66px;background:#fff;border-radius:24px 24px 0 0;box-shadow:0 -4px 16px rgba(16,24,58,.1);display:flex;justify-content:space-around;align-items:flex-end;padding:0 8px 7px;position:relative;z-index:3}
+.ni{display:flex;flex-direction:column;align-items:center;gap:1px;width:84px;color:var(--muted);font-size:11.7px;font-weight:500}
+.ni.on{color:var(--royal);font-weight:600}
+.ni.mid .fab{width:52px;height:52px;border-radius:50%;background:var(--sky);color:#fff;display:grid;place-items:center;margin-top:-30px;border:4px solid #fff;box-shadow:0 6px 14px rgba(24,144,219,.45)}
+
+
+/* appbar */
+.ab{flex:none;display:flex;align-items:center;gap:6px;padding:30px 12px 10px;background:#fff;border-bottom:1px solid var(--line)}
+.ab .bk{width:40px;height:40px;display:grid;place-items:center;color:var(--navy);flex:none}
+.ab .tt{font-size:16px;font-weight:600;color:var(--navy);display:flex;flex-direction:column;line-height:1.2}
+.ab .sub{font-size:11.7px;font-weight:400;color:var(--muted)}
+.ab:not(:has(.bk)){padding-left:18px}
+.ab.dg .bk,.ab.dg .tt{color:var(--danger)}
+.ab.dg{border-bottom:2px solid var(--danger)}
+
+/* form */
+.fld{display:flex;flex-direction:column;gap:5px}
+.fld label{font-size:12.5px;font-weight:600;color:var(--navy)}
+.in{min-height:42px;border:1.5px solid #8FA3CC;background:#fff;border-radius:12px;padding:0 12px;display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:13.3px}
+.in .ph-t{color:#6B7799}
+.in.f{border-color:var(--royal);box-shadow:0 0 0 3px rgba(45,95,173,.18)}
+.in.err{border-color:var(--danger)}
+.in.big{min-height:60px}
+.in.big .num{font-size:33px;font-weight:700;color:var(--navy);letter-spacing:-.01em}
+.in.big .unit{font-size:16px;color:var(--muted);font-weight:500}
+.in.ta{min-height:76px;align-items:flex-start;padding:10px 12px;line-height:1.4}
+.hp{font-size:11.7px;color:var(--muted);display:flex;align-items:center;gap:5px}
+.hp.he{color:var(--danger)}
+.hp.ok-t{color:var(--ok);font-weight:500;align-items:flex-start}
+.eye{color:var(--muted);display:grid}
+.alrt{display:flex;gap:7px;align-items:flex-start;color:var(--danger);font-size:11.7px;font-weight:500;background:#FDECEC;border-radius:10px;padding:8px 10px;margin-top:2px}
+.alrt svg{flex:none;margin-top:1px}
+.btn{height:46px;border-radius:12px;background:var(--royal);color:#fff;font-weight:600;font-size:14px;display:flex;align-items:center;justify-content:center;gap:8px;flex:none}
+.btn.sec{background:#fff;border:1.5px solid var(--royal);color:var(--royal)}
+.btn.dg{background:var(--danger);color:#fff}
+.btn.sec.dg{background:#fff;border-color:var(--danger);color:var(--danger)}
+.btn.lnk{background:transparent;color:var(--royal);height:40px}
+.btn.w{width:100%}
+.btn.ghw{background:rgba(255,255,255,.16);border:1.5px solid rgba(255,255,255,.7);color:#fff;margin:0 28px}
+
+/* login */
+.scr.lgn{background:#EEF4FD}
+.wv{position:absolute;inset:0;width:100%;height:100%}
+.lg-wrap{position:relative;flex:1;display:flex;align-items:center;padding:0 20px}
+.lg-card{width:100%;background:rgba(255,255,255,.96);border:1px solid var(--line);border-radius:28px;padding:18px 18px 20px;display:flex;flex-direction:column;gap:11px;box-shadow:0 14px 30px -14px rgba(27,20,100,.35)}
+.lg-logo{display:grid;place-items:center;margin-top:-52px;margin-bottom:-2px}
+.lg-logo svg{filter:drop-shadow(0 4px 8px rgba(27,63,143,.35))}
+.lg-card h1{font-size:28px;font-weight:700;color:var(--navy);margin:0;line-height:1.1;letter-spacing:-.01em}
+.lead{margin:0;font-size:12.5px;color:var(--muted)}
+
+/* scan */
+.scr.dk{background:#0A1230;color:#fff}
+.cam{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:34px 0 28px;background:radial-gradient(120% 70% at 50% 40%,#16255C,#0A1230)}
+.cam .top{width:100%;display:flex;justify-content:space-between;align-items:center;padding:0 12px}
+.rb{width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.14);display:grid;place-items:center}
+.mode{font-size:13.3px;font-weight:600;background:rgba(255,255,255,.16);padding:6px 14px;border-radius:99px}
+.vf{position:relative;width:196px;height:196px}
+.vf i{position:absolute;width:34px;height:34px;border:4px solid #5CC0FF}
+.vf .c1{top:0;left:0;border-right:0;border-bottom:0;border-radius:12px 0 0 0}
+.vf .c2{top:0;right:0;border-left:0;border-bottom:0;border-radius:0 12px 0 0}
+.vf .c3{bottom:0;left:0;border-right:0;border-top:0;border-radius:0 0 0 12px}
+.vf .c4{bottom:0;right:0;border-left:0;border-top:0;border-radius:0 0 12px 0}
+.vf .ln{position:absolute;left:10px;right:10px;top:12px;height:3px;border-radius:2px;background:#5CC0FF;box-shadow:0 0 14px #5CC0FF;animation:scan 2.4s ease-in-out infinite alternate}
+@keyframes scan{to{top:178px}}
+@media (prefers-reduced-motion:reduce){.vf .ln{animation:none;top:96px}}
+.hint{font-size:12.5px;text-align:center;padding:0 30px}
+.dim{position:absolute;inset:0;background:rgba(10,18,48,.55);z-index:6}
+.sheet{position:absolute;left:0;right:0;bottom:0;background:#fff;color:var(--ink);border-radius:24px 24px 0 0;padding:10px 16px 18px;display:flex;flex-direction:column;gap:10px;z-index:7}
+.sheet h3{font-size:17px;color:var(--navy);margin:0}
+.sheet p{margin:0;font-size:12.5px}
+.grab{width:38px;height:4px;border-radius:2px;background:#B8C4DE;align-self:center;margin-bottom:4px}
+
+/* profil sapi / kartu */
+.card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:12px}
+.card.sapi{display:flex;align-items:center;gap:10px;padding:10px 12px}
+.card.sapi .av{width:38px;height:38px;border-radius:11px;background:var(--mist);color:var(--royal);display:grid;place-items:center;flex:none}
+.card.sapi .gr{display:flex;flex-direction:column}
+.card.sapi b{font-size:14px;color:var(--navy)}
+.card.sapi span{font-size:11.7px;color:var(--muted)}
+.card.big{display:flex;flex-direction:column;gap:9px;padding:14px}
+.tag{font-size:26px;font-weight:700;color:var(--navy);letter-spacing:-.01em;line-height:1.1}
+.chips{display:flex;gap:6px}
+.kv{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:12.5px;padding-top:8px;border-top:1px solid #E3EAF7}
+.kv span{color:var(--muted)}
+.kv b{font-weight:600;display:flex;align-items:center;gap:6px;text-align:right}
+.kv em{font-style:normal;font-weight:400;color:var(--muted);font-size:11.7px}
+
+/* foto */
+.photo{border:2px dashed #8FA3CC;border-radius:14px;height:104px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;color:var(--royal);background:#fff}
+.photo b{font-size:13.3px;color:var(--navy)}
+.photo span{font-size:11.7px;color:var(--muted);text-align:center;padding:0 14px}
+.note{display:flex;gap:8px;align-items:flex-start;background:#E2EAF8;color:var(--navy);border-radius:12px;padding:9px 11px;font-size:11.7px}
+.note svg{flex:none;margin-top:1px}
+
+/* selesai + state */
+.done,.state{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:0 22px 26px;text-align:center}
+.state .btn{margin-top:4px}
+.done{padding-top:40px}
+.done .btn{width:100%}
+.ok-c{width:84px;height:84px;border-radius:50%;background:#E3F6EC;color:var(--ok);display:grid;place-items:center}
+.done h2,.state h2{font-size:20px;margin:0;color:var(--navy);line-height:1.25}
+.done p,.state p{margin:0;font-size:12.5px}
+.si{width:72px;height:72px;border-radius:50%;display:grid;place-items:center}
+.si.bad{background:#FDECEC;color:var(--danger)}.si.warn{background:#FEF3C7;color:var(--warn)}.si.ok{background:#E3F6EC;color:var(--ok)}
+
+/* skeleton */
+.sk{height:12px;border-radius:6px;background:#DCE5F5;width:100%}
+.sk.w40{width:40%}.sk.w50{width:50%}.sk.w60{width:60%}.sk.w80{width:80%}.sk.h22{height:26px}
+.sk.btnk{height:46px;border-radius:12px}
+
+/* riwayat */
+.srch{gap:10px;justify-content:flex-start;min-height:44px}
+.srch span{flex:1}
+.srch .sq{width:32px;height:32px;border-radius:9px;background:var(--mist);color:var(--royal);display:grid;place-items:center;font-style:normal}
+.tlw{display:flex;flex-direction:column;gap:9px;position:relative;padding-left:16px}
+.tlw::before{content:"";position:absolute;left:4px;top:8px;bottom:8px;width:2px;background:#C9D6EE}
+.tl{position:relative}
+.tl .dot{position:absolute;left:-16px;top:16px;width:10px;height:10px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1px #C9D6EE}
+.dot.bad{background:var(--danger)}.dot.ok{background:var(--ok)}.dot.info{background:var(--royal)}
+.tl .card{display:flex;flex-direction:column;gap:3px;padding:10px 11px}
+.tl .card b{font-size:13.3px}
+.tl .card .mu{font-size:11.7px}
+.tl .r{display:flex;justify-content:space-between;align-items:center;font-size:11.7px}
+
+/* profil user */
+.card.pf{display:flex;flex-direction:column;align-items:center;gap:2px;padding:16px}
+.avb{width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,#1890DB,#2D5FAD);color:#fff;display:grid;place-items:center;font-size:20px;font-weight:700;margin-bottom:6px}
+.card.pf b{font-size:16px;color:var(--navy)}
+.card.pf .mu{font-size:12.5px}
+.dlg{position:absolute;left:22px;right:22px;top:50%;transform:translateY(-50%);background:#fff;border-radius:22px;padding:18px;z-index:7;display:flex;flex-direction:column;gap:8px}
+.dlg h3{font-size:17px;color:var(--navy);margin:0}
+.dlg p{margin:0;font-size:12.5px}
+.dr{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+.dr .btn{height:44px}
+
+/* segmented */
+.seg{display:grid;grid-template-columns:1fr 1fr;background:#DCE5F5;border-radius:12px;padding:3px}
+.seg div{height:38px;border-radius:10px;display:grid;place-items:center;font-size:13px;font-weight:500;color:var(--muted)}
+.seg .on{background:#fff;color:var(--royal);font-weight:600;box-shadow:0 1px 4px rgba(16,24,58,.15)}
+
+@media (max-width:360px){.fg,.ph{width:100%}}
+
+.rem.lg{align-items:flex-start}
+.rem.lg .rt b{white-space:normal}
+.chip.sm{align-self:flex-start;margin-top:5px}
+</style></head>
+<body><main class="pg">
+<header class="top"><h1>Si-Sapi Mobile</h1>
+<p class="lede">Rancangan UI/UX untuk aplikasi Kotlin: 19 mockup layar, peta layar ke Activity dan endpoint, serta daftar perubahan dari desain awalmu.</p>
+<nav class="toc"><a href="#alur-masuk">Masuk dan beranda</a><a href="#alur-scan">Scan dan profil sapi</a><a href="#alur-input">Input harian</a><a href="#alur-vet">Dokter hewan dan pengingat</a><a href="#state">Kondisi khusus</a><a href="#dasar">Dasar visual</a><a href="#peta">Peta ke kode</a><a href="#ubah">Perubahan</a></nav></header>
+
+<section id="alur-masuk"><h2>Masuk dan beranda</h2><p class="intro">Login dan Beranda adalah dua desain awalmu yang sudah dirapikan. Beranda Pekerja dan Dokter hewan memakai kerangka sama, hanya isi tile Alat yang berbeda.</p><div class="row-ph"><figure class="fg"><div class="ph"><div class="scr lgn"><svg class="wv" viewBox="0 0 300 640" preserveAspectRatio="none" aria-hidden="true"><path d="M120 0H300V230C260 190 230 120 170 90S100 50 120 0Z" fill="#2D5FAD"/><path d="M0 300C40 270 62 332 92 318" stroke="#5CC0FF" stroke-width="5" fill="none" stroke-linecap="round"/><path d="M300 640H0V570C60 525 140 610 205 548S280 478 300 490Z" fill="#1890DB"/></svg><div class="sb"><span>08.00</span><span class="bat"></span></div><div class="lg-wrap"><div class="lg-card"><div class="lg-logo"><svg viewBox="0 0 64 64" width="72" height="72" aria-label="Logo Si-Sapi (sementara)"><circle cx="32" cy="32" r="31" fill="#1B3F8F"/><path d="M24 19c-3-4-3-8-1-10M40 19c3-4 3-8 1-10" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round"/><ellipse cx="16" cy="23" rx="6.5" ry="3.4" transform="rotate(-20 16 23)" fill="#fff"/><ellipse cx="48" cy="23" rx="6.5" ry="3.4" transform="rotate(20 48 23)" fill="#fff"/><path d="M22 20c0-5 20-5 20 0l2 13c0 7-6 11-12 11s-12-4-12-11z" fill="#fff"/><ellipse cx="32" cy="37" rx="7.5" ry="5" fill="#9FB6E3"/><circle cx="29.5" cy="37" r="1" fill="#1B3F8F"/><circle cx="34.5" cy="37" r="1" fill="#1B3F8F"/><circle cx="26.5" cy="28" r="1.6" fill="#1B3F8F"/><circle cx="37.5" cy="28" r="1.6" fill="#1B3F8F"/><text x="32" y="57" font-size="7" font-weight="700" fill="#fff" text-anchor="middle" font-family="Lexend,sans-serif">SI-SAPI</text></svg></div><h1>Masuk</h1><p class="lead">Masuk untuk memakai aplikasi Si-Sapi</p><div class="fld"><label>Email anggota</label><div class="in "><span class="">budi@peternakan.com</span></div></div><div class="fld"><label>Password</label><div class="in "><span class="ph-t">Masukkan password</span><span class="eye"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></span></div></div><div class="btn">Masuk</div></div></div></div></div><figcaption><b>Login</b><code>LoginActivity</code></figcaption></figure><figure class="fg"><div class="ph"><div class="scr lgn"><svg class="wv" viewBox="0 0 300 640" preserveAspectRatio="none" aria-hidden="true"><path d="M120 0H300V230C260 190 230 120 170 90S100 50 120 0Z" fill="#2D5FAD"/><path d="M0 300C40 270 62 332 92 318" stroke="#5CC0FF" stroke-width="5" fill="none" stroke-linecap="round"/><path d="M300 640H0V570C60 525 140 610 205 548S280 478 300 490Z" fill="#1890DB"/></svg><div class="sb"><span>08.00</span><span class="bat"></span></div><div class="lg-wrap"><div class="lg-card"><div class="lg-logo"><svg viewBox="0 0 64 64" width="72" height="72" aria-label="Logo Si-Sapi (sementara)"><circle cx="32" cy="32" r="31" fill="#1B3F8F"/><path d="M24 19c-3-4-3-8-1-10M40 19c3-4 3-8 1-10" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round"/><ellipse cx="16" cy="23" rx="6.5" ry="3.4" transform="rotate(-20 16 23)" fill="#fff"/><ellipse cx="48" cy="23" rx="6.5" ry="3.4" transform="rotate(20 48 23)" fill="#fff"/><path d="M22 20c0-5 20-5 20 0l2 13c0 7-6 11-12 11s-12-4-12-11z" fill="#fff"/><ellipse cx="32" cy="37" rx="7.5" ry="5" fill="#9FB6E3"/><circle cx="29.5" cy="37" r="1" fill="#1B3F8F"/><circle cx="34.5" cy="37" r="1" fill="#1B3F8F"/><circle cx="26.5" cy="28" r="1.6" fill="#1B3F8F"/><circle cx="37.5" cy="28" r="1.6" fill="#1B3F8F"/><text x="32" y="57" font-size="7" font-weight="700" fill="#fff" text-anchor="middle" font-family="Lexend,sans-serif">SI-SAPI</text></svg></div><h1>Masuk</h1><p class="lead">Masuk untuk memakai aplikasi Si-Sapi</p><div class="fld"><label>Email anggota</label><div class="in err"><span class="">budi@peternakan.com</span></div></div><div class="fld"><label>Password</label><div class="in err"><span class="">••••••••</span><span class="eye"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></span></div></div><div class="alrt"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18h.01"/></svg><span>Email atau password salah. Periksa lagi, lalu coba masuk.</span></div><div class="btn">Masuk</div></div></div></div></div><figcaption><b>Login, password salah</b><code>LoginActivity</code></figcaption></figure><figure class="fg"><div class="ph"><div class="scr "><div class="sb lt"><span>08.00</span><span class="bat"></span></div><div class="hdr"><div class="hi">Halo, Budi</div><div class="hrow"><span class="rolechip">Pekerja</span><div class="dt">Kamis, 1 Okt 2026</div></div></div><div class="body up"><div class="sec">Alat</div><div class="grid"><div class="tool"><div class="ti "><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM20 14v3M14 20h3M20 20h1"/></svg></div><b>Scan QR</b><span>Lihat profil sapi</span></div><div class="tool"><div class="ti "><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 9a6 6 0 0 1 8 0"/><path d="M12 14l2-3"/></svg></div><b>Timbang</b><span>Catat berat badan</span></div><div class="tool"><div class="ti "><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3h8l-1 3c3 2 5 6 5 10 0 3-2 5-5 5H9c-3 0-5-2-5-5 0-4 2-8 5-10z"/><path d="M9 6h6"/></svg></div><b>Pakan</b><span>Catat pakan harian</span></div><div class="tool"><div class="ti dg"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18h.01"/></svg></div><b>Lapor sakit</b><span>Laporan darurat</span></div></div><div class="sec row"><span>Pengingat</span><a>Lihat semua</a></div><div class="rem"><div class="ri warn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></div><div class="rt"><b>SPI-0017 · Vaksin PMK</b><span class="w">Jatuh tempo 2 hari lagi</span></div></div><div class="rem"><div class="ri bad"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></div><div class="rt"><b>SPI-0031 · Vaksin Antraks</b><span class="b">Terlambat 2 hari</span></div></div></div><div class="nav"><div class="ni"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span>Riwayat</span></div><div class="ni mid on"><div class="fab"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-8 9 8v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg></div><span>Beranda</span></div><div class="ni"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg><span>Profil</span></div></div></div></div><figcaption><b>Beranda Pekerja</b><code>MainActivity + HomeFragment</code></figcaption></figure><figure class="fg"><div class="ph"><div class="scr "><div class="sb lt"><span>08.00</span><span class="bat"></span></div><div class="hdr"><div class="hi">Halo, drh. Sari</div><div class="hrow"><span class="rolechip">Dokter hewan</span><div class="dt">Kamis, 1 Okt 2026</div></div></div><div class="body up"><div class="sec">Alat</div><div class="grid"><div class="tool"><div class="ti "><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM20 14v3M14 20h3M20 20h1"/></svg></div><b>Scan QR</b><span>Lihat profil sapi</span></div><div class="tool"><div class="ti "><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 2l4 4M20 4l-3 3M15 5l4 4-8 8-4-4zM7 13l-4 4M3 21l3-3"/></svg></div><b>Vaksin</b><span>Jatuh tempo</span></div><div class="tool"><div class="ti "><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4h6v3H9zM12 11v6M9 14h6"/></svg></div><b>Tindakan</b><span>Catat vaksin / obat</span></div><div class="tool"><div class="ti "><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><b>Rekam medis</b><span>Riwayat sapi</span></div></div><div class="sec row"><span>Pengingat</span><a>Lihat semua</a></div><div class="rem"><div class="ri warn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></div><div class="rt"><b>SPI-0017 · Vaksin PMK</b><span class="w">Jatuh tempo 2 hari lagi</span></div></div><div class="rem"><div class="ri bad"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></div><div class="rt"><b>SPI-0031 · Vaksin Antraks</b><span class="b">Terlambat 2 hari</span></div></div></div><div class="nav"><div class="ni"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span>Riwayat</span></div><div class="ni mid on"><div class="fab"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-8 9 8v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg></div><span>Beranda</span></div><div class="ni"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg><span>Profil</span></div></div></div></div><figcaption><b>Beranda Dokter hewan</b><code>MainActivity + HomeFragment</code></figcaption></figure></div></section><section id="alur-scan"><h2>Scan dan profil sapi</h2><p class="intro">Scan QR dipakai tiga tombol: Scan QR (buka profil), Timbang (langsung ke form), dan Lapor sakit (langsung ke form). Mode dikirim lewat Intent extra, jadi hanya ada satu ScanActivity.</p><div class="row-ph"><figure class="fg"><div class="ph"><div class="scr dk"><div class="sb lt"><span>08.00</span><span class="bat"></span></div><div class="cam"><div class="top"><div class="rb"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></div><div class="mode">Timbang sapi</div><div class="rb"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg></div></div><div class="vf"><i class="c1"></i><i class="c2"></i><i class="c3"></i><i class="c4"></i><u class="ln"></u></div><div class="hint">Arahkan kamera ke QR di ear tag</div><div class="btn ghw"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-5-5"/></svg><span>Ketik nomor tag</span></div></div></div></div><figcaption><b>Scan QR</b><code>ScanActivity</code></figcaption></figure><figure class="fg"><div class="ph"><div class="scr dk"><div class="sb lt"><span>08.00</span><span class="bat"></span></div><div class="cam"><div class="top"><div class="rb"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></div><div class="mode">Timbang sapi</div><div class="rb"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg></div></div><div class="vf"><i class="c1"></i><i class="c2"></i><i class="c3"></i><i class="c4"></i><u class="ln"></u></div><div class="hint">Arahkan kamera ke QR di ear tag</div><div class="btn ghw"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-5-5"/></svg><span>Ketik nomor tag</span></div></div><div class="dim"></div><div class="sheet"><div class="grab"></div><h3>Ketik nomor tag</h3><p class="mu">Pakai ini kalau ear tag kotor atau QR tidak terbaca.</p><div class="fld"><label>Nomor tag</label><div class="in f"><span class="">SPI-00</span></div></div><div class="btn">Cari sapi</div></div></div></div><figcaption><b>Ketik nomor tag</b><code>ScanActivity (bottom sheet)</code></figcaption></figure><figure class="fg"><div class="ph"><div class="scr "><div class="sb lt"><span>08.00</span><span class="bat"></span></div><div class="ab"><div class="bk"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></div><div class="tt"><div>Profil sapi</div></div></div><div class="body"><div class="card big"><div class="tag">SPI-0042</div><div class="chips"><span class="chip info">Simental</span><span class="chip info">Jantan</span></div><div class="kv"><span>Kandang</span><b>Kandang A</b></div><div class="kv"><span>Umur</span><b>14 bulan</b></div><div class="kv"><span>Berat terakhir</span><b>342 kg <em>28 Sep</em></b></div><div class="kv"><span>Vaksin berikutnya</span><b>PMK <span class="chip warn">4 hari lagi</span></b></div></div><div class="btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 9a6 6 0 0 1 8 0"/><path d="M12 14l2-3"/></svg><span>Catat timbangan</span></div><div class="btn sec dg"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18h.01"/></svg><span>Lapor sakit</span></div><div class="btn lnk">Lihat riwayat kesehatan</div></div></div></div><figcaption><b>Profil sapi</b><code>LivestockDetailActivity</code></figcaption></figure></div></section><section id="alur-input"><h2>Input harian</h2><p class="intro">Tiga form utama pekerja kandang. Setiap form menampilkan sapi atau kandang yang dipilih di bagian atas, dan satu tombol utama di bawah.</p><div class="row-ph"><figure class="fg"><div class="ph"><div class="scr "><div class="sb lt"><span>08.00</span><span class="bat"></span></div><div class="ab"><div class="bk"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></div><div class="tt"><div>Catat timbangan</div></div></div><div class="body"><div class="card sapi"><div class="av"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM20 14v3M14 20h3M20 20h1"/></svg></div><div class="gr"><b>SPI-0042</b><span>Simental · Jantan · Kandang A</span></div></div><div class="fld"><label>Berat badan</label><div class="in big f"><span class="num">358,5</span><span class="unit">kg</span></div><div class="hp ok-t"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg> Naik 16,5 kg dari timbangan terakhir (342 kg, 28 Sep)</div></div><div class="fld"><label>Tanggal timbang</label><div class="in "><span class="">Hari ini, 1 Okt 2026</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></div></div><div class="sp"></div><div class="btn">Simpan timbangan</div></div></div></div><figcaption><b>Catat timbangan</b><code>WeightInputActivity</code></figcaption></figure><figure class="fg"><div class="ph"><div class="scr "><div class="sb lt"><span>08.00</span><span class="bat"></span></div><div class="done"><div class="ok-c"><svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg></div><h2>Timbangan tersimpan</h2><p class="mu">SPI-0042 · 358,5 kg · 1 Okt 2026</p><div class="chip ok">Naik 16,5 kg dari 28 Sep</div><div class="sp"></div><div class="btn">Timbang sapi lain</div><div class="btn sec">Kembali ke beranda</div></div></div></div><figcaption><b>Timbangan tersimpan</b><code>WeightInputActivity (UiState.Success)</code></figcaption></figure><figure class="fg"><div class="ph"><div class="scr "><div class="sb lt"><span>08.00</span><span class="bat"></span></div><div class="ab"><div class="bk"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></div><div class="tt"><div>Catat pemakaian pakan</div></div></div><div class="body"><div class="fld"><label>Kandang</label><div class="in "><span class="">Kandang A · 12 sapi</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></div></div><div class="fld"><label>Jenis pakan</label><div class="in "><span class="">Konsentrat · stok 420 kg</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></div></div><div class="fld"><label>Jumlah dipakai</label><div class="in big f"><span class="num">35</span><span class="unit">kg</span></div><div class="hp">Sisa stok setelah ini: 385 kg</div></div><div class="note"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.4-1 1-1 1.7M12 17h.01"/></svg><span>Pakan diambil dari batch masuk paling lama (FIFO). Kamu tidak perlu memilih batch.</span></div><div class="sp"></div><div class="btn">Simpan pemakaian</div></div></div></div><figcaption><b>Catat pemakaian pakan</b><code>FeedInputActivity</code></figcaption></figure><figure class="fg"><div class="ph"><div class="scr "><div class="sb lt"><span>08.00</span><span class="bat"></span></div><div class="ab dg"><div class="bk"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></div><div class="tt"><div>Lapor sakit</div><div class="sub">Laporan darurat</div></div></div><div class="body"><div class="card sapi"><div class="av"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM20 14v3M14 20h3M20 20h1"/></svg></div><div class="gr"><b>SPI-0042</b><span>Simental · Jantan · Kandang A</span></div></div><div class="fld"><label>Foto kondisi sapi</label><div class="photo"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg><b>Ambil foto</b><span>Foto yang jelas membantu dokter hewan</span></div></div><div class="fld"><label>Gejala yang terlihat</label><div class="in ta f"><span>Pincang di kaki kanan belakang, nafsu makan turun sejak pagi.</span></div></div><div class="fld"><label>Tindakan awal (boleh kosong)</label><div class="in "><span class="">Sapi dipisah ke kandang isolasi</span></div></div><div class="sp"></div><div class="btn dg">Kirim laporan darurat</div></div></div></div><figcaption><b>Lapor sakit</b><code>EmergencyReportActivity</code></figcaption></figure></div></section><section id="alur-vet"><h2>Dokter hewan dan pengingat</h2><p class="intro">Endpoint health-records/due sudah ada di backend, jadi pengingat vaksin bisa jalan tanpa mengubah API.</p><div class="row-ph"><figure class="fg"><div class="ph"><div class="scr "><div class="sb lt"><span>08.00</span><span class="bat"></span></div><div class="ab"><div class="bk"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></div><div class="tt"><div>Pengingat vaksin</div><div class="sub">Jatuh tempo dalam 7 hari</div></div></div><div class="body"><div class="rem lg"><div class="ri bad"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></div><div class="rt"><b>SPI-0031 · Antraks</b><span>Jatuh tempo 29 Sep</span><span class="chip bad sm">Terlambat 2 hari</span></div></div><div class="rem lg"><div class="ri warn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></div><div class="rt"><b>SPI-0017 · PMK</b><span>Jatuh tempo 3 Okt</span><span class="chip warn sm">2 hari lagi</span></div></div><div class="rem lg"><div class="ri warn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></div><div class="rt"><b>SPI-0042 · PMK</b><span>Jatuh tempo 5 Okt</span><span class="chip warn sm">4 hari lagi</span></div></div><div class="rem lg"><div class="ri warn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></div><div class="rt"><b>SPI-0008 · PMK</b><span>Jatuh tempo 7 Okt</span><span class="chip warn sm">6 hari lagi</span></div></div><p class="mu c">Ketuk satu baris untuk membuka profil sapi.</p></div></div></div><figcaption><b>Pengingat vaksin</b><code>ReminderListActivity</code></figcaption></figure><figure class="fg"><div class="ph"><div class="scr "><div class="sb lt"><span>08.00</span><span class="bat"></span></div><div class="ab"><div class="bk"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></div><div class="tt"><div>Catat tindakan</div><div class="sub">Dokter hewan</div></div></div><div class="body"><div class="card sapi"><div class="av"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM20 14v3M14 20h3M20 20h1"/></svg></div><div class="gr"><b>SPI-0042</b><span>Simental · Jantan · Kandang A</span></div></div><div class="seg"><div class="on">Vaksinasi</div><div>Pengobatan</div></div><div class="fld"><label>Diagnosis / jenis vaksin</label><div class="in "><span class="">Vaksin PMK dosis 2</span></div></div><div class="fld"><label>Tindakan / catatan</label><div class="in "><span class="">Suntik 2 ml, subkutan</span></div></div><div class="fld"><label>Jadwal berikutnya</label><div class="in "><span class="">5 Nov 2026</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></div><div class="hp ">Muncul sebagai pengingat 7 hari sebelumnya.</div></div><div class="sp"></div><div class="btn">Simpan tindakan</div></div></div></div><figcaption><b>Catat tindakan</b><code>TreatmentActivity</code></figcaption></figure><figure class="fg"><div class="ph"><div class="scr "><div class="sb lt"><span>08.00</span><span class="bat"></span></div><div class="ab"><div class="tt"><div>Riwayat kesehatan</div></div></div><div class="body"><div class="in f srch"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-5-5"/></svg><span>SPI-0042</span><i class="sq"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM20 14v3M14 20h3M20 20h1"/></svg></i></div><div class="tlw"><div class="tl"><div class="dot bad"></div><div class="card"><div class="r"><span class="chip bad">Darurat</span><span class="mu">30 Sep</span></div><b>Pincang kaki kanan belakang</b><span class="mu">Ditangani drh. Sari</span></div></div><div class="tl"><div class="dot ok"></div><div class="card"><div class="r"><span class="chip ok">Vaksinasi</span><span class="mu">12 Sep</span></div><b>Vaksin PMK dosis 1</b><span class="mu">Berikutnya 5 Okt</span></div></div><div class="tl"><div class="dot info"></div><div class="card"><div class="r"><span class="chip info">Pengobatan</span><span class="mu">20 Agu</span></div><b>Cacingan ringan</b><span class="mu">Obat cacing oral</span></div></div></div></div><div class="nav"><div class="ni on"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span>Riwayat</span></div><div class="ni mid"><div class="fab"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-8 9 8v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg></div><span>Beranda</span></div><div class="ni"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg><span>Profil</span></div></div></div></div><figcaption><b>Riwayat kesehatan</b><code>HistoryFragment</code></figcaption></figure><figure class="fg"><div class="ph"><div class="scr "><div class="sb lt"><span>08.00</span><span class="bat"></span></div><div class="ab"><div class="tt"><div>Profil</div></div></div><div class="body"><div class="card pf"><div class="avb">BS</div><b>Budi Santoso</b><span class="mu">budi@peternakan.com</span><span class="rolechip dk">Pekerja</span></div><div class="card"><div class="kv"><span>Telepon</span><b>0812 3456 7890</b></div><div class="kv"><span>Versi aplikasi</span><b>1.0</b></div></div><div class="sp"></div><div class="btn sec dg"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h4"/><path d="M16 17l5-5-5-5M21 12H9"/></svg><span>Keluar</span></div></div><div class="nav"><div class="ni"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span>Riwayat</span></div><div class="ni mid"><div class="fab"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-8 9 8v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg></div><span>Beranda</span></div><div class="ni on"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg><span>Profil</span></div></div><div class="dim"></div><div class="dlg"><h3>Keluar dari Si-Sapi?</h3><p class="mu">Kamu perlu masuk lagi untuk memakai aplikasi.</p><div class="dr"><div class="btn sec">Batal</div><div class="btn dg">Keluar</div></div></div></div></div><figcaption><b>Profil + konfirmasi keluar</b><code>ProfileFragment</code></figcaption></figure></div></section><section id="state"><h2>Kondisi khusus</h2><p class="intro">Layar yang sering terlupa tapi muncul saat demo: data belum datang, server mati, tag salah, dan daftar kosong.</p><div class="row-ph"><figure class="fg"><div class="ph"><div class="scr "><div class="sb lt"><span>08.00</span><span class="bat"></span></div><div class="ab"><div class="bk"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></div><div class="tt"><div>Profil sapi</div></div></div><div class="body"><div class="card big"><div class="sk w40 h22"></div><div class="sk w60"></div><div class="sk"></div><div class="sk w80"></div><div class="sk w50"></div></div><div class="sk btnk"></div><div class="sk btnk"></div></div></div></div><figcaption><b>Memuat data</b><code>UiState.Loading</code></figcaption></figure><figure class="fg"><div class="ph"><div class="scr "><div class="sb lt"><span>08.00</span><span class="bat"></span></div><div class="ab"><div class="bk"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></div><div class="tt"><div>Profil sapi</div></div></div><div class="state"><div class="si bad"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 8c3-3 7-4 10-4M22 8a15 15 0 0 0-4-2.5M5 12c2-2 4-3 7-3M19 12a10 10 0 0 0-3-2M9 16c2-1.5 4-1.5 6 0M12 20h.01M3 3l18 18"/></svg></div><h2>Tidak terhubung ke server</h2><p class="mu">Cek koneksi internet, lalu coba lagi.</p><div class="btn w">Coba lagi</div></div></div></div><figcaption><b>Server tidak terjangkau</b><code>UiState.Error</code></figcaption></figure><figure class="fg"><div class="ph"><div class="scr "><div class="sb lt"><span>08.00</span><span class="bat"></span></div><div class="ab"><div class="bk"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></div><div class="tt"><div>Profil sapi</div></div></div><div class="state"><div class="si warn"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM20 14v3M14 20h3M20 20h1"/></svg></div><h2>Sapi tidak ditemukan</h2><p class="mu">Tag SPI-9999 belum terdaftar. Periksa nomornya atau scan ulang.</p><div class="btn w">Scan ulang</div><div class="btn sec w">Ketik nomor tag</div></div></div></div><figcaption><b>Tag tidak ditemukan</b><code>UiState.Error (404)</code></figcaption></figure><figure class="fg"><div class="ph"><div class="scr "><div class="sb lt"><span>08.00</span><span class="bat"></span></div><div class="ab"><div class="bk"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></div><div class="tt"><div>Pengingat vaksin</div></div></div><div class="state"><div class="si ok"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg></div><h2>Tidak ada vaksin jatuh tempo</h2><p class="mu">Pengingat muncul 7 hari sebelum jadwal vaksin sapi.</p></div></div></div><figcaption><b>Daftar kosong</b><code>Empty state</code></figcaption></figure></div></section>
+
+<section id="dasar"><h2>Dasar visual</h2>
+<p class="intro">Warna dan bentuk tetap dari desainmu (biru Si-Sapi, kartu membulat, header melengkung). Yang berubah: ukuran teks dan kontras.</p>
+<div class="sw">
+<div><i style="background:#1B1464"></i><b>Navy</b><code>#1B1464</code><span>Judul</span></div>
+<div><i style="background:#2D5FAD"></i><b>Royal</b><code>#2D5FAD</code><span>Tombol utama</span></div>
+<div><i style="background:#1890DB"></i><b>Sky</b><code>#1890DB</code><span>Header, tombol Beranda</span></div>
+<div><i style="background:#EEF4FD;border:1px solid #CBD6EA"></i><b>Mist</b><code>#EEF4FD</code><span>Latar layar</span></div>
+<div><i style="background:#10183A"></i><b>Ink</b><code>#10183A</code><span>Teks isi</span></div>
+<div><i style="background:#566384"></i><b>Muted</b><code>#566384</code><span>Teks pendukung</span></div>
+<div><i style="background:#C62828"></i><b>Danger</b><code>#C62828</code><span>Sakit, terlambat, keluar</span></div>
+<div><i style="background:#B45309"></i><b>Warn</b><code>#B45309</code><span>Segera jatuh tempo</span></div>
+<div><i style="background:#17784F"></i><b>Ok</b><code>#17784F</code><span>Berhasil, naik berat</span></div>
+</div>
+<div class="tw"><table><thead><tr><th>Elemen</th><th>Ukuran</th><th>Alasan</th></tr></thead><tbody>
+<tr><td>Judul layar</td><td>24sp, Lexend 700</td><td>Terbaca sekilas di luar ruangan</td></tr>
+<tr><td>Angka berat dan jumlah pakan</td><td>40sp</td><td>Input utama, harus paling menonjol</td></tr>
+<tr><td>Teks isi dan tombol</td><td>16sp</td><td>Sebelumnya terlalu kecil di desainmu</td></tr>
+<tr><td>Teks pendukung</td><td>14sp (batas bawah)</td><td>Tidak ada teks di bawah 14sp</td></tr>
+<tr><td>Area ketuk</td><td>minimal 48dp</td><td>Dipakai sambil memakai sarung tangan atau tangan kotor</td></tr>
+<tr><td>Sudut</td><td>Tombol dan kolom 12dp, kartu 16dp, sheet 24dp</td><td>Konsisten dengan desainmu</td></tr>
+<tr><td>Margin layar</td><td>16dp, jarak antar elemen 12dp</td><td>Satu ritme di semua layar</td></tr>
+</tbody></table></div>
+<p class="intro">Mockup digambar dengan skala 0,83 dari layar 360dp, jadi angka sp di tabel setara sekitar 83% ukuran pikselnya di halaman ini. Font Lexend dimasukkan ke <code>res/font</code>. Kalau font desainmu bukan Lexend, ganti saja di <code>themes.xml</code>.</p>
+<pre class="code">&lt;!-- res/values/colors.xml --&gt;
+&lt;color name="navy"&gt;#1B1464&lt;/color&gt;
+&lt;color name="royal"&gt;#2D5FAD&lt;/color&gt;
+&lt;color name="sky"&gt;#1890DB&lt;/color&gt;
+&lt;color name="mist"&gt;#EEF4FD&lt;/color&gt;
+&lt;color name="ink"&gt;#10183A&lt;/color&gt;
+&lt;color name="muted"&gt;#566384&lt;/color&gt;
+&lt;color name="line"&gt;#CBD6EA&lt;/color&gt;
+&lt;color name="danger"&gt;#C62828&lt;/color&gt;
+&lt;color name="warn"&gt;#B45309&lt;/color&gt;
+&lt;color name="ok"&gt;#17784F&lt;/color&gt;</pre></section>
+
+<section id="peta"><h2>Peta layar ke kode</h2>
+<p class="intro">Ini menggantikan tabel Referensi API di Checkpoint Mobile v2. Activity bertambah dari 6 menjadi 9, ditambah 3 Fragment untuk tab bottom nav, karena ada Pengingat, Profil sapi, dan Catat tindakan.</p>
+<pre class="mermaid">flowchart TD
+ L[Login] --> M[Beranda]
+ M -->|Scan QR| S[Scan QR]
+ M -->|Timbang, Lapor sakit| S
+ S -->|mode scan| P[Profil sapi]
+ S -->|mode timbang| W[Catat timbangan]
+ S -->|mode sakit| E[Lapor sakit]
+ P --> W
+ P --> E
+ P --> H[Riwayat kesehatan]
+ M --> F[Catat pakan]
+ M --> R[Pengingat vaksin]
+ R --> P
+ M --> U[Profil dan keluar]
+ M -->|khusus Vet| T[Catat tindakan]</pre>
+<div class="tw"><table><thead><tr><th>Layar</th><th>Class</th><th>ViewModel</th><th>Endpoint</th><th>Role</th><th>Catatan</th></tr></thead><tbody><tr><td><b>Login</b></td><td><code>LoginActivity</code></td><td>AuthViewModel</td><td><code>POST /login</code></td><td>Semua</td><td>Simpan token + role di SessionManager. Error 401 tampil inline di bawah password.</td></tr><tr><td><b>Beranda (Pekerja / Vet)</b></td><td><code>MainActivity + HomeFragment</code></td><td>AuthViewModel, HealthRecordViewModel</td><td><code>GET /me, GET /health-records/due</code></td><td>Semua</td><td>Tile Alat ditentukan oleh role. Pengingat = 2 item terdekat dari endpoint due.</td></tr><tr><td><b>Pengingat vaksin</b></td><td><code>ReminderListActivity</code></td><td>HealthRecordViewModel</td><td><code>GET /health-records/due</code></td><td>Semua</td><td>Sudah terurut dari jatuh tempo terdekat. Ketuk baris membuka profil sapi.</td></tr><tr><td><b>Scan QR</b></td><td><code>ScanActivity</code></td><td>- (hasil scan dikirim ke layar tujuan)</td><td><code>-</code></td><td>Semua</td><td>Satu layar, tiga mode lewat Intent extra: scan, timbang, sakit. Ada tombol ketik nomor tag.</td></tr><tr><td><b>Profil sapi</b></td><td><code>LivestockDetailActivity</code></td><td>LivestockViewModel</td><td><code>GET /livestocks/{tagNumber}</code></td><td>Semua</td><td>Tag tidak ada: tampil state "Sapi tidak ditemukan".</td></tr><tr><td><b>Catat timbangan</b></td><td><code>WeightInputActivity</code></td><td>WeightLogViewModel</td><td><code>POST /livestocks/{tagNumber}/weight-logs</code></td><td>Pekerja</td><td>Kirim berat + tanggal. Cek nama field persis di WeightLogController. Selisih dari berat terakhir dihitung di sisi app.</td></tr><tr><td><b>Timbangan tersimpan</b></td><td><code>(state di WeightInputActivity)</code></td><td>WeightLogViewModel</td><td><code>-</code></td><td>Pekerja</td><td>Tampilkan lewat UiState.Success, bukan Activity baru.</td></tr><tr><td><b>Catat pakan</b></td><td><code>FeedInputActivity</code></td><td>FeedViewModel</td><td><code>GET /cages, GET /feeds, POST /cages/{id}/feed</code></td><td>Pekerja</td><td>Field amount_used (min 0,01). Stok dari GET /feeds untuk preview sisa.</td></tr><tr><td><b>Lapor sakit</b></td><td><code>EmergencyReportActivity</code></td><td>HealthRecordViewModel</td><td><code>POST /livestocks/{tagNumber}/health-report</code></td><td>Pekerja, Vet</td><td>Multipart: type=emergency_report, date, diagnosis (gejala), treatment, photo.</td></tr><tr><td><b>Catat tindakan</b></td><td><code>TreatmentActivity</code></td><td>HealthRecordViewModel</td><td><code>POST /livestocks/{tagNumber}/health-report</code></td><td>Vet</td><td>type=vaccination atau treatment. next_due_date hanya untuk vaksinasi.</td></tr><tr><td><b>Riwayat kesehatan</b></td><td><code>HistoryFragment (di MainActivity)</code></td><td>HealthRecordViewModel</td><td><code>GET /livestocks/{tagNumber}/health-records</code></td><td>Semua</td><td>Cari lewat tag atau scan. Sudah terurut terbaru.</td></tr><tr><td><b>Profil + keluar</b></td><td><code>ProfileFragment (di MainActivity)</code></td><td>AuthViewModel</td><td><code>GET /me, POST /logout</code></td><td>Semua</td><td>Dialog konfirmasi sebelum logout. Hapus token di SessionManager.</td></tr><tr><td><b>State: loading / offline / tidak ditemukan / kosong</b></td><td><code>Komponen layout dipakai ulang</code></td><td>UiState di semua ViewModel</td><td><code>-</code></td><td>Semua</td><td>Satu layout include untuk tiap state, supaya tidak ditulis ulang per Activity.</td></tr></tbody></table></div>
+<p class="intro">Foto di Lapor sakit dikirim sebagai multipart di Retrofit (<code>@Multipart</code> dengan <code>MultipartBody.Part</code>). Itu bagian paling baru bagimu, jadi kerjakan paling akhir, sesuai urutan 10 langkah di checkpoint.</p></section>
+
+<section id="ubah"><h2>Perubahan dari desainmu</h2>
+<div class="chg">
+<div><h3>Teks lebih besar</h3><p>Teks notifikasi dan deskripsi Alat naik ke minimal 14sp. Tombol Login 16sp. Aplikasi ini dipakai di kandang, sering kena matahari.</p></div>
+<div><h3>Notifikasi menjadi Pengingat</h3><p>Backend belum punya endpoint notifikasi dari manager, tapi <code>GET /health-records/due</code> sudah ada. Pengingat vaksin bisa jalan hari ini tanpa mengubah API. Kalau kamu tetap ingin pengumuman dari manager, perlu tabel dan endpoint baru, dan itu sebaiknya masuk daftar "pengembangan lanjutan" di laporan.</p></div>
+<div><h3>Satu layar scroll, bukan dua panel yang saling membuka</h3><p>Alat dipindah ke atas karena itu aksi utama. Pengingat di bawah, cukup 2 item plus "Lihat semua". Tampilannya hampir sama, tapi tidak butuh BottomSheet atau MotionLayout.</p></div>
+<div><h3>Logout pindah ke Profil</h3><p>Sebelumnya sejajar dengan Beranda dan Riwayat, jadi mudah tertekan tanpa sengaja. Sekarang ada dialog konfirmasi.</p></div>
+<div><h3>Bottom nav punya label</h3><p>Tombol Beranda yang menonjol di tengah tetap dipertahankan sebagai ciri desainmu. Di Android, buat dengan <code>LinearLayout</code> biasa, lalu geser lingkaran Beranda ke atas dengan <code>translationY</code> negatif dan beri elevation.</p></div>
+<div><h3>Kolom login lebih jelas</h3><p>Border kolom diperkuat, ada tombol lihat password, dan pesan error muncul langsung di kartu.</p></div>
+<div><h3>"Worker" menjadi "Pekerja"</h3><p>Bahasa konsisten dengan laporan dan aplikasi desktop.</p></div>
+<div><h3>Timbang dan Lapor sakit langsung minta scan</h3><p>Pekerja tidak perlu memilih sapi lewat dropdown. Ketik nomor tag disediakan sebagai cadangan kalau QR rusak.</p></div>
+</div>
+<h3 class="sub">Keterbatasan backend yang perlu kamu putuskan</h3>
+<ul class="gap">
+<li><b>Notifikasi dari manager:</b> tidak ada endpoint. Solusi cepat: pakai pengingat vaksin seperti di atas.</li>
+<li><b>Riwayat input milik pekerja:</b> tidak ada endpoint. Tab Riwayat saya ubah menjadi riwayat kesehatan per sapi (<code>GET /livestocks/{tag}/health-records</code>). Berat tidak punya endpoint riwayat, jadi profil sapi hanya menampilkan berat terakhir.</li>
+<li><b>Nama field timbangan:</b> saya belum menemukan nama field pastinya di percakapan. Cek <code>WeightLogController</code> sebelum membuat <code>CreateWeightLogRequest</code>.</li>
+<li><b>Logo:</b> yang tergambar di mockup hanya pengganti sederhana. Pakai logo aslimu saat membuat layout.</li>
+</ul></section>
+</main>
+<footer class="ft">Rancangan ini belum diuji di perangkat. Ukuran piksel di halaman ini lebih kecil dari ukuran sebenarnya (skala 0,83).</footer>
+
+<!--claude-mermaid-runtime-begin:3477-->
+<style>.mermaid-diagram{margin-block:4px}.mermaid-diagram svg{display:block;margin:0 auto;max-width:100%;height:auto}</style>
+<script src="/_runtime/mermaid-11.16.1.min.js"></script>
+<script>(function(){
+var CFG={"palettes":{"light":{"surface":"#f4efe4","text":"#42392e","line":"#8a7f6d","border":"#7a6c52","bg":"#fffdf8"},"dark":{"surface":"#262b34","text":"#f2f3f5","line":"#a8adb8","border":"#9aa4b8","bg":"#1f232b"}}};
+if(typeof mermaid==='undefined')return;
+var pres=Array.prototype.slice.call(document.querySelectorAll('pre.mermaid')).filter(function(p){if(p.hasAttribute('data-claude-mermaid-claimed'))return false;p.setAttribute('data-claude-mermaid-claimed','1');return true;});
+if(!pres.length)return;
+var mq=window.matchMedia?window.matchMedia('(prefers-color-scheme: dark)'):null;
+var root=document.documentElement;
+var items=pres.map(function(pre){
+var mount=document.createElement('div');mount.className='mermaid-diagram';
+return {pre:pre,mount:mount,src:pre.textContent||''};
+});
+var seq=0;
+var renderGen=0;
+var lastKey='';
+function pageBg(fallback){
+var els=[document.body,document.documentElement];
+for(var i=0;i<els.length;i++){
+var c=els[i]&&getComputedStyle(els[i]).backgroundColor;
+if(c&&c!=='transparent'&&c!=='rgba(0, 0, 0, 0)')return c;
+}
+return fallback;
+}
+function render(){
+var theme=root.getAttribute('data-theme');
+var dark=theme==='dark'||(!!(mq&&mq.matches)&&theme!=='light');
+var pal=dark?CFG.palettes.dark:CFG.palettes.light;
+var bg=pageBg(pal.bg);
+var key=(dark?'d':'l')+'|'+bg;
+if(key===lastKey)return;
+lastKey=key;
+var gen=++renderGen;
+var font=getComputedStyle(document.body).fontFamily||'sans-serif';
+var nat={useMaxWidth:false};
+mermaid.initialize({
+startOnLoad:false,securityLevel:'strict',theme:'base',
+flowchart:nat,sequence:nat,er:nat,state:nat,class:nat,pie:nat,
+gantt:nat,journey:nat,timeline:nat,gitGraph:nat,mindmap:nat,xyChart:nat,
+quadrantChart:nat,sankey:nat,c4:nat,requirement:nat,block:nat,
+packet:nat,kanban:nat,architecture:nat,radar:nat,
+themeVariables:{background:bg,mainBkg:pal.surface,primaryColor:pal.surface,
+primaryTextColor:pal.text,lineColor:pal.line,primaryBorderColor:pal.border,
+nodeBorder:pal.border,clusterBorder:pal.border,edgeLabelBackground:bg,
+clusterBkg:'rgba(127,127,127,0.07)',titleColor:pal.text,
+darkMode:dark,rowOdd:bg,rowEven:'rgba(127,127,127,0.07)',
+attributeBackgroundColorOdd:bg,attributeBackgroundColorEven:'rgba(127,127,127,0.07)',
+fontSize:'16px',fontFamily:font},
+themeCSS:'.node rect, .node circle, .node polygon, .node path, .cluster rect { stroke-width: 2px; }'
+});
+items.forEach(function(it){
+var id='claude-mermaid-'+seq++;
+mermaid.render(id,it.src).then(function(r){
+if(gen!==renderGen)return;
+var prev=it.pre.previousElementSibling;
+if(prev&&prev.className==='mermaid-diagram'&&prev!==it.mount)return;
+it.mount.innerHTML=r.svg;
+if(!it.mount.parentNode)it.pre.parentNode.insertBefore(it.mount,it.pre);
+it.pre.style.display='none';
+},function(){
+var scratch=document.getElementById(id);
+if(scratch)scratch.parentNode.removeChild(scratch);
+scratch=document.getElementById('d'+id);
+if(scratch)scratch.parentNode.removeChild(scratch);
+if(gen!==renderGen)return;
+if(it.mount.parentNode)it.mount.parentNode.removeChild(it.mount);
+it.pre.style.display='';
+});
+});
+}
+render();
+if(mq&&mq.addEventListener)mq.addEventListener('change',render);
+if(typeof MutationObserver!=='undefined')new MutationObserver(render).observe(root,{attributes:true,attributeFilter:['data-theme']});
+})();</script>
+<!--claude-mermaid-runtime-end-->
+</body></html>

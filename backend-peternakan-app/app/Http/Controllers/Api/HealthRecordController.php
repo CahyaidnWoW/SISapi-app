@@ -72,4 +72,9 @@ class HealthRecordController extends Controller
     {
         return response()->json($this->healthRecordService->getDueVaccinations());
     }
+
+    public function emergency()
+    {
+    return response()->json($this->healthRecordService->getEmergencyReports());
+    }
 }

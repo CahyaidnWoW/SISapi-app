@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="navy">#1B1464</color>
+    <color name="royal">#2D5FAD</color>
+    <color name="sky">#1890DB</color>
+    <color name="mist">#EEF4FD</color>
+    <color name="ink">#10183A</color>
+    <color name="muted">#566384</color>
+    <color name="line">#8FA3CC</color>
+    <color name="warn">#EB5E31</color>
+    <color name="danger">#C62828</color>
+    <color name="ok">#17784F</color>
+</resources>

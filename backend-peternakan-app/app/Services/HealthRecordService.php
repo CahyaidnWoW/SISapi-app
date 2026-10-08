@@ -67,9 +67,18 @@ class HealthRecordService
     {
         return HealthRecord::where('type', 'vaccination')
             ->whereNotNull('next_due_date')
-            ->where('next_due_date', '<=', now()->addDays(7)) // tampil H-7 sebelum jatuh tempo
+            ->where('next_due_date', '<=', now()->addDays(7))
             ->with('livestock')
             ->orderBy('next_due_date')
             ->get();
+    }
+
+    public function getEmergencyReports()
+    {
+    return HealthRecord::where('type', 'emergency_report')
+        ->with('livestock')
+        ->orderByDesc('date')
+        ->orderByDesc('id')
+        ->get();
     }
 }

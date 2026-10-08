@@ -45,6 +45,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/livestocks/{tagNumber}/health-records', [HealthRecordController::class, 'byLivestock']);
     Route::patch('/health-records/{id}', [HealthRecordController::class, 'update']);
     Route::get('/health-records/due', [HealthRecordController::class, 'due']);
+    Route::get('/health-records/emergency', [HealthRecordController::class, 'emergency']);
 
     Route::post('/livestocks/{tagNumber}/weight-logs', [WeightLogController::class, 'storeByTag']);
 

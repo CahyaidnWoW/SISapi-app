@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Logo SEMENTARA. Ganti: taruh logo asli di res/drawable/logo_sisapi.png,
+     lalu ubah android:src di activity_login.xml menjadi @drawable/logo_sisapi -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="72dp"
+    android:height="72dp"
+    android:viewportWidth="64"
+    android:viewportHeight="64">
+    <path
+        android:fillColor="#1B3F8F"
+        android:pathData="M1,32a31,31 0 1 0 62,0a31,31 0 1 0 -62,0" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M24,19c-3,-4 -3,-8 -1,-10 M40,19c3,-4 3,-8 1,-10"
+        android:strokeColor="#FFFFFF"
+        android:strokeLineCap="round"
+        android:strokeWidth="2.6" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M9.5,23a6.5,3.4 0 1 0 13,0a6.5,3.4 0 1 0 -13,0" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M41.5,23a6.5,3.4 0 1 0 13,0a6.5,3.4 0 1 0 -13,0" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M22,20c0,-5 20,-5 20,0l2,13c0,7 -6,11 -12,11s-12,-4 -12,-11z" />
+    <path
+        android:fillColor="#9FB6E3"
+        android:pathData="M24.5,37a7.5,5 0 1 0 15,0a7.5,5 0 1 0 -15,0" />
+    <path
+        android:fillColor="#1B3F8F"
+        android:pathData="M28.5,37a1,1 0 1 0 2,0a1,1 0 1 0 -2,0 M33.5,37a1,1 0 1 0 2,0a1,1 0 1 0 -2,0 M24.9,28a1.6,1.6 0 1 0 3.2,0a1.6,1.6 0 1 0 -3.2,0 M35.9,28a1.6,1.6 0 1 0 3.2,0a1.6,1.6 0 1 0 -3.2,0" />
+</vector>
