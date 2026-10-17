@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Services\LivestockService;
 use App\Models\Livestock;
+use App\Models\LivestockBreed;
 use Illuminate\Http\Request;
 
 class LivestockController extends Controller
@@ -38,25 +39,66 @@ class LivestockController extends Controller
     }
 
     public function update(Request $request, $id)
-{
-    $livestock = Livestock::findOrFail($id);
+    {
+        $livestock = Livestock::findOrFail($id);
 
-    $validated = $request->validate([
-        'tag_number' => 'required|string|unique:livestocks,tag_number,' . $id,
-        'cage_id'    => 'required|exists:cages,id',
-        'breed'      => 'required|string|max:100',
-        'gender'     => 'required|in:jantan,betina',
-        'birth_date' => 'nullable|date',
-        'status'     => 'required|in:aktif,terjual,mati,afkir',
-    ]);
+        $validated = $request->validate([
+            'tag_number' => 'required|string|unique:livestocks,tag_number,' . $id,
+            'cage_id'    => 'required|exists:cages,id',
+            'breed'      => 'nullable|string|max:100',
+            'breed_id'   => 'nullable|exists:livestock_breeds,id',
+            'gender'     => 'required|in:male,female,jantan,betina',
+            'birth_date' => 'nullable|date',
+            'status'     => 'required|in:healthy,sick,sold,dead,aktif,terjual,mati,afkir',
+        ]);
 
-    $livestock->update($validated);
+        $genderMap = [
+            'jantan' => 'male',
+            'betina' => 'female',
+            'male'   => 'male',
+            'female' => 'female',
+        ];
+        $gender = $genderMap[strtolower($validated['gender'])] ?? 'male';
 
-    return response()->json([
-        'message' => 'Data sapi berhasil diperbarui',
-        'data'    => $livestock
-    ]);
-}
+        $statusMap = [
+            'aktif'   => 'healthy',
+            'healthy' => 'healthy',
+            'sick'    => 'sick',
+            'afkir'   => 'sick',
+            'terjual' => 'sold',
+            'sold'    => 'sold',
+            'mati'    => 'dead',
+            'dead'    => 'dead',
+        ];
+        $status = $statusMap[strtolower($validated['status'])] ?? 'healthy';
+
+        $breedId = $validated['breed_id'] ?? null;
+        if (!$breedId && !empty($validated['breed'])) {
+            $breed = LivestockBreed::where('breed_name', $validated['breed'])->first();
+            if ($breed) {
+                $breedId = $breed->id;
+            }
+        }
+
+        $updateData = [
+            'tag_number' => $validated['tag_number'],
+            'cage_id'    => $validated['cage_id'],
+            'gender'     => $gender,
+            'birth_date' => $validated['birth_date'] ?? $livestock->birth_date,
+            'status'     => $status,
+        ];
+
+        if ($breedId) {
+            $updateData['breed_id'] = $breedId;
+        }
+
+        $livestock->update($updateData);
+
+        return response()->json([
+            'message' => 'Data sapi berhasil diperbarui',
+            'data'    => $livestock->load(['cage', 'breed'])
+        ]);
+    }
 
 public function destroy($id)
 {

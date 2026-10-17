@@ -1,4 +1,4 @@
-﻿using SISapi_Desktop.Models;
+using SISapi_Desktop.Models;
 using SISapi_Desktop.Services;
 using System;
 using System.Windows;
@@ -77,6 +77,56 @@ namespace SISapi_Desktop.Views
         {
             TxtError.Text = message;
             TxtError.Visibility = Visibility.Visible;
+        }
+
+        private void BtnViewPhoto_Click(object sender, RoutedEventArgs e)
+        {
+            if ((sender as Button)?.DataContext is HealthRecord record && !string.IsNullOrEmpty(record.PhotoUrl ?? record.PhotoPath))
+            {
+                string photoUrl = record.PhotoUrl;
+                if (string.IsNullOrEmpty(photoUrl))
+                {
+                    photoUrl = "http://sisapi.smkn1sumedang.sch.id/storage/" + record.PhotoPath;
+                }
+
+                try
+                {
+                    var photoWindow = new Window
+                    {
+                        Title = $"Foto Bukti Laporan Darurat - {record.Date:dd MMM yyyy}",
+                        Width = 480,
+                        Height = 520,
+                        WindowStartupLocation = WindowStartupLocation.CenterOwner,
+                        Owner = Window.GetWindow(this),
+                        Background = System.Windows.Media.Brushes.White
+                    };
+
+                    var stack = new StackPanel { Margin = new Thickness(16) };
+                    stack.Children.Add(new TextBlock
+                    {
+                        Text = $"Foto Laporan (Diagnosis: {record.Diagnosis ?? "-"})",
+                        FontWeight = FontWeights.Bold,
+                        FontSize = 14,
+                        Margin = new Thickness(0, 0, 0, 12),
+                        Foreground = (System.Windows.Media.Brush)new System.Windows.Media.BrushConverter().ConvertFrom("#1E3259")
+                    });
+
+                    var img = new Image
+                    {
+                        MaxHeight = 400,
+                        Stretch = System.Windows.Media.Stretch.Uniform,
+                        Source = new System.Windows.Media.Imaging.BitmapImage(new Uri(photoUrl))
+                    };
+                    stack.Children.Add(img);
+
+                    photoWindow.Content = stack;
+                    photoWindow.ShowDialog();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Gagal membuka gambar: {ex.Message}", "Error Foto", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
+            }
         }
     }
 }

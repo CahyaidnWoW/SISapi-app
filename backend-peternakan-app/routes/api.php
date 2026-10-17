@@ -27,15 +27,15 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/breeds', [LivestockBreedController::class, 'store']);
 
     Route::get('/feeds', [FeedStockController::class, 'index']);
-    route::post('/feeds', [FeedStockController::class, 'store']);
+    Route::post('/feeds', [FeedStockController::class, 'store']);
     Route::put('/feeds/{id}', [FeedStockController::class, 'update']);
     Route::delete('/feeds/{id}', [FeedStockController::class, 'destroy']);
     Route::post('/feeds/batches', [FeedStockController::class, 'addBatch']);
 
     Route::get('/livestocks', [LivestockController::class, 'index']);
     Route::post('/livestocks', [LivestockController::class, 'store']);
-    route::patch('/livestocks/{id}', [LivestockController::class, 'update']);
-    route::delete('/livestocks/{id}', [LivestockController::class, 'destroy']);
+    Route::match(['/put', '/patch'], '/livestocks/{id}', [LivestockController::class, 'update']);
+    Route::delete('/livestocks/{id}', [LivestockController::class, 'destroy']);
     Route::get('/livestocks/{tagNumber}', [LivestockController::class, 'showByTag']);
 
     Route::post('/cages/{id}/feed', [FeedConsumptionController::class, 'store']);

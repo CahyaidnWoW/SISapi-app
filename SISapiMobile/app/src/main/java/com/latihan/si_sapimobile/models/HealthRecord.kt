@@ -15,5 +15,6 @@ data class HealthRecord(
     val date: String? = null,                 // yyyy-MM-dd
     @SerializedName("next_due_date") val nextDueDate: String? = null,
     @SerializedName("photo_path") val photoPath: String? = null,
+    @SerializedName("photo_url") val photoUrl: String? = null,
     val livestock: Livestock? = null          // relasi, kalau di-eager-load
 )

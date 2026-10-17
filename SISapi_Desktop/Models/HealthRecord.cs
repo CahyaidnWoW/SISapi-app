@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 using System;
 
 namespace SISapi_Desktop.Models
@@ -22,6 +22,9 @@ namespace SISapi_Desktop.Models
 
         [JsonProperty("photo_path")]
         public string PhotoPath { get; set; }
+
+        [JsonProperty("photo_url")]
+        public string PhotoUrl { get; set; }
 
         [JsonProperty("next_due_date")]
         public DateTime? NextDueDate { get; set; }

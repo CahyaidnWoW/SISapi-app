@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="SISapi_Desktop.Views.HealthRecordView"
+<UserControl x:Class="SISapi_Desktop.Views.HealthRecordView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -155,6 +155,29 @@
                             <DataGridTextColumn Header="Diagnosis" Binding="{Binding Diagnosis}" Width="*"/>
                             <DataGridTextColumn Header="Treatment" Binding="{Binding Treatment}" Width="*"/>
                             <DataGridTextColumn Header="Next Due" Binding="{Binding NextDueDate, StringFormat=dd MMM yyyy}" Width="110"/>
+                            <DataGridTemplateColumn Header="Foto Bukti" Width="100">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Content="Lihat Foto" Click="BtnViewPhoto_Click"
+                                                Padding="8,2" FontSize="11" FontWeight="Bold"
+                                                Background="#0284C7" Foreground="White" Cursor="Hand" BorderThickness="0">
+                                            <Button.Style>
+                                                <Style TargetType="Button">
+                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding PhotoPath}" Value="{x:Null}">
+                                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding PhotoPath}" Value="">
+                                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Button.Style>
+                                        </Button>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
                         </DataGrid.Columns>
                     </DataGrid>
                 </StackPanel>

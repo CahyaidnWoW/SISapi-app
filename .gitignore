@@ -15,8 +15,6 @@ backend-peternakan-app/storage/logs/*
 **/.idea/
 *.iml
 
-Tracker files
-TrackerDesktop files
 
 
 .DS_Store
