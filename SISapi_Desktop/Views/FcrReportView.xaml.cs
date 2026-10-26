@@ -8,60 +8,49 @@ namespace SISapi_Desktop.Views
     public partial class FcrReportView : UserControl
     {
         private readonly FcrService _fcrService;
-        private readonly CageService _cageService;
 
         public FcrReportView()
         {
             InitializeComponent();
             _fcrService = new FcrService();
-            _cageService = new CageService();
-            LoadCages();
         }
 
-        private async void LoadCages()
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                CmbCage.ItemsSource = await _cageService.GetAllAsync();
-            }
-            catch (Exception ex)
-            {
-                ShowError($"Gagal memuat data kandang: {ex.Message}");
-            }
+            LoadAllFcrData();
         }
 
-        private async void BtnCalculate_Click(object sender, RoutedEventArgs e)
+        private void BtnRefresh_Click(object sender, RoutedEventArgs e)
+        {
+            LoadAllFcrData();
+        }
+
+        private async void LoadAllFcrData()
         {
             TxtError.Visibility = Visibility.Collapsed;
-            ResultPanel.Visibility = Visibility.Collapsed;
-
-            if (CmbCage.SelectedValue == null)
-            {
-                ShowError("Pilih kandang terlebih dahulu.");
-                return;
-            }
+            TxtStatus.Visibility = Visibility.Visible;
+            FcrItemsControl.ItemsSource = null;
 
             try
             {
-                int cageId = (int)CmbCage.SelectedValue;
-                var result = await _fcrService.GetByCageAsync(cageId);
+                var results = await _fcrService.GetAllFcrAsync();
 
-                TxtFcrValue.Text = result.Fcr.ToString("0.00");
-                TxtTotalFeed.Text = $"Total pakan dikonsumsi: {result.TotalFeedConsumed} kg";
-                TxtWeightGain.Text = $"Total kenaikan berat: {result.TotalWeightGain} kg";
-
-                ResultPanel.Visibility = Visibility.Visible;
+                if (results == null || results.Count == 0)
+                {
+                    TxtStatus.Text = "Belum ada data FCR / Kandang kosong.";
+                }
+                else
+                {
+                    FcrItemsControl.ItemsSource = results;
+                    TxtStatus.Visibility = Visibility.Collapsed;
+                }
             }
             catch (Exception ex)
             {
-                ShowError($"Gagal menghitung FCR: {ex.Message}");
+                TxtStatus.Visibility = Visibility.Collapsed;
+                TxtError.Text = $"Gagal memuat data FCR: {ex.Message}";
+                TxtError.Visibility = Visibility.Visible;
             }
-        }
-
-        private void ShowError(string message)
-        {
-            TxtError.Text = message;
-            TxtError.Visibility = Visibility.Visible;
         }
     }
 }

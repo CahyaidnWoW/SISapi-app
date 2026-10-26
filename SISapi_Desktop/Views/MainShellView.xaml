@@ -74,6 +74,7 @@
                         <Button x:Name="BtnHealth" Content="Rekam Medis" Click="Nav_Click" Style="{StaticResource SidebarButton}"/>
                         <Button x:Name="BtnQr" Content="QR Generator" Click="Nav_Click" Style="{StaticResource SidebarButton}"/>
                         <Button x:Name="BtnFcr" Content="Laporan FCR" Click="Nav_Click" Style="{StaticResource SidebarButton}"/>
+                        <Button x:Name="BtnActivityLog" Content="Log Aktivitas" Click="Nav_Click" Style="{StaticResource SidebarButton}"/>
                     </StackPanel>
                 </ScrollViewer>
             </DockPanel>

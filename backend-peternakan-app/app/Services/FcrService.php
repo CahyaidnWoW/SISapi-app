@@ -36,4 +36,16 @@ class FcrService
             'fcr'                    => $fcr,
         ];
     }
+    // kayanya kalau langsung semua ditampilin bagus juga ya
+    public function calculateAllCagesFcr(): array
+    {
+        $cages = Cage::all();
+        $results = [];
+
+        foreach ($cages as $cage) {
+            $results[] = $this->calculateCageFcr($cage->id);
+        }
+
+        return $results;
+    }
 }

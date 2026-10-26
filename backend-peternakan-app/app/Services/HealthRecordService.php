@@ -23,6 +23,12 @@ class HealthRecordService
             $photoPath = $photo->store('health-reports', 'public');
         }
 
+        if ($data['type'] === 'emergency_report') {
+            $livestock->update(['status' => 'sick']);
+        } elseif ($data['type'] === 'treatment') {
+            $livestock->update(['status' => 'healthy']);
+        }
+
         return HealthRecord::create([
             'livestock_id' => $livestock->id,
             'type' => $data['type'],

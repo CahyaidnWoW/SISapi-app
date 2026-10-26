@@ -11,7 +11,8 @@ namespace SISapi_Desktop.Services
     public class ApiClient
     {
         private readonly HttpClient _client;
-        private const string BaseUrl = "http://sisapi.smkn1sumedang.sch.id/api/";
+        private const string BaseUrl = "http://127.0.0.1:8000/api/";
+        //private const string BaseUrl = "http://sisapi.smkn1sumedang.sch.id/api/";
 
         public ApiClient()
         {
@@ -93,5 +94,18 @@ namespace SISapi_Desktop.Services
             if (!response.IsSuccessStatusCode)
                 throw new Exception($"API Error ({(int)response.StatusCode}): {json}");
         }
+
+        public async Task<byte[]> GetByteArrayAsync(string endpoint)
+        {
+            AttachAuthToken();
+            var response = await _client.GetAsync(endpoint);
+            if (!response.IsSuccessStatusCode)
+            {
+                var json = await response.Content.ReadAsStringAsync();
+                throw new Exception($"API Error ({(int)response.StatusCode}): {json}");
+            }
+            return await response.Content.ReadAsByteArrayAsync();
+        }
+
     }
 }

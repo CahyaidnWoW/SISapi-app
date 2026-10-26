@@ -10,10 +10,16 @@ use App\Http\Controllers\Api\FeedConsumptionController;
 use App\Http\Controllers\Api\HealthRecordController;
 use App\Http\Controllers\Api\WeightLogController;
 use App\Http\Controllers\Api\FcrController;
+use App\Http\Controllers\Api\DashboardController;
+use App\Http\Controllers\Api\ActivityLogController;
+use App\Http\Middleware\LogActivity;
+use App\Http\Controllers\Api\ReportController;
+use App\Http\Controllers\Api\WorkerTaskController;
+
 
 Route::post('/login', [AuthController::class, 'login']);
 
-Route::middleware('auth:sanctum')->group(function () {
+Route::middleware('auth:sanctum', LogActivity::class)->group(function () {
     Route::get('/me', [AuthController::class, 'me']);
     Route::post('/logout', [AuthController::class, 'logout']);
 
@@ -34,7 +40,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('/livestocks', [LivestockController::class, 'index']);
     Route::post('/livestocks', [LivestockController::class, 'store']);
-    Route::match(['/put', '/patch'], '/livestocks/{id}', [LivestockController::class, 'update']);
+    Route::match(['put', 'patch'], '/livestocks/{id}', [LivestockController::class, 'update']);
     Route::delete('/livestocks/{id}', [LivestockController::class, 'destroy']);
     Route::get('/livestocks/{tagNumber}', [LivestockController::class, 'showByTag']);
 
@@ -50,4 +56,15 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/livestocks/{tagNumber}/weight-logs', [WeightLogController::class, 'storeByTag']);
 
     Route::get('/cages/{id}/fcr', [FcrController::class, 'getCageFcr']);
-});
+    Route::get('/fcr', [FcrController::class, 'getAllFcr']);
+
+    Route::get('/dashboard/summary', [DashboardController::class, 'summary']);
+    Route::get('/dashboard/growth-trend', [DashboardController::class, 'growthTrend']);
+    Route::get('/dashboard/population-trend', [DashboardController::class, 'populationTrend']);
+
+    Route::get('/logs/activity', [ActivityLogController::class, 'index']);
+
+    Route::get('/reports/pdf', [ReportController::class, 'exportPdf']);
+
+    Route::get('/worker/daily-tasks', [WorkerTaskController::class, 'dailyTasks']);
+    });

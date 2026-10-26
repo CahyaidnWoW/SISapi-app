@@ -1,0 +1,35 @@
+﻿<Window x:Class="SISapi_Desktop.Views.ExportReportDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Ekspor Laporan" Height="260" Width="380"
+        WindowStartupLocation="CenterOwner" ResizeMode="NoResize"
+        Background="#F8FAFC">
+
+    <Grid Margin="22">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="Cetak Laporan Operasional" FontSize="16" FontWeight="Bold" Foreground="#1E3259" Margin="0,0,0,4"/>
+        <TextBlock Grid.Row="1" Text="Pilih rentang waktu dokumen laporan resmi (PDF)." FontSize="12" Foreground="#64748B" Margin="0,0,0,16"/>
+
+        <StackPanel Grid.Row="2" Margin="0,0,0,16">
+            <RadioButton x:Name="RbDaily" Content="Laporan Harian (Hari Ini)" IsChecked="True" FontSize="13" Margin="0,0,0,8" Foreground="#1E293B"/>
+            <RadioButton x:Name="RbWeekly" Content="Laporan Mingguan (7 Hari Terakhir)" FontSize="13" Margin="0,0,0,8" Foreground="#1E293B"/>
+            <RadioButton x:Name="RbMonthly" Content="Laporan Bulanan (Bulan Ini)" FontSize="13" Margin="0,0,0,8" Foreground="#1E293B"/>
+        </StackPanel>
+
+        <Grid Grid.Row="3">
+            <Button Content="Unduh Dokumen PDF" Click="BtnDownloadPdf_Click" 
+                    Background="#1E3259" Foreground="White" FontWeight="SemiBold" 
+                    Padding="16,8" Cursor="Hand" BorderThickness="0" HorizontalAlignment="Left"/>
+
+            <Button Content="Batal" Click="BtnClose_Click" 
+                    Background="Transparent" Foreground="#64748B" 
+                    BorderThickness="0" Cursor="Hand" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        </Grid>
+    </Grid>
+</Window>

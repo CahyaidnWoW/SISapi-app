@@ -1,39 +1,92 @@
 using SISapi_Desktop.Models;
 using SISapi_Desktop.Services;
+using SISapi.Desktop.Helper;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using SISapi_Desktop.Helpers;
 
 namespace SISapi_Desktop.Views
 {
     public partial class HealthRecordView : UserControl
     {
         private readonly HealthRecordService _healthRecordService;
+        private readonly LivestockService _livestockService;
+        private List<Livestock> _allLivestocks;
 
         public HealthRecordView()
         {
             InitializeComponent();
             _healthRecordService = new HealthRecordService();
+            _livestockService = new LivestockService();
+            _allLivestocks = new List<Livestock>();
+
+            CheckRoleAccess();
+            LoadLivestocks();
         }
 
-        private async void BtnLoadHistory_Click(object sender, RoutedEventArgs e)
+        private void CheckRoleAccess()
         {
-            TxtError.Visibility = Visibility.Collapsed;
-
-            if (string.IsNullOrWhiteSpace(TxtTagNumber.Text))
+            if (RoleHelper.IsManager)
             {
-                ShowError("Masukkan tag number sapi.");
-                return;
+                if (CardFormInput != null) CardFormInput.Visibility = Visibility.Collapsed;
             }
+        }
 
+        private async void LoadLivestocks()
+        {
             try
             {
-                var records = await _healthRecordService.GetByTagAsync(TxtTagNumber.Text.Trim());
+                var data = await _livestockService.GetAllAsync();
+                _allLivestocks = data ?? new List<Livestock>();
+                GridLivestock.ItemsSource = _allLivestocks;
+            }
+            catch (Exception ex)
+            {
+                ShowError($"Gagal memuat daftar sapi: {ex.Message}");
+            }
+        }
+
+        private void TxtSearchCow_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string q = TxtSearchCow.Text.Trim().ToLower();
+            if (string.IsNullOrEmpty(q))
+            {
+                GridLivestock.ItemsSource = _allLivestocks;
+            }
+            else
+            {
+                GridLivestock.ItemsSource = _allLivestocks.Where(c =>
+                    (c.TagNumber != null && c.TagNumber.ToLower().Contains(q)) ||
+                    (c.Cage?.Name != null && c.Cage.Name.ToLower().Contains(q)) ||
+                    (c.Breed?.BreedName != null && c.Breed.BreedName.ToLower().Contains(q))
+                ).ToList();
+            }
+        }
+
+        private async void GridLivestock_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (GridLivestock.SelectedItem is Livestock cow)
+            {
+                TxtTagNumber.Text = cow.TagNumber;
+                await LoadHistory(cow.TagNumber);
+            }
+        }
+
+        private async Task LoadHistory(string tagNumber)
+        {
+            TxtError.Visibility = Visibility.Collapsed;
+            try
+            {
+                var records = await _healthRecordService.GetByTagAsync(tagNumber);
                 GridHistory.ItemsSource = records;
             }
             catch (Exception ex)
             {
-                ShowError($"Gagal memuat riwayat: {ex.Message}");
+                ShowError($"Gagal memuat riwayat medis {tagNumber}: {ex.Message}");
             }
         }
 
@@ -41,9 +94,15 @@ namespace SISapi_Desktop.Views
         {
             TxtError.Visibility = Visibility.Collapsed;
 
-            if (string.IsNullOrWhiteSpace(TxtTagNumber.Text) || CmbType.SelectedItem == null || DpDate.SelectedDate == null)
+            if (string.IsNullOrWhiteSpace(TxtTagNumber.Text))
             {
-                ShowError("Tag number, tipe, dan tanggal wajib diisi.");
+                ShowError("Silakan pilih sapi di tabel atas terlebih dahulu.");
+                return;
+            }
+
+            if (CmbType.SelectedItem == null || DpDate.SelectedDate == null)
+            {
+                ShowError("Tipe tindakan dan tanggal wajib diisi.");
                 return;
             }
 
@@ -65,7 +124,7 @@ namespace SISapi_Desktop.Views
                 DpDate.SelectedDate = null;
                 DpNextDue.SelectedDate = null;
 
-                BtnLoadHistory_Click(sender, e); 
+                await LoadHistory(TxtTagNumber.Text.Trim());
             }
             catch (Exception ex)
             {

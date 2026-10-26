@@ -27,4 +27,18 @@ class FcrController extends Controller
             return response()->json(['message' => 'Kandang tidak ditemukan'], 404);
         }
     }
+
+    public function getAllFcr()
+    {
+        try {
+            $data = $this->fcrService->calculateAllCagesFcr();
+
+            return response()->json([
+                'status' => 'success',
+                'data'   => $data,
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Gagal mengambil data FCR: ' . $e->getMessage()], 500);
+        }
+    }
 }

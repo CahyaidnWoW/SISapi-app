@@ -71,4 +71,8 @@ interface ApiService {
 
     @GET("health-records/emergency")
     suspend fun getEmergencyReports(): Response<List<HealthRecord>>
+
+    @GET("worker/daily-tasks")
+    suspend fun getDailyTasks(): Response<com.latihan.si_sapimobile.models.WorkerTaskResponse>
+
 }

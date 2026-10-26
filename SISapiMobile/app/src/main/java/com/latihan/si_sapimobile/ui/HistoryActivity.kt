@@ -1,13 +1,19 @@
 package com.latihan.si_sapimobile.ui
 
 import android.content.Context
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,6 +24,11 @@ import com.latihan.si_sapimobile.helpers.BottomNav
 import com.latihan.si_sapimobile.helpers.UiState
 import com.latihan.si_sapimobile.models.HealthRecord
 import com.latihan.si_sapimobile.viewmodels.HistoryViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.net.URL
 
 class HistoryActivity : AppCompatActivity() {
 
@@ -34,7 +45,9 @@ class HistoryActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.rvHistory.layoutManager = LinearLayoutManager(this)
-        binding.rvHistory.adapter = HistoryAdapter()
+        binding.rvHistory.adapter = HistoryAdapter { photoUrl ->
+            showPhotoDialog(photoUrl)
+        }
 
         binding.btnSearch.setOnClickListener { doSearch() }
         binding.etTag.setOnEditorActionListener { _, actionId, _ ->
@@ -91,9 +104,51 @@ class HistoryActivity : AppCompatActivity() {
         imm.hideSoftInputFromWindow(binding.etTag.windowToken, 0)
         viewModel.load(binding.etTag.text.toString())
     }
+
+    private fun showPhotoDialog(photoUrl: String) {
+        val padding = (16 * resources.displayMetrics.density).toInt()
+        val container = LinearLayout(this).apply {
+            orientation = LinearLayout.VERTICAL
+            setPadding(padding, padding, padding, padding)
+        }
+
+        val progressBar = ProgressBar(this).apply {
+            isIndeterminate = true
+        }
+        val imageView = ImageView(this).apply {
+            adjustViewBounds = true
+            visibility = View.GONE
+        }
+
+        container.addView(progressBar)
+        container.addView(imageView)
+
+        AlertDialog.Builder(this)
+            .setTitle("Foto Bukti Kondisi Sapi")
+            .setView(container)
+            .setPositiveButton("Tutup", null)
+            .show()
+
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val stream = URL(photoUrl).openStream()
+                val bitmap = BitmapFactory.decodeStream(stream)
+                withContext(Dispatchers.Main) {
+                    progressBar.visibility = View.GONE
+                    imageView.setImageBitmap(bitmap)
+                    imageView.visibility = View.VISIBLE
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    progressBar.visibility = View.GONE
+                    Toast.makeText(this@HistoryActivity, "Gagal memuat gambar: ${e.localizedMessage}", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
 }
 
-private class HistoryAdapter : RecyclerView.Adapter<HistoryAdapter.VH>() {
+private class HistoryAdapter(private val onPhotoClick: (String) -> Unit) : RecyclerView.Adapter<HistoryAdapter.VH>() {
     private val items = mutableListOf<HealthRecord>()
 
     fun submit(newItems: List<HealthRecord>) {
@@ -131,6 +186,14 @@ private class HistoryAdapter : RecyclerView.Adapter<HistoryAdapter.VH>() {
             } else {
                 b.tvNextDue.visibility = View.VISIBLE
                 b.tvNextDue.text = "Jadwal berikutnya: $due"
+            }
+
+            val photo = r.photoUrl
+            if (!photo.isNullOrBlank()) {
+                b.btnViewPhoto.visibility = View.VISIBLE
+                b.btnViewPhoto.setOnClickListener { onPhotoClick(photo) }
+            } else {
+                b.btnViewPhoto.visibility = View.GONE
             }
         }
     }

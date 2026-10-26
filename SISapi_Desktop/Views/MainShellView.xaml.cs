@@ -27,9 +27,18 @@ namespace SISapi_Desktop.Views
             if (RoleHelper.IsVet)
             {
                 BtnCage.Visibility = Visibility.Collapsed;
+                BtnLivestock.Visibility = Visibility.Collapsed;
                 BtnFeed.Visibility = Visibility.Collapsed;
                 BtnQr.Visibility = Visibility.Collapsed;
                 BtnFcr.Visibility = Visibility.Collapsed;
+            }else if (RoleHelper.IsWorker)
+            {
+                BtnCage.Visibility = Visibility.Collapsed;
+                BtnLivestock.Visibility = Visibility.Collapsed;
+                BtnFeed.Visibility = Visibility.Collapsed;
+                BtnQr.Visibility = Visibility.Collapsed;
+                BtnFcr.Visibility = Visibility.Collapsed;
+                BtnHealth.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -63,13 +72,16 @@ namespace SISapi_Desktop.Views
                     case "BtnFcr":
                         ContentArea.Content = new FcrReportView();
                         break;
+                    case "BtnActivityLog":
+                        ContentArea.Content = new ActivityLogView();
+                        break;
                 }
             }
         }
 
         private void ResetSidebarButtons()
         {
-            Button[] buttons = { BtnDashboard, BtnLivestock, BtnCage, BtnFeed, BtnHealth, BtnQr, BtnFcr };
+            Button[] buttons = { BtnDashboard, BtnLivestock, BtnCage, BtnFeed, BtnHealth, BtnQr, BtnFcr, BtnActivityLog };
 
             foreach (var button in buttons)
             {

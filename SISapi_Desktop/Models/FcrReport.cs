@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace SISapi_Desktop.Models
 {
@@ -23,12 +24,12 @@ namespace SISapi_Desktop.Models
         public decimal Fcr { get; set; }
     }
 
-    public class FcrReportWrapper
+    public class FcrListWrapper
     {
         [JsonProperty("status")]
         public string Status { get; set; }
 
         [JsonProperty("data")]
-        public FcrReport Data { get; set; }
+        public List<FcrReport> Data { get; set; }
     }
 }

@@ -73,12 +73,15 @@
     </ApplicationDefinition>
     <Compile Include="Helper\QrCodeGenerator.cs" />
     <Compile Include="Helper\RoleHelper.cs" />
+    <Compile Include="Models\ActivityLog.cs" />
     <Compile Include="Models\Cage.cs" />
+    <Compile Include="Models\Dashboard.cs" />
     <Compile Include="Models\FcrReport.cs" />
     <Compile Include="Models\FeedStock.cs" />
     <Compile Include="Models\HealthRecord.cs" />
     <Compile Include="Models\Livestock.cs" />
     <Compile Include="Models\LivestockBreed.cs" />
+    <Compile Include="Services\ActivityLogServices.cs" />
     <Compile Include="Services\ApiClient.cs" />
     <Compile Include="Services\AuthService.cs" />
     <Compile Include="Services\BreedService.cs" />
@@ -88,11 +91,17 @@
     <Compile Include="Services\FeedService.cs" />
     <Compile Include="Services\HealthRecordService.cs" />
     <Compile Include="Services\LivestockService.cs" />
+    <Compile Include="Views\ActivityLogView.xaml.cs">
+      <DependentUpon>ActivityLogView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\CageView.xaml.cs">
       <DependentUpon>CageView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\DashboardView.xaml.cs">
       <DependentUpon>DashboardView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ExportReportsDialog.xaml.cs">
+      <DependentUpon>ExportReportsDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\FcrReportView.xaml.cs">
       <DependentUpon>FcrReportView.xaml</DependentUpon>
@@ -128,11 +137,19 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\ActivityLogView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\CageView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\DashboardView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ExportReportsDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

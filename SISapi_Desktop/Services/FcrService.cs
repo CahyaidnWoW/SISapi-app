@@ -1,4 +1,5 @@
 ﻿using SISapi_Desktop.Models;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace SISapi_Desktop.Services
@@ -12,9 +13,9 @@ namespace SISapi_Desktop.Services
             _apiClient = new ApiClient();
         }
 
-        public async Task<FcrReport> GetByCageAsync(int cageId)
+        public async Task<List<FcrReport>> GetAllFcrAsync()
         {
-            var wrapper = await _apiClient.GetAsync<FcrReportWrapper>($"cages/{cageId}/fcr");
+            var wrapper = await _apiClient.GetAsync<FcrListWrapper>("fcr");
             return wrapper.Data;
         }
     }

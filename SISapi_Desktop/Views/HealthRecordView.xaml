@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="650" d:DesignWidth="850"
+             d:DesignHeight="700" d:DesignWidth="900"
              Background="#F8FAFC"
              TextOptions.TextFormattingMode="Display"
              TextOptions.TextRenderingMode="ClearType">
@@ -21,9 +21,7 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}" 
-                                CornerRadius="6" 
-                                Padding="{TemplateBinding Padding}">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="6" Padding="{TemplateBinding Padding}">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                         <ControlTemplate.Triggers>
@@ -38,7 +36,48 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
+        <Style TargetType="DataGridColumnHeader">
+            <Setter Property="Background" Value="#F1F5F9"/>
+            <Setter Property="Foreground" Value="#1E293B"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Padding" Value="12,8"/>
+            <Setter Property="BorderThickness" Value="0,0,0,1"/>
+            <Setter Property="BorderBrush" Value="#CBD5E1"/>
+        </Style>
+
+        <Style TargetType="DataGridCell">
+            <Setter Property="Padding" Value="12,8"/>
+            <Setter Property="Foreground" Value="#0F172A"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="DataGridCell">
+                        <Border Padding="{TemplateBinding Padding}" Background="Transparent">
+                            <ContentPresenter VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="DataGridRow">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#F8FAFC"/>
+                </Trigger>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="#E0F2FE"/>
+                    <Setter Property="Foreground" Value="#0284C7"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </UserControl.Resources>
+
 
     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
         <Grid Margin="25">
@@ -50,33 +89,58 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <Border Grid.Row="0" Margin="0,0,0,20">
+            <Border Grid.Row="0" Margin="0,0,0,16">
                 <StackPanel>
                     <TextBlock Text="Rekam Medis" FontSize="26" FontWeight="Bold" Foreground="#1E3259"/>
                     <TextBlock Text="Kelola dan pantau riwayat kesehatan, vaksinasi, serta tindakan medis ternak." FontSize="13" Foreground="#334155" FontWeight="Medium" Margin="0,4,0,0"/>
                 </StackPanel>
             </Border>
 
-            <Border Grid.Row="1" Background="White" CornerRadius="10" Padding="18" BorderBrush="#CBD5E1" BorderThickness="1" Margin="0,0,0,16">
-                <Border.Effect>
-                    <DropShadowEffect BlurRadius="10" Color="#000000" Opacity="0.05" Direction="270" ShadowDepth="2"/>
-                </Border.Effect>
-                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                    <TextBlock Text="Tag Number Sapi:" VerticalAlignment="Center" FontSize="13" FontWeight="Bold" Foreground="#1E293B" Margin="0,0,12,0"/>
-                    <TextBox x:Name="TxtTagNumber" Width="180" Height="36" VerticalContentAlignment="Center" FontSize="13" Foreground="#0F172A" Padding="8,0" Margin="0,0,12,0"/>
-                    <Button x:Name="BtnLoadHistory" Content="Muat Riwayat" Click="BtnLoadHistory_Click" Style="{StaticResource PrimaryButtonStyle}"/>
-                </StackPanel>
-            </Border>
-
-            <Border Grid.Row="2" Background="White" Padding="20" CornerRadius="10" BorderBrush="#CBD5E1" BorderThickness="1" Margin="0,0,0,16">
+            <Border Grid.Row="1" Background="White" CornerRadius="10" Padding="16" BorderBrush="#CBD5E1" BorderThickness="1" Margin="0,0,0,16">
                 <Border.Effect>
                     <DropShadowEffect BlurRadius="10" Color="#000000" Opacity="0.05" Direction="270" ShadowDepth="2"/>
                 </Border.Effect>
                 <StackPanel>
-                    <TextBlock Text="Tambah Rekam Medis Baru" FontSize="16" FontWeight="Bold" Foreground="#1E3259" Margin="0,0,16,0"/>
+                    <Grid Margin="0,0,0,10">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <TextBlock Text="Pilih Sapi" FontSize="15" FontWeight="Bold" Foreground="#1E3259" VerticalAlignment="Center"/>
+                            <TextBlock Text="(Klik baris sapi untuk melihat riwayatnya)" FontSize="12" Foreground="#64748B" Margin="8,0,0,0" VerticalAlignment="Center"/>
+                        </StackPanel>
+
+                        <TextBox x:Name="TxtSearchCow" Width="200" Height="32" HorizontalAlignment="Right"
+                                 VerticalContentAlignment="Center" Padding="8,0" FontSize="12"
+                                 TextChanged="TxtSearchCow_TextChanged"
+                                 Tag="Cari tag / kandang..."/>
+                    </Grid>
+
+                    <DataGrid x:Name="GridLivestock" AutoGenerateColumns="False" IsReadOnly="True"
+                              SelectionMode="Single" SelectionChanged="GridLivestock_SelectionChanged"
+                              Height="160" Background="Transparent" BorderThickness="0"
+                              GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="#E2E8F0"
+                              HeadersVisibility="Column" RowHeight="38" FontSize="13" FontWeight="Medium">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Tag Sapi" Binding="{Binding TagNumber}" Width="120" FontWeight="Bold"/>
+                            <DataGridTextColumn Header="Kandang" Binding="{Binding Cage.Name}" Width="150"/>
+                            <DataGridTextColumn Header="Ras / Breed" Binding="{Binding Breed.BreedName}" Width="140"/>
+                            <DataGridTextColumn Header="Jenis Kelamin" Binding="{Binding Gender}" Width="120"/>
+                            <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                </StackPanel>
+            </Border>
+
+            <Border x:Name="CardFormInput" Grid.Row="2" Background="White" Padding="20" CornerRadius="10" BorderBrush="#CBD5E1" BorderThickness="1" Margin="0,0,0,16">
+                <Border.Effect>
+                    <DropShadowEffect BlurRadius="10" Color="#000000" Opacity="0.05" Direction="270" ShadowDepth="2"/>
+                </Border.Effect>
+                <StackPanel>
+                    <TextBlock Text="Tambah Rekam Medis Baru" FontSize="16" FontWeight="Bold" Foreground="#1E3259" Margin="0,0,0,14"/>
 
                     <Grid Margin="0,0,0,12">
                         <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="130"/>
+                            <ColumnDefinition Width="12"/>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="12"/>
                             <ColumnDefinition Width="*"/>
@@ -84,7 +148,14 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
+                        <!-- Tag Sapi Terpilih -->
                         <StackPanel Grid.Column="0">
+                            <TextBlock Text="Tag Sapi Terpilih" FontSize="12" FontWeight="Bold" Foreground="#475569" Margin="0,0,0,6"/>
+                            <TextBox x:Name="TxtTagNumber" Height="36" VerticalContentAlignment="Center" FontSize="13" FontWeight="Bold" Foreground="#1E3259" Background="#F1F5F9" IsReadOnly="True" Padding="8,0"/>
+                        </StackPanel>
+
+                        <!-- Tipe Tindakan -->
+                        <StackPanel Grid.Column="2">
                             <TextBlock Text="Tipe Tindakan" FontSize="12" FontWeight="Bold" Foreground="#475569" Margin="0,0,0,6"/>
                             <ComboBox x:Name="CmbType" Height="36" VerticalContentAlignment="Center" FontSize="13" Foreground="#0F172A" Padding="8,0">
                                 <ComboBoxItem Content="Vaksinasi" Tag="vaccination"/>
@@ -93,26 +164,29 @@
                             </ComboBox>
                         </StackPanel>
 
-                        <StackPanel Grid.Column="2">
+                        <!-- Tanggal -->
+                        <StackPanel Grid.Column="4">
                             <TextBlock Text="Tanggal Tindakan" FontSize="12" FontWeight="Bold" Foreground="#475569" Margin="0,0,0,6"/>
                             <DatePicker x:Name="DpDate" Height="36" VerticalContentAlignment="Center" FontSize="13" Foreground="#0F172A"/>
                         </StackPanel>
 
-                        <StackPanel Grid.Column="4">
+                        <!-- Next Due Date -->
+                        <StackPanel Grid.Column="6">
                             <TextBlock Text="Jatuh Tempo Berikutnya" FontSize="12" FontWeight="Bold" Foreground="#475569" Margin="0,0,0,6"/>
                             <DatePicker x:Name="DpNextDue" Height="36" VerticalContentAlignment="Center" FontSize="13" Foreground="#0F172A"/>
                         </StackPanel>
                     </Grid>
 
                     <TextBlock Text="Diagnosis (Opsional)" FontSize="12" FontWeight="Bold" Foreground="#475569" Margin="0,0,0,6"/>
-                    <TextBox x:Name="TxtDiagnosis" Tag="Diagnosis (opsional)" Height="36" VerticalContentAlignment="Center" FontSize="13" Foreground="#0F172A" Padding="8,0" Margin="0,0,0,12"/>
+                    <TextBox x:Name="TxtDiagnosis" Height="36" VerticalContentAlignment="Center" FontSize="13" Foreground="#0F172A" Padding="8,0" Margin="0,0,0,12"/>
 
                     <TextBlock Text="Treatment (Opsional)" FontSize="12" FontWeight="Bold" Foreground="#475569" Margin="0,0,0,6"/>
-                    <TextBox x:Name="TxtTreatment" Tag="Treatment (opsional)" Height="36" VerticalContentAlignment="Center" FontSize="13" Foreground="#0F172A" Padding="8,0" Margin="0,0,0,16"/>
+                    <TextBox x:Name="TxtTreatment" Height="36" VerticalContentAlignment="Center" FontSize="13" Foreground="#0F172A" Padding="8,0" Margin="0,0,0,16"/>
 
                     <Button x:Name="BtnAddRecord" Content="+ Simpan Rekam Medis" Click="BtnAddRecord_Click" Style="{StaticResource PrimaryButtonStyle}" HorizontalAlignment="Left"/>
                 </StackPanel>
             </Border>
+
             <TextBlock x:Name="TxtError" Grid.Row="3" Foreground="#DC2626" FontSize="13" FontWeight="Bold" Visibility="Collapsed" Margin="0,0,0,12"/>
             <Border Grid.Row="4" Background="White" CornerRadius="10" Padding="16" BorderBrush="#CBD5E1" BorderThickness="1">
                 <Border.Effect>
@@ -120,61 +194,40 @@
                 </Border.Effect>
                 <StackPanel>
                     <TextBlock Text="Riwayat Rekam Medis" FontSize="16" FontWeight="Bold" Foreground="#1E3259" Margin="0,0,0,12"/>
-                    <DataGrid x:Name="GridHistory" AutoGenerateColumns="False" IsReadOnly="True"
-                              Background="Transparent" BorderThickness="0" RowHeight="38" 
+                    <DataGrid x:Name="GridHistory" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False"
+                              Background="Transparent" BorderThickness="0" RowHeight="42" 
                               GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="#E2E8F0"
-                              HeadersVisibility="Column" MinHeight="180" MaxHeight="300"
+                              HeadersVisibility="Column" MinHeight="180" MaxHeight="320"
                               Foreground="#0F172A" FontSize="13" FontWeight="Medium">
-                        <DataGrid.Resources>
-                            <Style TargetType="DataGridColumnHeader">
-                                <Setter Property="Background" Value="#F1F5F9"/>
-                                <Setter Property="Foreground" Value="#1E293B"/>
-                                <Setter Property="FontWeight" Value="Bold"/>
-                                <Setter Property="FontSize" Value="12"/>
-                                <Setter Property="Padding" Value="10,6"/>
-                                <Setter Property="BorderThickness" Value="0,0,0,1"/>
-                                <Setter Property="BorderBrush" Value="#CBD5E1"/>
-                            </Style>
-                            <Style TargetType="DataGridCell">
-                                <Setter Property="Padding" Value="10,6"/>
-                                <Setter Property="Foreground" Value="#0F172A"/>
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate TargetType="DataGridCell">
-                                            <Border Padding="{TemplateBinding Padding}" Background="Transparent">
-                                                <ContentPresenter VerticalAlignment="Center"/>
-                                            </Border>
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </DataGrid.Resources>
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Tipe" Binding="{Binding Type}" Width="130"/>
-                            <DataGridTextColumn Header="Tanggal" Binding="{Binding Date, StringFormat=dd MMM yyyy}" Width="110"/>
-                            <DataGridTextColumn Header="Diagnosis" Binding="{Binding Diagnosis}" Width="*"/>
-                            <DataGridTextColumn Header="Treatment" Binding="{Binding Treatment}" Width="*"/>
-                            <DataGridTextColumn Header="Next Due" Binding="{Binding NextDueDate, StringFormat=dd MMM yyyy}" Width="110"/>
-                            <DataGridTemplateColumn Header="Foto Bukti" Width="100">
+                            <DataGridTextColumn Header="Tanggal" Binding="{Binding Date, StringFormat=\{0:dd MMM yyyy\}}" Width="120"/>
+                            <DataGridTextColumn Header="Diagnosis" Binding="{Binding Diagnosis}" Width="2*"/>
+                            <DataGridTextColumn Header="Treatment" Binding="{Binding Treatment}" Width="2*"/>
+                            <DataGridTextColumn Header="Next Due" Binding="{Binding NextDueDate, StringFormat=\{0:dd MMM yyyy\}}" Width="120"/>
+                            <DataGridTemplateColumn Header="Foto Bukti" Width="110">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Button Content="Lihat Foto" Click="BtnViewPhoto_Click"
-                                                Padding="8,2" FontSize="11" FontWeight="Bold"
-                                                Background="#0284C7" Foreground="White" Cursor="Hand" BorderThickness="0">
-                                            <Button.Style>
-                                                <Style TargetType="Button">
-                                                    <Setter Property="Visibility" Value="Visible"/>
-                                                    <Style.Triggers>
-                                                        <DataTrigger Binding="{Binding PhotoPath}" Value="{x:Null}">
-                                                            <Setter Property="Visibility" Value="Collapsed"/>
-                                                        </DataTrigger>
-                                                        <DataTrigger Binding="{Binding PhotoPath}" Value="">
-                                                            <Setter Property="Visibility" Value="Collapsed"/>
-                                                        </DataTrigger>
-                                                    </Style.Triggers>
-                                                </Style>
-                                            </Button.Style>
-                                        </Button>
+                                        <Border CornerRadius="4" Background="#0284C7" HorizontalAlignment="Left" Padding="10,4">
+                                            <Button Content="Lihat Foto" Click="BtnViewPhoto_Click"
+                                                    FontSize="11" FontWeight="Bold"
+                                                    Background="Transparent" Foreground="White" 
+                                                    Cursor="Hand" BorderThickness="0">
+                                                <Button.Style>
+                                                    <Style TargetType="Button">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding PhotoPath}" Value="{x:Null}">
+                                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding PhotoPath}" Value="">
+                                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Button.Style>
+                                            </Button>
+                                        </Border>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>

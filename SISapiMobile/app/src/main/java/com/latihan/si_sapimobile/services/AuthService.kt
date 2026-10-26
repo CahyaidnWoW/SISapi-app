@@ -9,7 +9,7 @@ import com.latihan.si_sapimobile.models.User
 import com.latihan.si_sapimobile.network.ApiClient
 import java.io.IOException
 
-class AuthService(context: Context) {
+class AuthService(private val context: Context) {
     private val api = ApiClient.getApiService(context)
     private val session = SessionManager(context)
 
@@ -29,13 +29,13 @@ class AuthService(context: Context) {
         UiState.Error(e.localizedMessage ?: "Terjadi kesalahan.")
     }
 
-    // Sesi lokal SELALU dihapus, walau server tidak terjangkau
     suspend fun logout() {
         try {
             api.logout()
         } catch (e: Exception) {
             // diabaikan: yang penting token lokal hilang
         }
+        com.latihan.si_sapimobile.workers.VetNotificationWorker.cancel(context)
         session.clearSession()
     }
 }

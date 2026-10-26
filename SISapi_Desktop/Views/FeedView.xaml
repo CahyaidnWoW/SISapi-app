@@ -254,18 +254,6 @@
                             <DataGridTextColumn Header="Jenis Pakan" Binding="{Binding FeedName}" Width="*"/>
                             <DataGridTextColumn Header="Satuan / Unit" Binding="{Binding Unit}" Width="140"/>
                             <DataGridTextColumn Header="Total Stok Available" Binding="{Binding TotalStock}" Width="180"/>
-
-                            <!-- Kolom Aksi -->
-                            <DataGridTemplateColumn Header="Aksi" Width="130">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                            <Button Content="Edit" Click="BtnEditFeed_Click" Style="{StaticResource ActionEditButtonStyle}" Margin="0,0,6,0"/>
-                                            <Button Content="Hapus" Click="BtnDeleteFeed_Click" Style="{StaticResource ActionDeleteButtonStyle}"/>
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
                         </DataGrid.Columns>
                     </DataGrid>
                 </StackPanel>
