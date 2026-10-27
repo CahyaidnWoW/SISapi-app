@@ -2,16 +2,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="72dp"
+    android:layout_height="76dp"
     android:background="@drawable/bg_bottom_nav"
-    android:elevation="10dp"
+    android:elevation="16dp"
+    android:gravity="center_vertical"
     android:orientation="horizontal"
-    android:paddingStart="8dp"
-    android:paddingTop="6dp"
-    android:paddingEnd="8dp"
-    android:paddingBottom="6dp">
+    android:paddingStart="12dp"
+    android:paddingTop="8dp"
+    android:paddingEnd="12dp"
+    android:paddingBottom="8dp">
 
-    <!-- Riwayat -->
+    <!-- Tab 1: Riwayat -->
     <LinearLayout
         android:id="@+id/navHistory"
         android:layout_width="0dp"
@@ -25,13 +26,13 @@
 
         <FrameLayout
             android:id="@+id/circleHistory"
-            android:layout_width="40dp"
-            android:layout_height="40dp">
+            android:layout_width="48dp"
+            android:layout_height="36dp">
 
             <ImageView
                 android:id="@+id/icNavHistory"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
                 android:layout_gravity="center"
                 android:importantForAccessibility="no"
                 android:src="@drawable/ic_history"
@@ -42,12 +43,15 @@
             android:id="@+id/tvNavHistory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:letterSpacing="0.01"
             android:text="Riwayat"
             android:textColor="@color/muted"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            android:textStyle="bold" />
     </LinearLayout>
 
-    <!-- Beranda -->
+    <!-- Tab 2: Beranda -->
     <LinearLayout
         android:id="@+id/navHome"
         android:layout_width="0dp"
@@ -61,13 +65,13 @@
 
         <FrameLayout
             android:id="@+id/circleHome"
-            android:layout_width="40dp"
-            android:layout_height="40dp">
+            android:layout_width="48dp"
+            android:layout_height="36dp">
 
             <ImageView
                 android:id="@+id/icNavHome"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
                 android:layout_gravity="center"
                 android:importantForAccessibility="no"
                 android:src="@drawable/ic_home"
@@ -78,12 +82,15 @@
             android:id="@+id/tvNavHome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:letterSpacing="0.01"
             android:text="Beranda"
             android:textColor="@color/muted"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            android:textStyle="bold" />
     </LinearLayout>
 
-    <!-- Profil -->
+    <!-- Tab 3: Profil -->
     <LinearLayout
         android:id="@+id/navProfile"
         android:layout_width="0dp"
@@ -97,13 +104,13 @@
 
         <FrameLayout
             android:id="@+id/circleProfile"
-            android:layout_width="40dp"
-            android:layout_height="40dp">
+            android:layout_width="48dp"
+            android:layout_height="36dp">
 
             <ImageView
                 android:id="@+id/icNavProfile"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
                 android:layout_gravity="center"
                 android:importantForAccessibility="no"
                 android:src="@drawable/ic_person"
@@ -114,8 +121,11 @@
             android:id="@+id/tvNavProfile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:letterSpacing="0.01"
             android:text="Profil"
             android:textColor="@color/muted"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            android:textStyle="bold" />
     </LinearLayout>
 </LinearLayout>

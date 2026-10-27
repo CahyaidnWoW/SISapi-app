@@ -4,290 +4,414 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/mist"
+    android:clipToPadding="false"
     android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:paddingStart="18dp"
+        android:paddingTop="24dp"
+        android:paddingEnd="18dp"
+        android:paddingBottom="28dp">
 
+        <!-- Judul Layar -->
         <TextView
             android:id="@+id/tvTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:letterSpacing="-0.02"
             android:text="Scan QR"
             android:textColor="@color/navy"
-            android:textSize="24sp"
+            android:textSize="26sp"
             android:textStyle="bold" />
 
-        <com.journeyapps.barcodescanner.DecoratedBarcodeView
-            android:id="@+id/barcodeScanner"
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:layout_marginTop="12dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Atau ketik nomor tag"
-            android:textColor="@color/navy"
-            android:textSize="14sp"
-            android:textStyle="bold" />
-
-        <LinearLayout
+        <!-- BENTO CARD 1: Kamera Scanner & Input Manual -->
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:orientation="horizontal">
+            android:layout_marginTop="14dp"
+            app:cardBackgroundColor="@color/bento_surface"
+            app:cardCornerRadius="24dp"
+            app:cardElevation="4dp"
+            app:strokeColor="@color/bento_stroke"
+            app:strokeWidth="1.5dp">
 
-            <EditText
-                android:id="@+id/etTag"
-                android:layout_width="0dp"
-                android:layout_height="52dp"
-                android:layout_weight="1"
-                android:background="@drawable/bg_input"
-                android:hint="Contoh: SP-001"
-                android:imeOptions="actionSearch"
-                android:importantForAutofill="no"
-                android:inputType="textCapCharacters|textNoSuggestions"
-                android:maxLines="1"
-                android:paddingStart="14dp"
-                android:paddingEnd="14dp"
-                android:textColor="@color/ink"
-                android:textColorHint="#6B7799"
-                android:textSize="16sp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnSearch"
-                android:layout_width="wrap_content"
-                android:layout_height="52dp"
-                android:layout_marginStart="8dp"
-                android:text="Cari"
-                android:textAllCaps="false"
-                android:textColor="#FFFFFF"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:backgroundTint="@color/royal"
-                app:cornerRadius="12dp" />
-        </LinearLayout>
+                <!-- Bingkai Kamera Membulat -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="280dp"
+                    app:cardCornerRadius="18dp"
+                    app:cardElevation="0dp"
+                    app:strokeColor="@color/bento_stroke"
+                    app:strokeWidth="1dp">
 
+                    <com.journeyapps.barcodescanner.DecoratedBarcodeView
+                        android:id="@+id/barcodeScanner"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </com.google.android.material.card.MaterialCardView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Atau ketik nomor tag"
+                    android:textColor="@color/navy"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/etTag"
+                        android:layout_width="0dp"
+                        android:layout_height="54dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_input"
+                        android:hint="Contoh: SP-001"
+                        android:imeOptions="actionSearch"
+                        android:importantForAutofill="no"
+                        android:inputType="textCapCharacters|textNoSuggestions"
+                        android:maxLines="1"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+                        android:textColor="@color/ink"
+                        android:textColorHint="@color/muted"
+                        android:textSize="16sp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnSearch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="54dp"
+                        android:layout_marginStart="10dp"
+                        android:insetTop="0dp"
+                        android:insetBottom="0dp"
+                        android:paddingStart="22dp"
+                        android:paddingEnd="22dp"
+                        android:text="Cari"
+                        android:textAllCaps="false"
+                        android:textColor="#FFFFFF"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        app:backgroundTint="@color/royal"
+                        app:cornerRadius="14dp"
+                        app:elevation="0dp" />
+                </LinearLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Loading & Pesan Error -->
         <ProgressBar
             android:id="@+id/progressBar"
             style="?android:attr/progressBarStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="16dp"
+            android:indeterminateTint="@color/royal"
             android:visibility="gone" />
 
         <TextView
             android:id="@+id/tvMessage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="14dp"
             android:background="@drawable/bg_error"
-            android:padding="12dp"
+            android:padding="14dp"
             android:textColor="@color/danger"
             android:textSize="14sp"
+            android:textStyle="bold"
             android:visibility="gone" />
 
+        <!-- BENTO CARD 2: Hasil Profil Sapi (id cardResult tetap LinearLayout agar aman di Kotlin) -->
         <LinearLayout
             android:id="@+id/cardResult"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:background="@drawable/bg_card"
             android:orientation="vertical"
-            android:padding="16dp"
             android:visibility="gone">
 
-            <TextView
-                android:id="@+id/tvTag"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/navy"
-                android:textSize="28sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tvInfo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:textColor="@color/muted"
-                android:textSize="16sp" />
-
-            <LinearLayout
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
-                android:orientation="horizontal">
+                app:cardBackgroundColor="@color/bento_surface"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="4dp"
+                app:strokeColor="@color/bento_stroke"
+                app:strokeWidth="1.5dp">
 
-                <TextView
-                    android:layout_width="0dp"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Kandang"
-                    android:textColor="@color/muted"
-                    android:textSize="14sp" />
+                    android:orientation="vertical"
+                    android:padding="20dp">
 
-                <TextView
-                    android:id="@+id/tvCage"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="end"
-                    android:textColor="@color/ink"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
+                    <!-- Inner Pastel Tile untuk Identitas Tag Sapi -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:cardBackgroundColor="@color/tile_royal"
+                        app:cardCornerRadius="16dp"
+                        app:cardElevation="0dp"
+                        app:strokeColor="@color/bento_stroke"
+                        app:strokeWidth="1dp">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:paddingStart="16dp"
+                            android:paddingTop="14dp"
+                            android:paddingEnd="16dp"
+                            android:paddingBottom="14dp">
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Status"
-                    android:textColor="@color/muted"
-                    android:textSize="14sp" />
+                            <TextView
+                                android:id="@+id/tvTag"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:letterSpacing="-0.02"
+                                android:textColor="@color/navy"
+                                android:textSize="28sp"
+                                android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/tvStatus"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="end"
-                    android:textColor="@color/ink"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
+                            <TextView
+                                android:id="@+id/tvInfo"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:textColor="@color/muted"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
+                    <!-- Baris Data 1: Kandang -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Berat terakhir"
-                    android:textColor="@color/muted"
-                    android:textSize="14sp" />
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Kandang"
+                            android:textColor="@color/muted"
+                            android:textSize="14sp" />
 
-                <TextView
-                    android:id="@+id/tvWeight"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1.4"
-                    android:gravity="end"
-                    android:textColor="@color/ink"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
+                        <TextView
+                            android:id="@+id/tvCage"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="end"
+                            android:textColor="@color/ink"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/panel_line" />
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Vaksin berikutnya"
-                    android:textColor="@color/muted"
-                    android:textSize="14sp" />
+                    <!-- Baris Data 2: Status -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/tvVaccine"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="end"
-                    android:textColor="@color/ink"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Status"
+                            android:textColor="@color/muted"
+                            android:textSize="14sp" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnWeight"
-                android:layout_width="match_parent"
-                android:layout_height="52dp"
-                android:layout_marginTop="18dp"
-                android:text="Catat timbangan"
-                android:textAllCaps="false"
-                android:textColor="#FFFFFF"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:backgroundTint="@color/royal"
-                app:cornerRadius="12dp" />
+                        <TextView
+                            android:id="@+id/tvStatus"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="end"
+                            android:textColor="@color/ink"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnReport"
-                style="@style/Widget.Material3.Button.OutlinedButton"
-                android:layout_width="match_parent"
-                android:layout_height="52dp"
-                android:layout_marginTop="8dp"
-                android:text="Lapor sakit"
-                android:textAllCaps="false"
-                android:textColor="@color/danger"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:cornerRadius="12dp"
-                app:strokeColor="@color/danger" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/panel_line" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnTreatment"
-                style="@style/Widget.Material3.Button.OutlinedButton"
-                android:layout_width="match_parent"
-                android:layout_height="52dp"
-                android:layout_marginTop="8dp"
-                android:text="Catat tindakan"
-                android:textAllCaps="false"
-                android:textColor="@color/royal"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:visibility="gone"
-                app:cornerRadius="12dp"
-                app:strokeColor="@color/royal" />
+                    <!-- Baris Data 3: Berat Terakhir -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnHistory"
-                style="@style/Widget.Material3.Button.TextButton"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginTop="4dp"
-                android:text="Lihat riwayat kesehatan"
-                android:textAllCaps="false"
-                android:textColor="@color/royal"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                app:cornerRadius="12dp" />
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Berat terakhir"
+                            android:textColor="@color/muted"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/tvWeight"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1.4"
+                            android:gravity="end"
+                            android:textColor="@color/ink"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/panel_line" />
+
+                    <!-- Baris Data 4: Vaksin Berikutnya -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Vaksin berikutnya"
+                            android:textColor="@color/muted"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/tvVaccine"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="end"
+                            android:textColor="@color/ink"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <!-- Tombol Aksi Profil Sapi -->
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnWeight"
+                        android:layout_width="match_parent"
+                        android:layout_height="54dp"
+                        android:layout_marginTop="20dp"
+                        android:insetTop="0dp"
+                        android:insetBottom="0dp"
+                        android:text="Catat timbangan"
+                        android:textAllCaps="false"
+                        android:textColor="#FFFFFF"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        app:backgroundTint="@color/royal"
+                        app:cornerRadius="14dp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnReport"
+                        style="@style/Widget.Material3.Button.OutlinedButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="54dp"
+                        android:layout_marginTop="10dp"
+                        android:insetTop="0dp"
+                        android:insetBottom="0dp"
+                        android:text="Lapor sakit"
+                        android:textAllCaps="false"
+                        android:textColor="@color/danger"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        app:backgroundTint="@color/tile_danger"
+                        app:cornerRadius="14dp"
+                        app:strokeColor="@color/danger"
+                        app:strokeWidth="1.5dp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnTreatment"
+                        style="@style/Widget.Material3.Button.OutlinedButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="54dp"
+                        android:layout_marginTop="10dp"
+                        android:insetTop="0dp"
+                        android:insetBottom="0dp"
+                        android:text="Catat tindakan"
+                        android:textAllCaps="false"
+                        android:textColor="@color/royal"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:visibility="gone"
+                        app:backgroundTint="@color/tile_royal"
+                        app:cornerRadius="14dp"
+                        app:strokeColor="@color/royal"
+                        app:strokeWidth="1.5dp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnHistory"
+                        style="@style/Widget.Material3.Button.TextButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:layout_marginTop="6dp"
+                        android:text="Lihat riwayat kesehatan"
+                        android:textAllCaps="false"
+                        android:textColor="@color/royal"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        app:cornerRadius="12dp" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
         </LinearLayout>
 
+        <!-- Tombol Scan Ulang -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnScanAgain"
             style="@style/Widget.Material3.Button.OutlinedButton"
             android:layout_width="match_parent"
-            android:layout_height="52dp"
+            android:layout_height="54dp"
             android:layout_marginTop="12dp"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
             android:text="Scan ulang"
             android:textAllCaps="false"
             android:textColor="@color/royal"
             android:textSize="16sp"
             android:textStyle="bold"
             android:visibility="gone"
-            app:cornerRadius="12dp"
-            app:strokeColor="@color/royal" />
+            app:backgroundTint="@color/bento_surface"
+            app:cornerRadius="14dp"
+            app:strokeColor="@color/royal"
+            app:strokeWidth="1.5dp" />
     </LinearLayout>
 </ScrollView>

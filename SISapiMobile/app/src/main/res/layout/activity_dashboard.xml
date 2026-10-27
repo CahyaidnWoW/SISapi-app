@@ -6,71 +6,91 @@
     android:background="@color/mist"
     android:orientation="vertical">
 
-    <LinearLayout
+    <!-- BENTO HERO HEADER CARD -->
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_header"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingStart="12dp"
-        android:paddingTop="40dp"
-        android:paddingEnd="20dp"
-        android:paddingBottom="22dp">
-
-        <TextView
-            android:id="@+id/btnBack"
-            android:layout_width="44dp"
-            android:layout_height="44dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:clickable="true"
-            android:focusable="true"
-            android:gravity="center"
-            android:text="←"
-            android:textColor="#FFFFFF"
-            android:textSize="26sp" />
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        app:cardBackgroundColor="@color/royal"
+        app:cardCornerRadius="24dp"
+        app:cardElevation="4dp"
+        app:strokeColor="@color/line"
+        app:strokeWidth="1dp">
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="16dp"
+            android:paddingTop="16dp"
+            android:paddingEnd="20dp"
+            android:paddingBottom="16dp">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Dashboard"
+                android:id="@+id/btnBack"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:text="←"
                 android:textColor="#FFFFFF"
-                android:textSize="22sp"
+                android:textSize="26sp"
                 android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Ringkasan peternakan"
-                android:textColor="#EAF3FF"
-                android:textSize="13sp" />
+                android:layout_marginStart="8dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:letterSpacing="-0.02"
+                    android:text="Dashboard"
+                    android:textColor="#FFFFFF"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text="Ringkasan analitik peternakan"
+                    android:textColor="#EAF3FF"
+                    android:textSize="13sp" />
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
 
     <ProgressBar
         android:id="@+id/progressBar"
         style="?android:attr/progressBarStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="32dp"
+        android:indeterminateTint="@color/royal"
         android:visibility="gone" />
 
     <TextView
         android:id="@+id/tvError"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginEnd="16dp"
         android:background="@drawable/bg_error"
-        android:padding="12dp"
+        android:padding="14dp"
         android:textColor="@color/danger"
         android:textSize="14sp"
+        android:textStyle="bold"
         android:visibility="gone" />
 
     <ScrollView
@@ -78,107 +98,148 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:clipToPadding="false"
+        android:fillViewport="true"
         android:visibility="gone">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="14dp">
+            android:paddingStart="16dp"
+            android:paddingTop="14dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="24dp">
 
-            <!-- 2 kartu statistik -->
+            <!-- Baris 1: 2 Kartu Statistik Utama -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <LinearLayout
+                <!-- Total Sapi -->
+                <com.google.android.material.card.MaterialCardView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="6dp"
                     android:layout_weight="1"
-                    android:background="@drawable/bg_card"
-                    android:orientation="vertical"
-                    android:padding="16dp">
+                    app:cardBackgroundColor="@color/bento_surface"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="3dp"
+                    app:strokeColor="@color/bento_stroke"
+                    app:strokeWidth="1.5dp">
 
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Total sapi"
-                        android:textColor="@color/muted"
-                        android:textSize="14sp" />
+                        android:orientation="vertical"
+                        android:padding="18dp">
 
-                    <TextView
-                        android:id="@+id/tvTotalLivestock"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="0"
-                        android:textColor="@color/navy"
-                        android:textSize="34sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Total sapi"
+                            android:textColor="@color/muted"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
 
-                <LinearLayout
+                        <TextView
+                            android:id="@+id/tvTotalLivestock"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:letterSpacing="-0.02"
+                            android:text="0"
+                            android:textColor="@color/navy"
+                            android:textSize="32sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Total Kandang -->
+                <com.google.android.material.card.MaterialCardView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="6dp"
                     android:layout_weight="1"
-                    android:background="@drawable/bg_card"
-                    android:orientation="vertical"
-                    android:padding="16dp">
+                    app:cardBackgroundColor="@color/bento_surface"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="3dp"
+                    app:strokeColor="@color/bento_stroke"
+                    app:strokeWidth="1.5dp">
 
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Total kandang"
-                        android:textColor="@color/muted"
-                        android:textSize="14sp" />
+                        android:orientation="vertical"
+                        android:padding="18dp">
 
-                    <TextView
-                        android:id="@+id/tvTotalCages"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="0"
-                        android:textColor="@color/navy"
-                        android:textSize="34sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Total kandang"
+                            android:textColor="@color/muted"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tvTotalCages"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:letterSpacing="-0.02"
+                            android:text="0"
+                            android:textColor="@color/navy"
+                            android:textSize="32sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
             </LinearLayout>
 
-            <!-- Kartu vaksin due -->
-            <LinearLayout
+            <!-- Kartu Vaksin Due (Pastel Danger Tile) -->
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:background="@drawable/bg_card"
-                android:orientation="vertical"
-                android:padding="16dp">
+                app:cardBackgroundColor="@color/bento_surface"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="3dp"
+                app:strokeColor="@color/bento_stroke"
+                app:strokeWidth="1.5dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Vaksin jatuh tempo (7 hari)"
-                    android:textColor="@color/muted"
-                    android:textSize="14sp" />
+                    android:background="@color/tile_danger"
+                    android:orientation="vertical"
+                    android:padding="18dp">
 
-                <TextView
-                    android:id="@+id/tvTotalDue"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="0"
-                    android:textColor="@color/danger"
-                    android:textSize="34sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Vaksin jatuh tempo (7 hari)"
+                        android:textColor="@color/danger"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvTotalDue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:letterSpacing="-0.02"
+                        android:text="0"
+                        android:textColor="@color/danger"
+                        android:textSize="32sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="6dp"
+                android:layout_marginTop="22dp"
+                android:layout_marginBottom="8dp"
                 android:text="Pengingat vaksin"
                 android:textColor="@color/navy"
                 android:textSize="18sp"
@@ -188,8 +249,9 @@
                 android:id="@+id/tvDueEmpty"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_card"
-                android:padding="16dp"
+                android:background="@drawable/bg_input"
+                android:gravity="center"
+                android:padding="18dp"
                 android:text="Tidak ada vaksin yang jatuh tempo 7 hari ke depan."
                 android:textColor="@color/muted"
                 android:textSize="14sp"
@@ -208,14 +270,20 @@
         android:id="@+id/btnRetry"
         style="@style/Widget.Material3.Button.OutlinedButton"
         android:layout_width="match_parent"
-        android:layout_height="52dp"
-        android:layout_margin="16dp"
+        android:layout_height="54dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
         android:text="Coba lagi"
         android:textAllCaps="false"
         android:textColor="@color/royal"
         android:textSize="16sp"
         android:textStyle="bold"
         android:visibility="gone"
-        app:cornerRadius="12dp"
-        app:strokeColor="@color/royal" />
+        app:backgroundTint="@color/bento_surface"
+        app:cornerRadius="14dp"
+        app:strokeColor="@color/royal"
+        app:strokeWidth="1.5dp" />
 </LinearLayout>

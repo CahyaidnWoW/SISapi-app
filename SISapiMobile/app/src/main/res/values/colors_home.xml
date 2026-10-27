@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="tile_royal">#E3ECFB</color>
-    <color name="tile_sky">#DDF1FD</color>
-    <color name="tile_ok">#E1F5EC</color>
-    <color name="tile_amber">#FFF1D6</color>
-    <color name="tile_danger">#FDE9E9</color>
-    <color name="notif_warn">#E08A00</color>
-    <color name="panel_line">#D3DDF0</color>
+    <color name="tile_royal">#DCE8FC</color>
+    <color name="tile_sky">#D6EEFD</color>
+    <color name="tile_ok">#DCFCE7</color>
+    <color name="tile_amber">#FEF3C7</color>
+    <color name="tile_danger">#FEE2E2</color>
+
+    <color name="notif_warn">#D97706</color>
+    <color name="panel_line">#C8D7EE</color>
 </resources>

@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="navy">#1B1464</color>
-    <color name="royal">#2D5FAD</color>
+    <color name="navy">#161B40</color>
+    <color name="royal">#2558B8</color>
     <color name="sky">#1890DB</color>
-    <color name="mist">#EEF4FD</color>
-    <color name="ink">#10183A</color>
-    <color name="muted">#566384</color>
-    <color name="line">#8FA3CC</color>
-    <color name="warn">#EB5E31</color>
-    <color name="danger">#C62828</color>
-    <color name="ok">#17784F</color>
+    <color name="ink">#0F172A</color>
+    <color name="muted">#5B6B8C</color>
+
+    <color name="mist">#E3ECF8</color>
+    <color name="line">#9EB2D8</color>
+    <color name="bento_surface">#FFFFFF</color>
+    <color name="bento_input_bg">#F5F8FD</color>
+    <color name="bento_stroke">#CFDDF2</color>
+
+    <color name="warn">#EA580C</color>
+    <color name="danger">#D32F2F</color>
+    <color name="ok">#15803D</color>
 </resources>

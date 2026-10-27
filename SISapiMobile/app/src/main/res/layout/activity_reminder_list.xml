@@ -6,78 +6,104 @@
     android:background="@color/mist"
     android:orientation="vertical">
 
-    <LinearLayout
+    <!-- BENTO HERO HEADER CARD -->
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/sky"
-        android:orientation="vertical"
-        android:paddingStart="16dp"
-        android:paddingTop="40dp"
-        android:paddingEnd="16dp"
-        android:paddingBottom="20dp">
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        app:cardBackgroundColor="@color/sky"
+        app:cardCornerRadius="24dp"
+        app:cardElevation="4dp"
+        app:strokeColor="@color/line"
+        app:strokeWidth="1dp">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Pengingat"
-            android:textColor="#FFFFFF"
-            android:textSize="24sp"
-            android:textStyle="bold" />
+            android:orientation="vertical"
+            android:paddingStart="20dp"
+            android:paddingTop="20dp"
+            android:paddingEnd="20dp"
+            android:paddingBottom="20dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:text="Vaksin dan laporan darurat"
-            android:textColor="#EAF3FF"
-            android:textSize="14sp" />
-    </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:letterSpacing="-0.02"
+                android:text="Pengingat"
+                android:textColor="#FFFFFF"
+                android:textSize="26sp"
+                android:textStyle="bold" />
 
-    <!-- Segmented control -->
-    <LinearLayout
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="Vaksin dan laporan darurat"
+                android:textColor="#EAF3FF"
+                android:textSize="14sp" />
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- BENTO SEGMENTED CONTROL -->
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="14dp"
         android:layout_marginEnd="16dp"
-        android:background="#DCE5F5"
-        android:orientation="horizontal"
-        android:padding="4dp">
+        app:cardBackgroundColor="@color/bento_input_bg"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="0dp"
+        app:strokeColor="@color/bento_stroke"
+        app:strokeWidth="1.5dp">
 
-        <TextView
-            android:id="@+id/tabVaccine"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_weight="1"
-            android:background="@drawable/bg_input"
-            android:clickable="true"
-            android:focusable="true"
-            android:gravity="center"
-            android:text="Vaksin jatuh tempo"
-            android:textColor="@color/royal"
-            android:textSize="14sp"
-            android:textStyle="bold" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="4dp">
 
-        <TextView
-            android:id="@+id/tabEmergency"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_weight="1"
-            android:clickable="true"
-            android:focusable="true"
-            android:gravity="center"
-            android:text="Laporan darurat"
-            android:textColor="@color/muted"
-            android:textSize="14sp" />
-    </LinearLayout>
+            <TextView
+                android:id="@+id/tabVaccine"
+                android:layout_width="0dp"
+                android:layout_height="44dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_input"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:text="Vaksin jatuh tempo"
+                android:textColor="@color/royal"
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
+            <TextView
+                android:id="@+id/tabEmergency"
+                android:layout_width="0dp"
+                android:layout_height="44dp"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:text="Laporan darurat"
+                android:textColor="@color/muted"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- ProgressBar & Pesan Status -->
     <ProgressBar
         android:id="@+id/progressBar"
         style="?android:attr/progressBarStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="24dp"
+        android:indeterminateTint="@color/sky"
         android:visibility="gone" />
 
     <TextView
@@ -87,54 +113,74 @@
         android:gravity="center"
         android:padding="32dp"
         android:textColor="@color/muted"
-        android:textSize="16sp"
+        android:textSize="15sp"
         android:visibility="gone" />
 
     <TextView
         android:id="@+id/tvError"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginEnd="16dp"
         android:background="@drawable/bg_error"
-        android:padding="12dp"
+        android:padding="14dp"
         android:textColor="@color/danger"
         android:textSize="14sp"
+        android:textStyle="bold"
         android:visibility="gone" />
 
+    <!-- RecyclerView List -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvReminders"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:clipToPadding="false"
-        android:padding="10dp" />
+        android:paddingStart="16dp"
+        android:paddingTop="10dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="10dp" />
 
+    <!-- Tombol Navigasi Bawah -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnRetry"
         style="@style/Widget.Material3.Button.OutlinedButton"
         android:layout_width="match_parent"
-        android:layout_height="52dp"
-        android:layout_margin="16dp"
+        android:layout_height="54dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
         android:text="Coba lagi"
         android:textAllCaps="false"
         android:textColor="@color/royal"
         android:textSize="16sp"
         android:textStyle="bold"
         android:visibility="gone"
-        app:cornerRadius="12dp"
-        app:strokeColor="@color/royal" />
+        app:backgroundTint="@color/bento_surface"
+        app:cornerRadius="14dp"
+        app:strokeColor="@color/royal"
+        app:strokeWidth="1.5dp" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnBack"
         style="@style/Widget.Material3.Button.OutlinedButton"
         android:layout_width="match_parent"
-        android:layout_height="52dp"
-        android:layout_margin="16dp"
+        android:layout_height="54dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
         android:text="Kembali"
         android:textAllCaps="false"
         android:textColor="@color/royal"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:cornerRadius="12dp"
-        app:strokeColor="@color/royal" />
+        app:backgroundTint="@color/bento_surface"
+        app:cornerRadius="14dp"
+        app:strokeColor="@color/royal"
+        app:strokeWidth="1.5dp" />
 </LinearLayout>
