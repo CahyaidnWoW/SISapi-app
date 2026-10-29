@@ -145,7 +145,7 @@ namespace SISapi_Desktop.Views
                 string photoUrl = record.PhotoUrl;
                 if (string.IsNullOrEmpty(photoUrl))
                 {
-                    photoUrl = "http://sisapi.smkn1sumedang.sch.id/storage/" + record.PhotoPath;
+                    photoUrl = $"http://sisapi.smkn1sumedang.sch.id/api/health-records/{record.Id}/photo";
                 }
 
                 try
@@ -153,8 +153,8 @@ namespace SISapi_Desktop.Views
                     var photoWindow = new Window
                     {
                         Title = $"Foto Bukti Laporan Darurat - {record.Date:dd MMM yyyy}",
-                        Width = 480,
-                        Height = 520,
+                        Width = 500,
+                        Height = 560,
                         WindowStartupLocation = WindowStartupLocation.CenterOwner,
                         Owner = Window.GetWindow(this),
                         Background = System.Windows.Media.Brushes.White
@@ -166,17 +166,68 @@ namespace SISapi_Desktop.Views
                         Text = $"Foto Laporan (Diagnosis: {record.Diagnosis ?? "-"})",
                         FontWeight = FontWeights.Bold,
                         FontSize = 14,
-                        Margin = new Thickness(0, 0, 0, 12),
+                        Margin = new Thickness(0, 0, 0, 8),
                         Foreground = (System.Windows.Media.Brush)new System.Windows.Media.BrushConverter().ConvertFrom("#1E3259")
                     });
 
+                    var txtStatus = new TextBlock
+                    {
+                        Text = "Memuat foto...",
+                        FontSize = 12,
+                        Foreground = System.Windows.Media.Brushes.Gray,
+                        Margin = new Thickness(0, 0, 0, 8)
+                    };
+                    stack.Children.Add(txtStatus);
+
                     var img = new Image
                     {
-                        MaxHeight = 400,
+                        MaxHeight = 380,
                         Stretch = System.Windows.Media.Stretch.Uniform,
-                        Source = new System.Windows.Media.Imaging.BitmapImage(new Uri(photoUrl))
+                        Visibility = Visibility.Collapsed
                     };
+
+                    var bitmap = new System.Windows.Media.Imaging.BitmapImage();
+                    bitmap.BeginInit();
+                    bitmap.UriSource = new Uri(photoUrl);
+                    bitmap.EndInit();
+
+                    bitmap.DownloadCompleted += (s, args) =>
+                    {
+                        txtStatus.Visibility = Visibility.Collapsed;
+                        img.Visibility = Visibility.Visible;
+                    };
+
+                    bitmap.DownloadFailed += (s, args) =>
+                    {
+                        txtStatus.Text = "Gagal memuat foto dari server sekolah (404 Not Found).\nServer sekolah belum menjalankan storage:link atau file tidak ditemukan.";
+                        txtStatus.Foreground = System.Windows.Media.Brushes.Crimson;
+                    };
+
+                    img.Source = bitmap;
                     stack.Children.Add(img);
+
+                    var btnOpenBrowser = new Button
+                    {
+                        Content = "🌐 Buka Link Foto di Browser",
+                        Margin = new Thickness(0, 12, 0, 0),
+                        Padding = new Thickness(10, 6, 10, 6),
+                        Background = (System.Windows.Media.Brush)new System.Windows.Media.BrushConverter().ConvertFrom("#2563EB"),
+                        Foreground = System.Windows.Media.Brushes.White,
+                        BorderThickness = new Thickness(0),
+                        Cursor = System.Windows.Input.Cursors.Hand
+                    };
+                    btnOpenBrowser.Click += (s, args) =>
+                    {
+                        try
+                        {
+                            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(photoUrl) { UseShellExecute = true });
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show($"Tidak dapat membuka browser: {ex.Message}");
+                        }
+                    };
+                    stack.Children.Add(btnOpenBrowser);
 
                     photoWindow.Content = stack;
                     photoWindow.ShowDialog();
@@ -187,5 +238,6 @@ namespace SISapi_Desktop.Views
                 }
             }
         }
+
     }
 }

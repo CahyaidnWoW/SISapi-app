@@ -53,16 +53,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:letterSpacing="-0.02"
-                    android:text="Dashboard"
+                    android:text="Dashboard Manager"
                     android:textColor="#FFFFFF"
-                    android:textSize="24sp"
+                    android:textSize="22sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
-                    android:text="Ringkasan analitik peternakan"
+                    android:text="Performa ADG, stok pakan, dan kesehatan"
                     android:textColor="#EAF3FF"
                     android:textSize="13sp" />
             </LinearLayout>
@@ -72,8 +72,8 @@
     <ProgressBar
         android:id="@+id/progressBar"
         style="?android:attr/progressBarStyleSmall"
-        android:layout_width="28dp"
-        android:layout_height="28dp"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="32dp"
         android:indeterminateTint="@color/royal"
@@ -111,13 +111,13 @@
             android:paddingEnd="16dp"
             android:paddingBottom="24dp">
 
-            <!-- Baris 1: 2 Kartu Statistik Utama -->
+            <!-- Baris 1: Total Populasi & Rata-rata ADG -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <!-- Total Sapi -->
+                <!-- 1. Total Populasi -->
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -133,30 +133,39 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:padding="18dp">
+                        android:padding="16dp">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Total sapi"
+                            android:text="Total populasi"
                             android:textColor="@color/muted"
-                            android:textSize="14sp"
+                            android:textSize="13sp"
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/tvTotalLivestock"
+                            android:id="@+id/tvTotalCattle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="6dp"
+                            android:layout_marginTop="4dp"
                             android:letterSpacing="-0.02"
                             android:text="0"
                             android:textColor="@color/navy"
-                            android:textSize="32sp"
+                            android:textSize="28sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="Ekor sapi aktif"
+                            android:textColor="@color/ok"
+                            android:textSize="11sp"
                             android:textStyle="bold" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
-                <!-- Total Kandang -->
+                <!-- 2. Rata-rata ADG 30 Hari -->
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -172,31 +181,142 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:padding="18dp">
+                        android:padding="16dp">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Total kandang"
+                            android:text="ADG (30 Hari)"
                             android:textColor="@color/muted"
-                            android:textSize="14sp"
+                            android:textSize="13sp"
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/tvTotalCages"
+                            android:id="@+id/tvAvgAdg"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="6dp"
+                            android:layout_marginTop="4dp"
+                            android:letterSpacing="-0.02"
+                            android:text="0.00 kg"
+                            android:textColor="@color/royal"
+                            android:textSize="24sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="Kenaikan bobot/hari"
+                            android:textColor="@color/muted"
+                            android:textSize="11sp" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+
+            <!-- Baris 2: Siap Jual & Kondisi Kritis / Sakit -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:orientation="horizontal">
+
+                <!-- 3. Siap Jual (>= 450kg) -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="6dp"
+                    android:layout_weight="1"
+                    app:cardBackgroundColor="@color/bento_surface"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="3dp"
+                    app:strokeColor="@color/bento_stroke"
+                    app:strokeWidth="1.5dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Siap jual (≥450kg)"
+                            android:textColor="@color/muted"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tvReadyToSell"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
                             android:letterSpacing="-0.02"
                             android:text="0"
-                            android:textColor="@color/navy"
-                            android:textSize="32sp"
+                            android:textColor="@color/ok"
+                            android:textSize="28sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="Siap dipasarkan"
+                            android:textColor="@color/ok"
+                            android:textSize="11sp" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- 4. Kondisi Kritis / Sakit -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:layout_weight="1"
+                    app:cardBackgroundColor="@color/bento_surface"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="3dp"
+                    app:strokeColor="@color/bento_stroke"
+                    app:strokeWidth="1.5dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Kondisi kritis / sakit"
+                            android:textColor="@color/muted"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tvSickCattle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:letterSpacing="-0.02"
+                            android:text="0"
+                            android:textColor="@color/danger"
+                            android:textSize="28sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="Perlu tindakan medis"
+                            android:textColor="@color/danger"
+                            android:textSize="11sp"
                             android:textStyle="bold" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
             </LinearLayout>
 
-            <!-- Kartu Vaksin Due (Pastel Danger Tile) -->
+            <!-- Baris 3: Pakan Kritis (Full Width Card) -->
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -210,37 +330,46 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/tile_danger"
+                    android:background="@color/tile_amber"
                     android:orientation="vertical"
-                    android:padding="18dp">
+                    android:padding="16dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Vaksin jatuh tempo (7 hari)"
-                        android:textColor="@color/danger"
-                        android:textSize="14sp"
+                        android:text="Peringatan pakan kritis (Stok ≤ 50 kg)"
+                        android:textColor="@color/notif_warn"
+                        android:textSize="13sp"
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/tvTotalDue"
+                        android:id="@+id/tvCriticalFeed"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
+                        android:layout_marginTop="4dp"
                         android:letterSpacing="-0.02"
-                        android:text="0"
-                        android:textColor="@color/danger"
-                        android:textSize="32sp"
+                        android:text="0 jenis pakan"
+                        android:textColor="@color/notif_warn"
+                        android:textSize="24sp"
                         android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:text="Perlu penambahan stok pakan segera"
+                        android:textColor="@color/notif_warn"
+                        android:textSize="11sp" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
+            <!-- Bagian Jadwal Penanganan Medis 7 Hari Kedepan -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="22dp"
+                android:layout_marginTop="24dp"
                 android:layout_marginBottom="8dp"
-                android:text="Pengingat vaksin"
+                android:text="Jadwal Vaksinasi &amp; Medis (7 Hari)"
                 android:textColor="@color/navy"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -252,7 +381,7 @@
                 android:background="@drawable/bg_input"
                 android:gravity="center"
                 android:padding="18dp"
-                android:text="Tidak ada vaksin yang jatuh tempo 7 hari ke depan."
+                android:text="Tidak ada jadwal vaksinasi/tindakan dalam 7 hari ke depan."
                 android:textColor="@color/muted"
                 android:textSize="14sp"
                 android:visibility="gone" />

@@ -75,4 +75,8 @@ interface ApiService {
     @GET("worker/daily-tasks")
     suspend fun getDailyTasks(): Response<com.latihan.si_sapimobile.models.WorkerTaskResponse>
 
+    @GET("dashboard/summary")
+    suspend fun getDashboardSummary(): Response<com.latihan.si_sapimobile.models.DashboardSummaryResponse>
+
+
 }

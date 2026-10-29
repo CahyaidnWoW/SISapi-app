@@ -48,7 +48,7 @@ object NotificationHelper {
         createNotificationChannels(context)
 
         val intent = Intent(context, ScanActivity::class.java).apply {
-            putExtra(ScanActivity.EXTRA_MODE, ScanActivity.MODE_SCAN)
+            putExtra(ScanActivity.EXTRA_MODE, ScanActivity.MODE_TREATMENT)
             putExtra(ScanActivity.EXTRA_INITIAL_TAG, tagNumber)
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
         }
@@ -79,7 +79,7 @@ object NotificationHelper {
         createNotificationChannels(context)
 
         val intent = Intent(context, ScanActivity::class.java).apply {
-            putExtra(ScanActivity.EXTRA_MODE, ScanActivity.MODE_SCAN)
+            putExtra(ScanActivity.EXTRA_MODE, ScanActivity.MODE_TREATMENT)
             putExtra(ScanActivity.EXTRA_INITIAL_TAG, tagNumber)
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
         }

@@ -11,8 +11,8 @@ namespace SISapi_Desktop.Services
     public class ApiClient
     {
         private readonly HttpClient _client;
-        private const string BaseUrl = "http://127.0.0.1:8000/api/";
-        //private const string BaseUrl = "http://sisapi.smkn1sumedang.sch.id/api/";
+        //private const string BaseUrl = "http://127.0.0.1:8000/api/";
+        private const string BaseUrl = "http://sisapi.smkn1sumedang.sch.id/api/";
 
         public ApiClient()
         {

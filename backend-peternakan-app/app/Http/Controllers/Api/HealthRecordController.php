@@ -77,4 +77,22 @@ class HealthRecordController extends Controller
     {
     return response()->json($this->healthRecordService->getEmergencyReports());
     }
+
+    public function photo(int $id)
+    {
+        $record = \App\Models\HealthRecord::find($id);
+
+        if (!$record || !$record->photo_path) {
+            return response()->json(['message' => 'Foto tidak ditemukan'], 404);
+        }
+
+        $filePath = storage_path('app/public/' . $record->photo_path);
+
+        if (!file_exists($filePath)) {
+            return response()->json(['message' => 'File fisik foto tidak ditemukan di server'], 404);
+        }
+
+        return response()->file($filePath);
+    }
+
 }

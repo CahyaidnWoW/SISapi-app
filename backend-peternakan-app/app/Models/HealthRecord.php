@@ -11,8 +11,9 @@ class HealthRecord extends Model
 
     public function getPhotoUrlAttribute()
     {
-        return $this->photo_path ? url('storage/' . $this->photo_path) : null;
+        return $this->photo_path ? url('api/health-records/' . $this->id . '/photo') : null;
     }
+
 
     public function livestock() {
         return $this->belongsTo(Livestock::class);

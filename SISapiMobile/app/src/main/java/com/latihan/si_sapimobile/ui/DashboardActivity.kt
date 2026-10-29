@@ -9,14 +9,12 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.latihan.si_sapimobile.R
 import com.latihan.si_sapimobile.databinding.ActivityDashboardBinding
 import com.latihan.si_sapimobile.databinding.ItemReminderBinding
 import com.latihan.si_sapimobile.helpers.UiState
-import com.latihan.si_sapimobile.models.HealthRecord
+import com.latihan.si_sapimobile.models.UpcomingMedicalItem
 import com.latihan.si_sapimobile.viewmodels.DashboardViewModel
-import java.time.LocalDate
-import java.time.temporal.ChronoUnit
+import java.util.Locale
 
 class DashboardActivity : AppCompatActivity() {
 
@@ -31,13 +29,12 @@ class DashboardActivity : AppCompatActivity() {
         binding.btnBack.setOnClickListener { finish() }
         binding.btnRetry.setOnClickListener { viewModel.load() }
         binding.rvDue.layoutManager = LinearLayoutManager(this)
-        binding.rvDue.adapter = DueAdapter { record ->
-            val tag = record.livestock?.tagNumber
-            if (!tag.isNullOrBlank()) {
+        binding.rvDue.adapter = UpcomingMedicalAdapter { item ->
+            if (item.cattleTag.isNotBlank() && item.cattleTag != "-") {
                 startActivity(
                     Intent(this, ScanActivity::class.java)
-                        .putExtra(ScanActivity.EXTRA_MODE, ScanActivity.MODE_SCAN)
-                        .putExtra(ScanActivity.EXTRA_INITIAL_TAG, tag)
+                        .putExtra(ScanActivity.EXTRA_MODE, ScanActivity.MODE_TREATMENT)
+                        .putExtra(ScanActivity.EXTRA_INITIAL_TAG, item.cattleTag)
                 )
             }
         }
@@ -56,17 +53,31 @@ class DashboardActivity : AppCompatActivity() {
                     binding.btnRetry.visibility = View.GONE
                     binding.content.visibility = View.VISIBLE
 
-                    binding.tvTotalLivestock.text = state.data.totalLivestock.toString()
-                    binding.tvTotalCages.text = state.data.totalCages.toString()
-                    binding.tvTotalDue.text = state.data.dueVaccinations.size.toString()
+                    val data = state.data
 
-                    if (state.data.dueVaccinations.isEmpty()) {
+                    // 1. Total Populasi
+                    binding.tvTotalCattle.text = data.totalCattle.toString()
+
+                    // 2. Rata-rata ADG 30 Hari
+                    binding.tvAvgAdg.text = String.format(Locale.US, "%.2f kg", data.avgAdg30d)
+
+                    // 3. Siap Jual (>= 450kg)
+                    binding.tvReadyToSell.text = data.readyToSell.toString()
+
+                    // 4. Kondisi Kritis / Sakit
+                    binding.tvSickCattle.text = data.sickCattle.toString()
+
+                    // 5. Pakan Kritis
+                    binding.tvCriticalFeed.text = "${data.criticalFeedCount} jenis pakan"
+
+                    // 6. Jadwal Penanganan Medis 7 Hari
+                    if (data.upcomingMedicals.isEmpty()) {
                         binding.tvDueEmpty.visibility = View.VISIBLE
                         binding.rvDue.visibility = View.GONE
                     } else {
                         binding.tvDueEmpty.visibility = View.GONE
                         binding.rvDue.visibility = View.VISIBLE
-                        (binding.rvDue.adapter as DueAdapter).submit(state.data.dueVaccinations)
+                        (binding.rvDue.adapter as UpcomingMedicalAdapter).submit(data.upcomingMedicals)
                     }
                 }
                 is UiState.Error -> {
@@ -81,13 +92,15 @@ class DashboardActivity : AppCompatActivity() {
     }
 }
 
-private class DueAdapter(val onClick: (HealthRecord) -> Unit) :
-    RecyclerView.Adapter<DueAdapter.VH>() {
+private class UpcomingMedicalAdapter(val onClick: (UpcomingMedicalItem) -> Unit) :
+    RecyclerView.Adapter<UpcomingMedicalAdapter.VH>() {
 
-    private val items = mutableListOf<HealthRecord>()
+    private val items = mutableListOf<UpcomingMedicalItem>()
 
-    fun submit(newItems: List<HealthRecord>) {
-        items.clear(); items.addAll(newItems); notifyDataSetChanged()
+    fun submit(newItems: List<UpcomingMedicalItem>) {
+        items.clear()
+        items.addAll(newItems)
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
@@ -99,38 +112,12 @@ private class DueAdapter(val onClick: (HealthRecord) -> Unit) :
     override fun getItemCount() = items.size
 
     inner class VH(val b: ItemReminderBinding) : RecyclerView.ViewHolder(b.root) {
-        fun bind(r: HealthRecord) {
-            val tag = r.livestock?.tagNumber ?: "—"
-            val label = r.diagnosis?.takeIf { it.isNotBlank() } ?: "Vaksin"
-            b.tvTitle.text = "$tag · $label"
-
-            val due = r.nextDueDate?.take(10)
-            val today = LocalDate.now()
-            val (chipText, color, subText) = if (due.isNullOrBlank()) {
-                Triple("", R.color.muted, "Jadwal belum diisi")
-            } else try {
-                val d = LocalDate.parse(due)
-                val days = ChronoUnit.DAYS.between(today, d)
-                when {
-                    days < 0 -> Triple("Terlambat ${-days} hari", R.color.danger, "Jatuh tempo $due")
-                    days == 0L -> Triple("Hari ini", R.color.danger, "Jatuh tempo $due")
-                    days <= 7 -> Triple("$days hari lagi", R.color.warn, "Jatuh tempo $due")
-                    else -> Triple("$days hari lagi", R.color.muted, "Jatuh tempo $due")
-                }
-            } catch (e: Exception) {
-                Triple("", R.color.muted, "Jatuh tempo $due")
-            }
-
-            b.tvSub.text = subText
-            b.tvSub.setTextColor(b.root.context.getColor(color))
-            if (chipText.isBlank()) {
-                b.tvChip.visibility = View.GONE
-            } else {
-                b.tvChip.visibility = View.VISIBLE
-                b.tvChip.text = chipText
-                b.tvChip.setTextColor(b.root.context.getColor(color))
-            }
-            b.root.setOnClickListener { onClick(r) }
+        fun bind(item: UpcomingMedicalItem) {
+            b.tvTitle.text = "${item.cattleTag} · ${item.treatmentType}"
+            b.tvSub.text = "Rencana pelaksanaan: ${item.scheduledDate}"
+            b.tvChip.visibility = View.VISIBLE
+            b.tvChip.text = item.status
+            b.root.setOnClickListener { onClick(item) }
         }
     }
 }

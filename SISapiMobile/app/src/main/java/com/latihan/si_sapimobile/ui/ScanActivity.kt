@@ -131,8 +131,9 @@ class ScanActivity : AppCompatActivity() {
         }
         binding.btnScanAgain.setOnClickListener { scanAgain() }
 
-        binding.btnReport.visibility =
-            if (SessionManager(this).getUserRole().lowercase() == "vet") View.GONE else View.VISIBLE
+        val role = SessionManager(this).getUserRole().lowercase()
+        binding.btnWeight.visibility = if (role == "manager") View.GONE else View.VISIBLE
+        binding.btnReport.visibility = if (role == "vet") View.GONE else View.VISIBLE
 
         binding.btnWeight.setOnClickListener { currentProfile?.let { openWeight(it) } }
         binding.btnReport.setOnClickListener { currentProfile?.let { openReport(it) } }
@@ -240,7 +241,7 @@ class ScanActivity : AppCompatActivity() {
     }
 
     private fun onTreatmentSaved() {
-        if (mode == MODE_TREATMENT) scanAgain()
+        if (mode == MODE_TREATMENT) finish()
     }
 
     // ---------- tampilan ----------
@@ -310,8 +311,7 @@ class ScanActivity : AppCompatActivity() {
             }
         }
 
-        binding.cardResult.visibility = View.VISIBLE
-        binding.btnScanAgain.visibility = View.VISIBLE
+        
 
         // Mode Timbang / Lapor sakit / Catat tindakan: setelah sapi ditemukan, langsung ke form tujuan
         if ((mode == MODE_WEIGHT || mode == MODE_REPORT || mode == MODE_TREATMENT)
@@ -323,7 +323,12 @@ class ScanActivity : AppCompatActivity() {
                 MODE_REPORT -> openReport(p)
                 MODE_TREATMENT -> openTreatment(p)
             }
+
+            return
         }
+
+        binding.cardResult.visibility = View.VISIBLE
+        binding.btnScanAgain.visibility = View.VISIBLE
     }
 
     private fun genderLabel(g: String?) = when (g?.lowercase()) {

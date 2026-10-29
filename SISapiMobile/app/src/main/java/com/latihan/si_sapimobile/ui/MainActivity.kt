@@ -271,15 +271,14 @@ class MainActivity : AppCompatActivity() {
                 shape = GradientDrawable.RECTANGLE
                 setColor(getColor(levelColor(n.level)))
             }
-            if (!n.tagNumber.isNullOrBlank()) {
-                item.root.setOnClickListener {
-                    startActivity(
-                        Intent(this, ScanActivity::class.java)
-                            .putExtra(ScanActivity.EXTRA_MODE, ScanActivity.MODE_SCAN)
-                            .putExtra(ScanActivity.EXTRA_INITIAL_TAG, n.tagNumber)
-                    )
-                }
+            item.root.setOnClickListener {
+                startActivity(
+                    Intent(this, ScanActivity::class.java)
+                        .putExtra(ScanActivity.EXTRA_MODE, ScanActivity.MODE_TREATMENT)
+                        .putExtra(ScanActivity.EXTRA_INITIAL_TAG, n.tagNumber)
+                )
             }
+
             binding.listNotif.addView(item.root)
         }
     }
@@ -349,13 +348,21 @@ class MainActivity : AppCompatActivity() {
         item.tvTitle.text = title
         item.ivIcon.setImageResource(icon)
         val themeColor = getColor(if (danger) R.color.danger else R.color.royal)
-
         item.root.background = GradientDrawable().apply {
             shape = GradientDrawable.RECTANGLE
             cornerRadius = dp(24).toFloat()
             setColor(getColor(android.R.color.white))
-            setStroke(dp(2), themeColor)
+            setStroke(dp(1), getColor(R.color.bento_stroke))
         }
+
+        item.root.clipToOutline = true
+
+        item.root.elevation = dp(4).toFloat()
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.P) {
+            item.root.outlineSpotShadowColor = android.graphics.Color.parseColor("#33161B40")
+            item.root.outlineAmbientShadowColor = android.graphics.Color.parseColor("#1F161B40")
+        }
+
 
         item.ivIcon.imageTintList = ColorStateList.valueOf(themeColor)
         item.tvTitle.setTextColor(themeColor)
@@ -374,6 +381,7 @@ class MainActivity : AppCompatActivity() {
         }
         binding.gridTools.addView(item.root, lp)
     }
+
 
     private fun openScan(mode: String) {
         startActivity(Intent(this, ScanActivity::class.java).putExtra(ScanActivity.EXTRA_MODE, mode))

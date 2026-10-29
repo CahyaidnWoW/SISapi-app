@@ -18,6 +18,7 @@ use App\Http\Controllers\Api\WorkerTaskController;
 
 
 Route::post('/login', [AuthController::class, 'login']);
+Route::get('/health-records/{id}/photo', [HealthRecordController::class, 'photo']);
 
 Route::middleware('auth:sanctum', LogActivity::class)->group(function () {
     Route::get('/me', [AuthController::class, 'me']);
@@ -49,6 +50,7 @@ Route::middleware('auth:sanctum', LogActivity::class)->group(function () {
 
     Route::post('/livestocks/{tagNumber}/health-report', [HealthRecordController::class, 'store']);
     Route::get('/livestocks/{tagNumber}/health-records', [HealthRecordController::class, 'byLivestock']);
+
     Route::patch('/health-records/{id}', [HealthRecordController::class, 'update']);
     Route::get('/health-records/due', [HealthRecordController::class, 'due']);
     Route::get('/health-records/emergency', [HealthRecordController::class, 'emergency']);

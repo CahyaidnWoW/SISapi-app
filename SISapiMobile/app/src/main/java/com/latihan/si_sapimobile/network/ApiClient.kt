@@ -10,8 +10,8 @@ import java.util.concurrent.TimeUnit
 
 object ApiClient {
 
-    private const val BASE_URL = "http://localhost:8000/api/"
-//    private const val BASE_URL = "http://sisapi.smkn1sumedang.sch.id/api/"
+//        private const val BASE_URL = "http://127.0.0.1:8000/api/"
+    private const val BASE_URL = "http://sisapi.smkn1sumedang.sch.id/api/"
     private const val LOG_BODY = true
 
     @Volatile

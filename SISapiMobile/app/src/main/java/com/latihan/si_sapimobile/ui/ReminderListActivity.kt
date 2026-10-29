@@ -45,7 +45,7 @@ class ReminderListActivity : AppCompatActivity() {
             if (!tag.isNullOrBlank()) {
                 startActivity(
                     Intent(this, ScanActivity::class.java)
-                        .putExtra(ScanActivity.EXTRA_MODE, ScanActivity.MODE_SCAN)
+                        .putExtra(ScanActivity.EXTRA_MODE, ScanActivity.MODE_TREATMENT)
                         .putExtra(ScanActivity.EXTRA_INITIAL_TAG, tag)
                 )
             }
