@@ -15,8 +15,10 @@ data class User(
 
 data class LoginRequest(
     val email: String,
-    val password: String
+    val password: String,
+    @SerializedName("device_type") val deviceType: String = "mobile"
 )
+
 
 data class LoginResponse(
     val message: String? = null,

@@ -13,7 +13,7 @@ class AuthController extends Controller
     /**
      * Handle user login and return Sanctum Token.
      */
-    public function login(Request $request)
+        public function login(Request $request)
     {
         $request->validate([
             'email'    => 'required|email',
@@ -28,10 +28,25 @@ class AuthController extends Controller
             ]);
         }
 
-        $user->tokens()->delete();
+        $deviceType = $request->input('device_type');
+        if (!$deviceType) {
+            $ua = strtolower($request->userAgent() ?? '');
+            $deviceType = (str_contains($ua, 'okhttp') || str_contains($ua, 'android')) ? 'mobile' : 'desktop';
+        }
 
-        // Buat token baru
-        $token = $user->createToken('mobile_desktop_auth_token')->plainTextToken;
+        $tokenName = ($deviceType === 'mobile') ? 'mobile_auth_token' : 'desktop_auth_token';
+
+        if ($deviceType === 'mobile' && $user->tokens()->where('name', 'mobile_auth_token')->exists()) {
+            return response()->json([
+                'message' => 'Akun ini sedang aktif di HP lain. Silakan logout terlebih dahulu dari HP tersebut.'
+            ], 403);
+        }
+
+        if ($deviceType === 'desktop') {
+            $user->tokens()->where('name', 'desktop_auth_token')->delete();
+        }
+
+        $token = $user->createToken($tokenName)->plainTextToken;
 
         return response()->json([
             'message'      => 'Login berhasil',
@@ -46,7 +61,6 @@ class AuthController extends Controller
             ],
         ], 200);
     }
-
     /**
      * Get authenticated user profile.
      */

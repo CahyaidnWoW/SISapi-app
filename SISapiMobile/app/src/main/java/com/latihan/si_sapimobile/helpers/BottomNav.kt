@@ -42,19 +42,17 @@
             val activeText = ContextCompat.getColor(activity, R.color.royal)
             val inactiveText = ContextCompat.getColor(activity, R.color.muted)
             val white = ContextCompat.getColor(activity, android.R.color.white)
-    
-            // reset semua ke inactive
+
             tabs.values.forEach { tab ->
-                tab.circle.setBackgroundResource(0)               // transparan
+                tab.circle.setBackgroundResource(0)
                 tab.icon.setColorFilter(inactiveText)
                 tab.label.setTextColor(inactiveText)
                 tab.label.setTypeface(null, Typeface.NORMAL)
             }
-    
-            // aktifkan tab
+
             tabs[activeTab]?.let { tab ->
                 tab.circle.setBackgroundResource(R.drawable.bg_tab_active)
-                tab.icon.setColorFilter(white)                    // ikon putih di atas biru
+                tab.icon.setColorFilter(white)
                 tab.label.setTextColor(activeText)
                 tab.label.setTypeface(null, Typeface.BOLD)
             }
@@ -69,13 +67,15 @@
                 if (activeTab != TAB_PROFILE) go(activity, ProfileActivity::class.java)
             }
         }
-    
+
         private fun go(activity: Activity, target: Class<*>) {
             activity.startActivity(
                 Intent(activity, target)
                     .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
             )
+            @Suppress("DEPRECATION")
+            activity.overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
         }
-    
+
         private data class Tab(val root: View, val circle: View, val icon: ImageView, val label: TextView)
     }
